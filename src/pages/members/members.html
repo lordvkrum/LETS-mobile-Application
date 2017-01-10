@@ -9,7 +9,7 @@
 
 <ion-content padding>
   <ion-card *ngFor="let member of members">
-    <ion-item>
+    <ion-item (click)="presentDetailModal(member.id)">
       <ion-avatar item-left>
         <img src="http://placehold.it/150x150">
       </ion-avatar>
