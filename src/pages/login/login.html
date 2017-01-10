@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <h2 class="ui header">{{sitename}}</h2>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<form [formGroup]="loginForm" class="ui form">
+		<div class="field">
+	    <label>Username</label>
+	    <input type="text" required formControlName="username">
+		  <div *ngIf="formErrors.username" class="ui pointing red basic label">
+	      {{ formErrors.username }}
+	    </div>
+	  </div>
+	  <div class="field">
+	    <label>Password</label>
+	    <input type="password" required formControlName="password">
+		  <div *ngIf="formErrors.password" class="ui pointing red basic label">
+	      {{ formErrors.password }}
+	    </div>
+	  </div>
+	  <div class="field">
+	  	<button class="ui green fluid button" [disabled]="!loginForm.valid" (click)="login()">Sign In</button>
+	  </div>
+	  <div class="field">
+	  	<button class="ui fluid button" (click)="register()">Register</button>
+	  </div>
+	</form>
+</ion-content>

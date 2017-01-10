@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <h2 class="ui header">Offer Detail</h2>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="ui card" *ngIf=offer>
+    <div class="image">
+      <img src="assets/images/default.jpg">
+    </div>
+    <div class="content">
+      <a class="header">{{ offer.title }}</a>
+      <div class="meta">
+        <span class="date">
+        expires in
+        {{ offer.expires | unixTimeToMoment | amDifference : today : 'days' }}
+        days
+        </span>
+      </div>
+      <div class="description">
+        {{ offer.description }}
+      </div>
+      <div class="meta">
+        <span class="right floated author">
+          <img class="ui avatar image" src="assets/images/default_user.jpg"> {{ offer.name }}
+        </span>
+      </div>
+    </div>
+    <div class="extra content">
+      <div class="ui fluid buttons">
+        <button class="ui green button">Action</button>
+      </div>
+    </div>
+  </div>
+</ion-content>

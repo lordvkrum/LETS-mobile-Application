@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <h2 class="ui header">Welcome, {{ username }}</h2>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngFor="let transaction of transactions">
+    <ion-card-content>
+      <ion-card-title>
+        <ion-icon [name]="stateIcons[transaction.state]"></ion-icon>
+        {{ transaction.tags }}
+      </ion-card-title>
+      <p>
+        {{ transaction.payer }} paid {{ transaction.payee }}
+        {{ transaction.amount }} hour(s) for {{ transaction.description }}
+      </p>
+    </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left color="dark" clear small>
+          <ion-icon name="ios-information-circle"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col *ngIf="transaction.state==='pending'">
+        <button ion-button icon-left color="dark" clear small>
+          <ion-icon name="checkmark-circle"></ion-icon>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-left color="dark" clear small>
+          <ion-icon name="ios-close-circle"></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>
