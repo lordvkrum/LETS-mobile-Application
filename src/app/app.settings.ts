@@ -2,20 +2,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AppSettings {
-
-	public get USER_ROLES(): any {
-		return {
-			member: 'member_role'
-		};
-	}
-
-	public get AUTH_EVENTS(): any {
-		return {
-			notAuthenticated: 'auth-not-authenticated',
-			notAuthorized: 'auth-not-authorized'
-		};
-	}
-
 	public get SERVER_URL(): any {
 		return 'http://hamlets.communityforge.net/commex';
 	}
@@ -28,6 +14,8 @@ export class AppSettings {
 			userInfo: `${this.SERVER_URL}/v1/member`,
 			config: `${this.SERVER_URL}`,
 			transactions: `${this.SERVER_URL}/v1/transaction`,
+			offers: `${this.SERVER_URL}/v1/offer`,
+			wants: `${this.SERVER_URL}/v1/want`
 			members: '${this.SERVER_URL}/member'
 		};
 	}

@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
+import * as lodash from 'lodash';
 import { AppSettings } from '../app/app.settings';
 import { HttpBasicAuth } from './HttpBasicAuth';
 import { AlertService } from './AlertService';
+import { CategoriesService } from './CategoriesService';
+import { LocalitiesService } from './LocalitiesService';
 import { Config } from '../domain/Config';
+import { Category } from '../domain/Category';
 
 @Injectable()
 export class ConfigService {
@@ -14,16 +18,16 @@ export class ConfigService {
 
 	constructor(private settings: AppSettings,
 		private httpBasicAuth: HttpBasicAuth,
-		private alertService: AlertService) { 
-		this.loadAppConfig();
-	}
+		private alertService: AlertService,
+		private categoriesService: CategoriesService,
+		private localitiesService: LocalitiesService) { }
 
 	loadAppConfig() {
 		if (this.config) {
 			this.appConfig.next(this.config);
 		} else {
 			this.requestAppConfig().subscribe(
-				result => this.appConfig.next(result),
+				response => this.appConfig.next(response),
 				error => this.alertService.showError('Connection problem!')
 			);
 		}
@@ -33,7 +37,13 @@ export class ConfigService {
 		return this.httpBasicAuth.get(this.settings.URL.config)
 			.map(response => {
 				this.config = response;
-				return response;
+				this.categoriesService.setCategories(
+					lodash.map(<any>this.config.categories, (category: Category, id: string) => {
+						category.id = id;
+						return category;
+					}));
+				this.localitiesService.setLocalities(this.config.localities);
+				return this.config;
 			});
 	}
 }

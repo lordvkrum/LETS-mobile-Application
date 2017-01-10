@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import { NavParams, ViewController } from 'ionic-angular';
 import { OfferService } from '../../services/OfferService';
 import { AlertService } from '../../services/AlertService';
 import { Offer } from '../../domain/Offer';
-import { OfferDetailPage } from '../offerDetail/offerDetail';
-import { AddOfferPage } from '../addOffer/addOffer';
 
 @Component({
-	selector: 'page-offer',
-	templateUrl: 'offer.html'
+	selector: 'page-offer-detail',
+	templateUrl: 'offerDetail.html'
 })
-export class OfferPage implements OnInit {
+export class OfferDetailPage implements OnInit {
 	private definition_offer: any;
-	private offers: Array<Offer>;
+	private offer: Offer;
 
-	constructor(private modalCtrl: ModalController,
+	constructor(private params: NavParams,
+		private viewCtrl: ViewController,
 		private offerService: OfferService,
 		private alertService: AlertService) { }
 
@@ -24,22 +23,14 @@ export class OfferPage implements OnInit {
 			response => this.definition_offer = response,
 			error => this.alertService.showError('Connection problem!')
 			);
-		this.offerService.list()
+		this.offerService.get(this.params.get('id'))
 			.subscribe(
-			response => this.offers = response,
+			response => this.offer = response,
 			error => this.alertService.showError('Connection problem!')
 			);
 	}
 
-	showDetails(id): void {
-		let modal = this.modalCtrl.create(OfferDetailPage, {
-			id: id
-		});
-		modal.present();
-	}
-
-	addOffer(): void {
-		let modal = this.modalCtrl.create(AddOfferPage);
-		modal.present();
+	dismiss() {
+		this.viewCtrl.dismiss();
 	}
 }

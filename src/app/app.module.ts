@@ -10,10 +10,15 @@ import { TransactionService } from '../services/TransactionService';
 import { OfferService } from '../services/OfferService';
 import { MemberService } from '../services/MemberService';
 import { AlertService } from '../services/AlertService';
+import { CategoriesService } from '../services/CategoriesService';
+import { LocalitiesService } from '../services/LocalitiesService';
 import { HttpBasicAuth } from '../services/HttpBasicAuth';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { OfferPage } from '../pages/offer/offer';
+import { OfferDetailPage } from '../pages/offerDetail/offerDetail';
+import { AddOfferPage } from '../pages/addOffer/addOffer';
+import { UnixTimeToMoment } from '../pipes/UnixTimeToMoment';
 import { MembersPage } from '../pages/members/members';
 import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
 
@@ -23,6 +28,9 @@ import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
     LoginPage,
     HomePage,
     OfferPage,
+    OfferDetailPage,
+    AddOfferPage,
+    UnixTimeToMoment
     MembersPage,
     MemberDetailModal
   ],
@@ -37,7 +45,10 @@ import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
     LetsApp,
     LoginPage,
     HomePage,
+
     OfferPage,
+    OfferDetailPage,
+    AddOfferPage
     MembersPage,
     MemberDetailModal
   ],
@@ -49,7 +60,9 @@ import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
     OfferService,
     MemberService,
     AlertService,
+    CategoriesService,
+    LocalitiesService,
     HttpBasicAuth,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}]
+    { provide: ErrorHandler, useClass: IonicErrorHandler }]
 })
-export class AppModule {}
+export class AppModule { }

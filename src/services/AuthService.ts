@@ -17,7 +17,6 @@ export class AuthService {
 		private httpBasicAuth: HttpBasicAuth) {
 		this.LOCAL_TOKEN_KEY = 'auth_token';
 		this.hasToken = false;
-		this.loadToken();
 	}
 
 	loadToken() {
@@ -50,10 +49,9 @@ export class AuthService {
 		// return this.httpBasicAuth.getWithAuth(this.settings.URL.userInfo)
 		return this.httpBasicAuth.get(this.settings.URL.config)
 			.map(response => {
-				// this.storeToken(response);
-				// return response;
-				this.storeToken(MEMBER);
-				return MEMBER;
+				response = MEMBER;
+				this.storeToken(response);
+				return response;
 			});
 	}
 

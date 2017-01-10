@@ -14,3 +14,57 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+ion-header {
+	text-align: center;
+	.toolbar-background {
+		background-color: #21BA45;
+	}
+	.ui.header,
+	button[menutoggle],
+	button[ion-button] span,
+	button[ion-button] ion-icon {
+		color: white;
+	}
+}
+
+ion-menu {
+	.ui.header {
+		color: white;
+	}
+}
+
+.ui.cards {
+	.ui.card {
+		.description {
+			max-height: 55px;
+			overflow-y: hidden;
+		}
+	}
+}
+
+.ui.card {
+	.author {
+		padding-top: 10px;
+	}
+}
+
+.ui.form,
+.ui.button {
+	font-size: 100%;
+}
+
+.ui.button.add-new {
+	border-radius: 50%;
+	background-color: #21BA45;
+	color: white;
+	margin: 0;
+	padding: 10px;
+	position: fixed;
+	right: 10px;
+	bottom: 10px;
+	ion-icon {
+		margin: 0 !important;
+		font-size: 25px;
+	}
+}

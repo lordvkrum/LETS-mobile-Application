@@ -43,4 +43,11 @@ export class HttpBasicAuth {
       headers: headers
     }).map(this.extractData);
   }
+
+  options(url) {
+    let headers = new Headers();
+    return this.http.options(url, {
+      headers: headers
+    }).map(this.extractData);
+  }
 }

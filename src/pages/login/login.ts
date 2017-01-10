@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
 		this.buildForm();
 		this.authService.login(this.username, this.password)
 			.subscribe(
-			result => this.navCtrl.setRoot(HomePage),
+			response => this.navCtrl.setRoot(HomePage),
 			error => this.alertService.showError('Connection problem!')
 			);
 	}

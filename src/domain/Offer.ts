@@ -1,12 +1,10 @@
 export class Offer {
   [property: string]: any;
-  id: string;
+  id?: string;
   title: string;
-  body: string;
+  description: string;
+  user_id: string;
+  name: string;
   expires: string;
-  latitude: number;
-  longitude: number;
-  created: string;
-  image: string;
-  categories: Array<number>;
+  uri?: string;
 }
