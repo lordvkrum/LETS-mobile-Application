@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Welcome to Member, {{ username }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card *ngFor="let member of members">
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="http://placehold.it/150x150">
+      </ion-avatar>
+      <h2> {{ member.name }}</h2>
+      <p>{{ member.aboutme }}</p>
+    </ion-item>
+  </ion-card>
+</ion-content>

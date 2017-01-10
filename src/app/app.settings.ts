@@ -27,7 +27,8 @@ export class AppSettings {
 			logout: `${this.SERVER_URL}/user/logout`,
 			userInfo: `${this.SERVER_URL}/v1/member`,
 			config: `${this.SERVER_URL}`,
-			transactions: `${this.SERVER_URL}/v1/transaction`
+			transactions: `${this.SERVER_URL}/v1/transaction`,
+			members: '${this.SERVER_URL}/member'
 		};
 	}
 

@@ -8,18 +8,23 @@ import { AuthService } from '../services/AuthService';
 import { ConfigService } from '../services/ConfigService';
 import { TransactionService } from '../services/TransactionService';
 import { OfferService } from '../services/OfferService';
+import { MemberService } from '../services/MemberService';
 import { AlertService } from '../services/AlertService';
 import { HttpBasicAuth } from '../services/HttpBasicAuth';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { OfferPage } from '../pages/offer/offer';
+import { MembersPage } from '../pages/members/members';
+import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
 
 @NgModule({
   declarations: [
     LetsApp,
     LoginPage,
     HomePage,
-    OfferPage
+    OfferPage,
+    MembersPage,
+    MemberDetailModal
   ],
   imports: [
     IonicModule.forRoot(LetsApp),
@@ -32,7 +37,9 @@ import { OfferPage } from '../pages/offer/offer';
     LetsApp,
     LoginPage,
     HomePage,
-    OfferPage
+    OfferPage,
+    MembersPage,
+    MemberDetailModal
   ],
   providers: [
     AppSettings,
@@ -40,6 +47,7 @@ import { OfferPage } from '../pages/offer/offer';
     ConfigService,
     TransactionService,
     OfferService,
+    MemberService,
     AlertService,
     HttpBasicAuth,
     {provide: ErrorHandler, useClass: IonicErrorHandler}]

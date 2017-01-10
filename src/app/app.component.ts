@@ -6,6 +6,7 @@ import { AuthService } from '../services/AuthService';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { OfferPage } from '../pages/offer/offer';
+import { MembersPage } from '../pages/members/members';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,7 +24,8 @@ export class LetsApp {
     }
     this.pages = [
       { title: 'Home', component: HomePage },
-      { title: 'Offers', component: OfferPage }
+      { title: 'Offers', component: OfferPage },
+      { title: 'Members', component: MembersPage }
     ];
     this.initializeApp();
   }
