@@ -30,7 +30,7 @@ import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
     OfferPage,
     OfferDetailPage,
     AddOfferPage,
-    UnixTimeToMoment
+    UnixTimeToMoment,
     MembersPage,
     MemberDetailModal
   ],
@@ -45,10 +45,9 @@ import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
     LetsApp,
     LoginPage,
     HomePage,
-
     OfferPage,
     OfferDetailPage,
-    AddOfferPage
+    AddOfferPage,
     MembersPage,
     MemberDetailModal
   ],

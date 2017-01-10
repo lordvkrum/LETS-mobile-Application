@@ -15,7 +15,7 @@ export class AppSettings {
 			config: `${this.SERVER_URL}`,
 			transactions: `${this.SERVER_URL}/v1/transaction`,
 			offers: `${this.SERVER_URL}/v1/offer`,
-			wants: `${this.SERVER_URL}/v1/want`
+			wants: `${this.SERVER_URL}/v1/want`,
 			members: '${this.SERVER_URL}/member'
 		};
 	}
