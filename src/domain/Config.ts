@@ -1,12 +1,8 @@
 export class Config {
 	[property: string]: any;
 	sitename: string;
-  currency_widget: string;
   logo: string;
-  restPath: string;
-  payInName: string;
-  payOutName: string;
-  types: Object;
+  restPrefix: string;
+  fieldTypes: Object;
   categories: Object;
-  localities: Array<string>;
 }

@@ -1,57 +1,73 @@
 export const OPTIONS_OFFER = {
   "GET": {
     "title": {
-      "type": "string",
-      "label": "Short name"
+      "label": "Headline",
+      "type": "text"
     },
     "description": {
-      "type": "string",
-      "label": "Full description"
+      "label": "Full description",
+      "type": "textarea"
     },
     "user_id": {
-      "_comment": "defaults to the current user",
-      "type": "autocomplete",
-      "url": "/member?fragment=",
-      "label": "Owner"
+      "label": "Owner",
+      "type": "member",
+      "_comment": "defaults to the current user"
     },
     "expires": {
+      "label": "Display until",
       "type": "date",
-      "label": "Expiry date"
+      "default": "today:add:1:year",
+      "min": "today:add:1:day",
+      "max": "today:add:1:year"
+    },
+    "category": {
+      "type": "categories",
+      "label": "Category"
+    },
+    "image": {
+      "type": "image",
+      "label": "Image"
     },
     "id": {
       "type": "int",
       "label": "ID"
     },
-    "uri": {
-      "type": "uri"
-    }
+    "uri": { "type": "uri" }
   },
   "POST": {
     "title": {
-      "type": "string",
-      "label": "Short name",
-      "required": false,
-      "editable": true
+      "label": "Headline",
+      "type": "text",
+      "required": true
     },
     "description": {
-      "type": "string",
       "label": "Full description",
-      "required": false,
-      "editable": true
+      "type": "textarea",
+      "required": false
     },
     "user_id": {
-      "_comment": "defaults to the current user",
-      "type": "autocomplete",
-      "url": "/member?fragment=",
       "label": "Owner",
-      "editable": false,
-      "references": "member"
+      "type": "member",
+      "required": false,
+      "_comment": "defaults to the current user"
     },
     "expires": {
+      "label": "Display until",
       "type": "date",
-      "label": "Expiry date",
-      "required": false,
-      "editable": true
+      "default": "today:add:1:year",
+      "min": "today:add:1:day",
+      "max": "today:add:1:year",
+      "required": false
+    },
+    "category": {
+      "type": "categories",
+      "label": "Category",
+      "required": true
+    },
+    "image": {
+      "type": "image",
+      "label": "Image",
+      "required": false
     }
   }
 };

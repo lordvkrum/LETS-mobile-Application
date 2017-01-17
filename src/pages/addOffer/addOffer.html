@@ -11,23 +11,5 @@
 </ion-header>
 
 <ion-content padding>
-	<form [formGroup]="offerForm" class="ui form" *ngIf=offerForm>
-		<div class="field">
-	    <label>Username</label>
-	    <input type="text" required formControlName="username">
-		  <div *ngIf="formErrors.username" class="ui pointing red basic label">
-	      {{ formErrors.username }}
-	    </div>
-	  </div>
-	  <div class="field">
-	    <label>Password</label>
-	    <input type="password" required formControlName="password">
-		  <div *ngIf="formErrors.password" class="ui pointing red basic label">
-	      {{ formErrors.password }}
-	    </div>
-	  </div>
-	  <div class="field">
-	  	<button class="ui green fluid button" [disabled]="!offerForm.valid" (click)="create()">Create</button>
-	  </div>
-	</form>
+  <form-builder-component [fields]="fields" (created)="onCreated($event)"></form-builder-component>
 </ion-content>

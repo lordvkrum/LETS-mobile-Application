@@ -45,8 +45,9 @@ export class AuthService {
 		return this.hasToken;
 	}
 
-	private requestUserInfo(): Observable<Member> {
-		// return this.httpBasicAuth.getWithAuth(this.settings.URL.userInfo)
+	private requestUserInfo(username): Observable<Member> {
+		// return this.httpBasicAuth
+		// .getWithAuth(`${this.settings.URL.members}?fragment=${username}&depth=1`)
 		return this.httpBasicAuth.get(this.settings.URL.config)
 			.map(response => {
 				response = MEMBER;
@@ -56,25 +57,15 @@ export class AuthService {
 	}
 
 	login(username, password): Observable<Member> {
-		// return this.httpBasicAuth.post(
-		// 	this.settings.URL.login,
-		// 	JSON.stringify({
-		// 		username: username,
-		// 		password: password
-		// 	})
-		// ).map(response => {
-		// 	console.log('login json', response);
-			this.httpBasicAuth.setAuthorizationToken(username, password);
-			return this.requestUserInfo();
-		// });
+		this.httpBasicAuth.setAuthorizationToken(username, password);
+		return this.requestUserInfo(username);
 	}
 
 	logout() {
-		// return this.httpBasicAuth.get(this.settings.URL.logout)
-		return this.httpBasicAuth.get(this.settings.URL.config)
-			.map(response => {
-				this.destroyToken();
-				return response;
-			});
+		return Observable.create(observer => {
+			this.destroyToken();
+			observer.next('');
+			observer.complete();
+		});
 	}
 }

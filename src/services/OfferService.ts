@@ -34,6 +34,15 @@ export class OfferService {
 		});
 	}
 
+	post(offer: Offer): Observable<Offer> {
+		return this.httpBasicAuth.get(this.settings.URL.config)
+		// return this.httpBasicAuth.postWithAuth(this.settings.URL.offers)
+		.map(response => {
+			response = OFFERS[1];
+			return response;
+		});
+	}
+
 	describe(): Observable<any> {
 		return this.httpBasicAuth.get(this.settings.URL.config)
 		// return this.httpBasicAuth.options(this.settings.URL.offers)

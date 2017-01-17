@@ -23,11 +23,10 @@ export class LoginPage implements OnInit {
 		private configService: ConfigService,
 		private alertService: AlertService) {
 		this.menuCtrl.enable(false, 'app-menu');
-		this.configService.getAppConfig.subscribe(
+		this.configService.appConfig.subscribe(
 			config => {
 				this.sitename = config.sitename;
 			});
-		this.configService.loadAppConfig();
 	}
 
 	login() {
