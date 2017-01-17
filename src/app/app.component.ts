@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import './rxjs-operators.ts';
+import { ConfigService } from '../services/ConfigService';
 import { AuthService } from '../services/AuthService';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
@@ -17,6 +18,7 @@ export class LetsApp {
   pages: Array<{ title: string, component: any }>;
 
   constructor(public platform: Platform,
+    private configService: ConfigService,
     private authService: AuthService) {
     this.authService.loadToken();
     if (this.authService.isAuthenticated()) {

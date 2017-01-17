@@ -9,7 +9,7 @@ import { Offer } from '../../domain/Offer';
 	templateUrl: 'offerDetail.html'
 })
 export class OfferDetailPage implements OnInit {
-	private definition_offer: any;
+	private definitionOffer: any;
 	private offer: Offer;
 
 	constructor(private params: NavParams,
@@ -20,7 +20,7 @@ export class OfferDetailPage implements OnInit {
 	ngOnInit(): void {
 		this.offerService.describe()
 			.subscribe(
-			response => this.definition_offer = response,
+			response => this.definitionOffer = response,
 			error => this.alertService.showError('Connection problem!')
 			);
 		this.offerService.get(this.params.get('id'))

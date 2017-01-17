@@ -55,16 +55,11 @@ ion-menu {
 }
 
 .ui.button.add-new {
-	border-radius: 50%;
 	background-color: #21BA45;
 	color: white;
 	margin: 0;
 	padding: 10px;
 	position: fixed;
-	right: 10px;
-	bottom: 10px;
-	ion-icon {
-		margin: 0 !important;
-		font-size: 25px;
-	}
+	right: 15px;
+	bottom: 15px;
 }

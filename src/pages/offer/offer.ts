@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import { NavParams, ModalController } from 'ionic-angular';
 import { OfferService } from '../../services/OfferService';
 import { AlertService } from '../../services/AlertService';
 import { Offer } from '../../domain/Offer';
@@ -11,7 +11,9 @@ import { AddOfferPage } from '../addOffer/addOffer';
 	templateUrl: 'offer.html'
 })
 export class OfferPage implements OnInit {
-	private definition_offer: any;
+	private canPost = false;
+	private success = false;
+	private definitionOffer: any;
 	private offers: Array<Offer>;
 
 	constructor(private modalCtrl: ModalController,
@@ -21,9 +23,16 @@ export class OfferPage implements OnInit {
 	ngOnInit(): void {
 		this.offerService.describe()
 			.subscribe(
-			response => this.definition_offer = response,
+			response => {
+				this.definitionOffer = response;
+				this.canPost = !!this.definitionOffer.POST;
+			},
 			error => this.alertService.showError('Connection problem!')
 			);
+		this.loadOffers();
+	}
+
+	loadOffers() {
 		this.offerService.list()
 			.subscribe(
 			response => this.offers = response,
@@ -40,6 +49,10 @@ export class OfferPage implements OnInit {
 
 	addOffer(): void {
 		let modal = this.modalCtrl.create(AddOfferPage);
+		modal.onDidDismiss((data: any = {}) => {
+			this.success = data.success;
+			this.loadOffers();
+		});
 		modal.present();
 	}
 }

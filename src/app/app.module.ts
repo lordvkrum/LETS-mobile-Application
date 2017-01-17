@@ -11,14 +11,17 @@ import { OfferService } from '../services/OfferService';
 import { AlertService } from '../services/AlertService';
 import { MemberService } from '../services/MemberService';
 import { CategoriesService } from '../services/CategoriesService';
-import { LocalitiesService } from '../services/LocalitiesService';
+import { FieldTypesService } from '../services/FieldTypesService';
 import { HttpBasicAuth } from '../services/HttpBasicAuth';
+import { FormBuilderComponent } from '../components/formBuilder/formBuilder';
+import { FieldBuilderComponent } from '../components/fieldBuilder/fieldBuilder';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { OfferPage } from '../pages/offer/offer';
 import { OfferDetailPage } from '../pages/offerDetail/offerDetail';
 import { AddOfferPage } from '../pages/addOffer/addOffer';
 import { UnixTimeToMoment } from '../pipes/UnixTimeToMoment';
+import { ObjectKeys } from '../pipes/ObjectKeys';
 import { MembersPage } from '../pages/members/members';
 import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
 
@@ -32,8 +35,11 @@ import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
     OfferDetailPage,
     AddOfferPage,
     UnixTimeToMoment,
+    ObjectKeys,
     MembersPage,
-    MemberDetailModal
+    MemberDetailModal,
+    FormBuilderComponent,
+    FieldBuilderComponent
   ],
   imports: [
     IonicModule.forRoot(LetsApp),
@@ -60,7 +66,7 @@ import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
     OfferService,
     AlertService,
     CategoriesService,
-    LocalitiesService,
+    FieldTypesService,
     HttpBasicAuth,
     MemberService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }]

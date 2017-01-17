@@ -8,6 +8,11 @@
 </ion-header>
 
 <ion-content padding>
+  <div class="ui success message" *ngIf="success">
+    <i class="close icon"></i>
+    <div class="header">Success!</div>
+    <p>New offer created.</p>
+  </div>
   <div class="ui cards">
     <div class="ui card" *ngFor="let offer of offers">
       <div class="image">
@@ -39,7 +44,7 @@
       </div>
     </div>
   </div>
-  <button class="ui add-new button">
-    <ion-icon name="ios-add-circle-outline" (click)="addOffer()"></ion-icon>
+  <button *ngIf="canPost" class="ui add-new button" (click)="addOffer()">
+    <i class="plus icon"></i> New Offer
   </button>
 </ion-content>

@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "~2.2.1",
     "@angular/platform-server": "~2.2.1",
     "@ionic/storage": "~1.1.7",
+    "@types/jquery": "~2.0.39",
     "@types/lodash": "~4.14.48",
     "@types/moment": "~2.13.0",
     "angular2-moment": "~1.1.0",
