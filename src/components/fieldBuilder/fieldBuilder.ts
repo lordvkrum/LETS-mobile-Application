@@ -151,18 +151,22 @@ export class FieldBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	addImage() {
-		(<any>navigator).camera.getPicture(image => {
-			this.field.imgSrc = `data:image/jpeg;base64,${image}`;
-		}, null, {
-				sourceType: 0 // PHOTOLIBRARY
-			});
+		this.addImageToField(0); // PHOTOLIBRARY
 	}
 
 	takePhoto() {
+		this.addImageToField(1); // CAMERA
+	}
+
+	addImageToField(sourceType) {
 		(<any>navigator).camera.getPicture(image => {
 			this.field.imgSrc = `data:image/jpeg;base64,${image}`;
+			let fieldValue = {};
+			fieldValue[this.field.name] = this.field.imgSrc;
+			this.fieldForm.setValue(fieldValue);
 		}, null, {
-				sourceType: 1 // CAMERA
+				destinationType: 0, // DATA_URL
+				sourceType: sourceType
 			});
 	}
 
