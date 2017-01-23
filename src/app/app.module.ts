@@ -8,6 +8,7 @@ import { AuthService } from '../services/AuthService';
 import { ConfigService } from '../services/ConfigService';
 import { TransactionService } from '../services/TransactionService';
 import { OfferService } from '../services/OfferService';
+import { WantService } from '../services/WantService';
 import { AlertService } from '../services/AlertService';
 import { MemberService } from '../services/MemberService';
 import { CategoriesService } from '../services/CategoriesService';
@@ -20,6 +21,9 @@ import { HomePage } from '../pages/home/home';
 import { OfferPage } from '../pages/offer/offer';
 import { OfferDetailPage } from '../pages/offerDetail/offerDetail';
 import { AddOfferPage } from '../pages/addOffer/addOffer';
+import { WantPage } from '../pages/want/want';
+import { WantDetailPage } from '../pages/wantDetail/wantDetail';
+import { AddWantPage } from '../pages/addWant/addWant';
 import { UnixTimeToMoment } from '../pipes/UnixTimeToMoment';
 import { ObjectKeys } from '../pipes/ObjectKeys';
 import { MembersPage } from '../pages/members/members';
@@ -34,6 +38,9 @@ import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
     OfferPage,
     OfferDetailPage,
     AddOfferPage,
+    WantPage,
+    WantDetailPage,
+    AddWantPage,
     UnixTimeToMoment,
     ObjectKeys,
     MembersPage,
@@ -55,6 +62,9 @@ import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
     OfferPage,
     OfferDetailPage,
     AddOfferPage,
+    WantPage,
+    WantDetailPage,
+    AddWantPage,
     MembersPage,
     MemberDetailModal
   ],
@@ -64,6 +74,7 @@ import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
     ConfigService,
     TransactionService,
     OfferService,
+    WantService,
     AlertService,
     CategoriesService,
     FieldTypesService,

@@ -26,4 +26,8 @@ export class MemberService{
     getMemberWithId(id): Member {
         return this.membersArray.filter(member => member.id === id)[0];
     }
+
+    get(id): Observable<Member> {
+        return this.httpBasicAuth.getWithAuth(`${this.settings.URL.members}/${id}?depth=1`);
+    }
 }

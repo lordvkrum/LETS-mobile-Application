@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <h2 class="ui header">{{member.name}}</h2>
+    <h2 class="ui header">{{ (member && member.name) || '' }}</h2>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <span color="primary" showWhen="ios">Cancel</span>

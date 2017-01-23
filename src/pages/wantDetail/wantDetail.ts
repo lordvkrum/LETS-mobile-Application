@@ -1,33 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { NavParams, ViewController, ModalController } from 'ionic-angular';
-import { OfferService } from '../../services/OfferService';
+import { WantService } from '../../services/WantService';
 import { AlertService } from '../../services/AlertService';
 import { MemberDetailModal } from '../memberDetail/memberDetail';
-import { Offer } from '../../domain/Offer';
+import { Want } from '../../domain/Want';
 
 @Component({
-	selector: 'page-offer-detail',
-	templateUrl: 'offerDetail.html'
+	selector: 'page-want-detail',
+	templateUrl: 'wantDetail.html'
 })
-export class OfferDetailPage implements OnInit {
-	private definitionOffer: any;
-	private offer: Offer;
+export class WantDetailPage implements OnInit {
+	private definitionWant: any;
+	private want: Want;
 
 	constructor(private params: NavParams,
 		private viewCtrl: ViewController,
 		private modalCtrl: ModalController,
-		private offerService: OfferService,
+		private wantService: WantService,
 		private alertService: AlertService) { }
 
 	ngOnInit(): void {
-		this.offerService.describe()
+		this.wantService.describe()
 			.subscribe(
-			response => this.definitionOffer = response,
+			response => this.definitionWant = response,
 			error => this.alertService.showError('Connection problem!')
 			);
-		this.offerService.get(this.params.get('id'))
+		this.wantService.get(this.params.get('id'))
 			.subscribe(
-			response => this.offer = response,
+			response => this.want = response,
 			error => this.alertService.showError('Connection problem!')
 			);
 	}

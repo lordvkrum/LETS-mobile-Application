@@ -15,6 +15,10 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+html {
+	font-size: 1em;
+}
+
 ion-header {
 	text-align: center;
 	.toolbar-background {
@@ -34,17 +38,9 @@ ion-menu {
 	}
 }
 
-.ui.cards {
-	.ui.card {
-		.description {
-			max-height: 55px;
-			overflow-y: hidden;
-		}
-	}
-}
-
-.ui.card {
+.ui.card>.content{
 	.author {
+		text-align: right;
 		padding-top: 10px;
 	}
 }
@@ -62,4 +58,8 @@ ion-menu {
 	position: fixed;
 	right: 15px;
 	bottom: 15px;
+}
+
+.ui.dropdown.button {
+	text-align: center;
 }

@@ -9,36 +9,35 @@ import { Member } from '../../domain/Member';
 import { MemberDetailModal } from '../memberDetail/memberDetail';
 
 @Component({
-  selector: 'page-members',
-  templateUrl: 'members.html'
+	selector: 'page-members',
+	templateUrl: 'members.html'
 })
 export class MembersPage implements OnInit {
 	private username: string;
 	private members: Array<Member>;
 
-  constructor(public navCtrl: NavController,
+	constructor(public navCtrl: NavController,
 		private menuCtrl: MenuController,
 		private modalCtrl: ModalController,
 		private authService: AuthService,
 		private memberService: MemberService,
 		private alertService: AlertService) {
-		this.authService.getUserInfo.subscribe(
+		this.authService.userInfo.subscribe(
 			userInfo => {
 				this.username = userInfo.name;
 			});
-		this.authService.loadToken();
-  }
+	}
 
-  ngOnInit(): void {
+	ngOnInit(): void {
 		this.memberService.list()
-		.subscribe(
+			.subscribe(
 			result => this.members = result,
 			error => this.alertService.showError('Connection problem!')
 			);
 	}
 
-	presentDetailModal(id){
-		let modal = this.modalCtrl.create(MemberDetailModal, { memberId: id});
+	presentDetailModal(id) {
+		let modal = this.modalCtrl.create(MemberDetailModal, { memberId: id });
 		modal.present();
 	}
 }

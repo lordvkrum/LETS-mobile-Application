@@ -1,36 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewController } from 'ionic-angular';
-import { OfferService } from '../../services/OfferService';
+import { WantService } from '../../services/WantService';
 import { AlertService } from '../../services/AlertService';
-import { Offer } from '../../domain/Offer';
+import { Want } from '../../domain/Want';
 
 @Component({
-	selector: 'page-add-offer',
-	templateUrl: 'addOffer.html'
+	selector: 'page-add-want',
+	templateUrl: 'addWant.html'
 })
-export class AddOfferPage implements OnInit {
-	private definitionOffer: any;
+export class AddWantPage implements OnInit {
+	private definitionWant: any;
 	private fields: Array<any>;
-	private offer: Offer;
+	private want: Want;
 
 	constructor(private viewCtrl: ViewController,
-		private offerService: OfferService,
+		private wantService: WantService,
 		private alertService: AlertService) { }
 
 	ngOnInit(): void {
-		this.offerService.describe()
+		this.wantService.describe()
 			.subscribe(
 			response => {
-				this.definitionOffer = response;
-				this.fields = this.definitionOffer.POST;
+				this.definitionWant = response;
+				this.fields = this.definitionWant.POST;
 			},
 			error => this.alertService.showError('Connection problem!')
 			);
 	}
 
-	onCreated(offer: Offer) {
-		this.offer = offer;
-		this.offerService.post(this.offer)
+	onCreated(want: Want) {
+		this.want = want;
+		this.wantService.post(this.want)
 			.subscribe(
 			response => this.viewCtrl.dismiss({
 				success: true

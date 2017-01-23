@@ -12,7 +12,7 @@ export class AppSettings {
 			transactions: `${this.SERVER_URL}/transaction`,
 			offers: `${this.SERVER_URL}/offer`,
 			wants: `${this.SERVER_URL}/want`,
-			members: '${this.SERVER_URL}/member'
+			members: `${this.SERVER_URL}/member`
 		};
 	}
 

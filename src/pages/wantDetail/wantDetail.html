@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <h2 class="ui header">Offer Detail</h2>
+    <h2 class="ui header">Want Detail</h2>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
         <span color="primary" showWhen="ios">Cancel</span>
@@ -12,26 +12,26 @@
 
 <ion-content padding>
   <div class="ui one column grid">
-    <div class="ui column card" *ngIf=offer>
+    <div class="ui column card" *ngIf=want>
       <div class="image">
         <img src="assets/images/default.jpg">
       </div>
       <div class="content">
-        <a class="header">{{ offer.title }}</a>
+        <a class="header">{{ want.title }}</a>
         <div class="meta">
-          <span class="date" *ngIf="(offer.expires | unixTimeToMoment | amDifference : today : 'days') >= 0">
-            expires in {{ offer.expires | unixTimeToMoment | amDifference : today : 'days' }} days
+          <span class="date" *ngIf="(want.expires | unixTimeToMoment | amDifference : today : 'days') >= 0">
+            expires in {{ want.expires | unixTimeToMoment | amDifference : today : 'days' }} days
           </span>
-          <span class="date" *ngIf="(offer.expires | unixTimeToMoment | amDifference : today : 'days') < 0">
-            expired {{ -1 * (offer.expires | unixTimeToMoment | amDifference : today : 'days') }} days ago
+          <span class="date" *ngIf="(want.expires | unixTimeToMoment | amDifference : today : 'days') < 0">
+            expired {{ -1 * (want.expires | unixTimeToMoment | amDifference : today : 'days') }} days ago
           </span>
         </div>
         <div class="description">
-          {{ offer.description }}
+          {{ want.description }}
         </div>
-        <div class="meta" (click)="showMember(offer.user_id)">
+        <div class="meta" (click)="showMember(want.user_id)">
           <span class="right floated author">
-            <img class="ui avatar image" src="assets/images/default_user.jpg"> {{ offer.name }}
+            <img class="ui avatar image" src="assets/images/default_user.jpg"> {{ want.name }}
           </span>
         </div>
       </div>
