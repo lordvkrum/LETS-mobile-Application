@@ -18,11 +18,10 @@ export class HomePage implements OnInit {
 		private transactionService: TransactionService,
 		private alertService: AlertService) {
 		this.menuCtrl.enable(true, 'app-menu');
-		this.authService.getUserInfo.subscribe(
+		this.authService.userInfo.subscribe(
 			userInfo => {
 				this.username = userInfo.name;
 			});
-		this.authService.loadToken();
 	}
 
 	ngOnInit(): void {

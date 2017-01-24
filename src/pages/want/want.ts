@@ -1,48 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from 'ionic-angular';
-import { OfferService } from '../../services/OfferService';
+import { WantService } from '../../services/WantService';
 import { AlertService } from '../../services/AlertService';
-import { Offer } from '../../domain/Offer';
-import { OfferDetailPage } from '../offerDetail/offerDetail';
+import { Want } from '../../domain/Want';
+import { WantDetailPage } from '../wantDetail/wantDetail';
 import { MemberDetailModal } from '../memberDetail/memberDetail';
-import { AddOfferPage } from '../addOffer/addOffer';
+import { AddWantPage } from '../addWant/addWant';
 
 @Component({
-	selector: 'page-offer',
-	templateUrl: 'offer.html'
+	selector: 'page-want',
+	templateUrl: 'want.html'
 })
-export class OfferPage implements OnInit {
+export class WantPage implements OnInit {
 	private canPost = false;
 	private success = false;
-	private definitionOffer: any;
-	private offers: Array<Offer>;
+	private definitionWant: any;
+	private wants: Array<Want>;
 
 	constructor(private modalCtrl: ModalController,
-		private offerService: OfferService,
+		private wantService: WantService,
 		private alertService: AlertService) { }
 
 	ngOnInit(): void {
-		this.offerService.describe()
+		this.wantService.describe()
 			.subscribe(
 			response => {
-				this.definitionOffer = response;
-				this.canPost = !!this.definitionOffer.POST;
+				this.definitionWant = response;
+				this.canPost = !!this.definitionWant.POST;
 			},
 			error => this.alertService.showError('Connection problem!')
 			);
-		this.loadOffers();
+		this.loadWants();
 	}
 
-	loadOffers() {
-		this.offerService.list()
+	loadWants() {
+		this.wantService.list()
 			.subscribe(
-			response => this.offers = response,
+			response => this.wants = response,
 			error => this.alertService.showError('Connection problem!')
 			);
 	}
 
-	showDetails(id) {
-		let modal = this.modalCtrl.create(OfferDetailPage, {
+	showDetails(id): void {
+		let modal = this.modalCtrl.create(WantDetailPage, {
 			id: id
 		});
 		modal.present();
@@ -55,11 +55,11 @@ export class OfferPage implements OnInit {
 		modal.present();
 	}
 
-	addOffer() {
-		let modal = this.modalCtrl.create(AddOfferPage);
+	addWant(): void {
+		let modal = this.modalCtrl.create(AddWantPage);
 		modal.onDidDismiss((data: any = {}) => {
 			this.success = data.success;
-			this.loadOffers();
+			this.loadWants();
 		});
 		modal.present();
 	}

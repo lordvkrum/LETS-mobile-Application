@@ -1,7 +1,12 @@
 import { Component, Input, Output, EventEmitter, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AppSettings } from '../../app/app.settings';
+import { HttpBasicAuth } from '../../services/HttpBasicAuth';
 import { CategoriesService } from '../../services/CategoriesService';
+import { FieldTypesService } from '../../services/FieldTypesService';
+import { AlertService } from '../../services/AlertService';
 import * as moment from 'moment';
+import * as lodash from 'lodash';
 declare var $: any;
 
 @Component({
@@ -14,12 +19,23 @@ export class FieldBuilderComponent implements OnInit, AfterViewInit {
 	@Output() changed = new EventEmitter<any>();
 	validationMessages: any = {};
 	private categories;
+	private fieldTypes;
+	private autocompleteService;
+	private autocompleteFragment;
 
-	constructor(private formBuilder: FormBuilder,
-		private categoriesService: CategoriesService) {
+	constructor(private settings: AppSettings,
+		private httpBasicAuth: HttpBasicAuth,
+		private formBuilder: FormBuilder,
+		private alertService: AlertService,
+		private categoriesService: CategoriesService,
+		private fieldTypesService: FieldTypesService) {
 		this.categoriesService.categories.subscribe(
 			response => {
 				this.categories = response;
+			});
+		this.fieldTypesService.fieldTypes.subscribe(
+			response => {
+				this.fieldTypes = response;
 			});
 	}
 
@@ -101,6 +117,17 @@ export class FieldBuilderComponent implements OnInit, AfterViewInit {
 					}
 				});
 				break;
+			case 'member':
+				this.autocompleteService = this.fieldTypes[this.field.type].autocomplete;
+				this.autocompleteSearch();
+				$field.parents('.ui.dropdown').dropdown({
+					onChange: (value) => {
+						let fieldValue = {};
+						fieldValue[this.field.name] = value;
+						this.fieldForm.setValue(fieldValue);
+					}
+				});
+				break;
 		}
 	}
 
@@ -124,9 +151,38 @@ export class FieldBuilderComponent implements OnInit, AfterViewInit {
 	}
 
 	addImage() {
-		(<any>navigator).camera.getPicture((image) => {
-			this.field.imgSrc = image;
-		});
+		this.addImageToField(0); // PHOTOLIBRARY
+	}
+
+	takePhoto() {
+		this.addImageToField(1); // CAMERA
+	}
+
+	addImageToField(sourceType) {
+		(<any>navigator).camera.getPicture(image => {
+			this.field.imgSrc = `data:image/jpeg;base64,${image}`;
+			let fieldValue = {};
+			fieldValue[this.field.name] = this.field.imgSrc;
+			this.fieldForm.setValue(fieldValue);
+		}, null, {
+				destinationType: 0, // DATA_URL
+				sourceType: sourceType
+			});
+	}
+
+	autocompleteSearch(event?) {
+		let target = event && (event.target || event.srcElement);
+		this.autocompleteFragment = (target && target.value) || '';
+		this.httpBasicAuth.getAutocomplete(this.autocompleteService, this.autocompleteFragment)
+			.subscribe(
+			(response: any) => {
+				this.field._options = lodash.map(response, (option: any, key) => {
+					option.id = key;
+					return option;
+				});
+			},
+			error => this.alertService.showError('Connection problem!')
+			);
 	}
 
 }

@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { AppSettings } from '../app/app.settings';
 import { HttpBasicAuth } from './HttpBasicAuth';
 import { Member } from '../domain/Member';
-import { MEMBER } from '../test/mock-member';
 
 @Injectable()
 export class AuthService {
-	private LOCAL_TOKEN_KEY: string;
+	private LOCAL_TOKEN_KEY: string = 'local_token';
 	private hasToken: boolean;
-	private userInfo = new Subject<Member>();
-	getUserInfo = this.userInfo.asObservable();
+	userInfo = new ReplaySubject<Member>(1);
 
 	constructor(private settings: AppSettings,
 		private httpBasicAuth: HttpBasicAuth) {
-		this.LOCAL_TOKEN_KEY = 'auth_token';
 		this.hasToken = false;
+		this.loadToken();
 	}
 
 	loadToken() {
@@ -46,12 +44,12 @@ export class AuthService {
 	}
 
 	private requestUserInfo(username): Observable<Member> {
-		// return this.httpBasicAuth
-		// .getWithAuth(`${this.settings.URL.members}?fragment=${username}&depth=1`)
-		return this.httpBasicAuth.get(this.settings.URL.config)
+		return this.httpBasicAuth
+			.getWithAuth(`${this.settings.URL.members}?fragment=${username}&depth=1`)
 			.map(response => {
-				response = MEMBER;
-				this.storeToken(response);
+				for (let id in response) {
+					this.storeToken(response[id]);
+				}
 				return response;
 			});
 	}
@@ -64,6 +62,7 @@ export class AuthService {
 	logout() {
 		return Observable.create(observer => {
 			this.destroyToken();
+			this.httpBasicAuth.logout();
 			observer.next('');
 			observer.complete();
 		});
