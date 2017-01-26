@@ -28,6 +28,8 @@ import { UnixTimeToMoment } from '../pipes/UnixTimeToMoment';
 import { ObjectKeys } from '../pipes/ObjectKeys';
 import { MembersPage } from '../pages/members/members';
 import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
+import { ProfilePage } from '../pages/userProfile/userProfile';
+import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
     MembersPage,
     MemberDetailModal,
     FormBuilderComponent,
-    FieldBuilderComponent
+    FieldBuilderComponent,
+    ProfilePage,
+    ProfileEditPage
   ],
   imports: [
     IonicModule.forRoot(LetsApp),
@@ -66,7 +70,9 @@ import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
     WantDetailPage,
     AddWantPage,
     MembersPage,
-    MemberDetailModal
+    MemberDetailModal,
+    ProfilePage,
+    ProfileEditPage
   ],
   providers: [ 
     AppSettings,

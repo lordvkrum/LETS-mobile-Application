@@ -83,6 +83,19 @@ export class HttpBasicAuth {
       .catch(this.extractError);
   }
 
+  patchWithAuth(url, data) {
+    let headers = new Headers();
+    this.createAuthorizationHeader(headers);
+    return this.patch(url, data, headers);
+  }
+
+  patch(url, data, headers?){
+    return this.http.patch(url, data, {
+      headers: headers
+    }).map(this.extractData)
+    .catch(this.extractError);
+  }
+
   options(url) {
     let headers = new Headers();
     return this.http.options(url, {

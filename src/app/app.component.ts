@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { OfferPage } from '../pages/offer/offer';
 import { WantPage } from '../pages/want/want';
 import { MembersPage } from '../pages/members/members';
+import { ProfilePage } from '../pages/userProfile/userProfile';
 
 @Component({
   templateUrl: 'app.html'
@@ -29,7 +30,8 @@ export class LetsApp {
       { title: 'Home', component: HomePage },
       { title: 'Offers', component: OfferPage },
       { title: 'Wants', component: WantPage },
-      { title: 'Members', component: MembersPage }
+      { title: 'Members', component: MembersPage },
+      { title: 'Profile', component: ProfilePage }
     ];
     this.initializeApp();
   }
