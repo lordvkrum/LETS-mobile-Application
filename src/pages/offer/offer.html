@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <h2 class="ui header">Offers</h2>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="ui success message" *ngIf="success">
+    <i class="close icon"></i>
+    <div class="header">Success!</div>
+    <p>New offer created.</p>
+  </div>
+  <div class="ui two column grid">
+    <div class="ui column" *ngFor="let offer of offers">
+      <div class="ui card">
+        <div class="image">
+          <img src="assets/images/default.jpg">
+        </div>
+        <div class="content">
+          <h3 class="ui header">{{ offer.title }}</h3>
+          <div class="meta">
+            <span class="date" *ngIf="(offer.expires | unixTimeToMoment | amDifference : today : 'days') >= 0">
+              expires in {{ offer.expires | unixTimeToMoment | amDifference : today : 'days' }} days
+            </span>
+            <span class="date" *ngIf="(offer.expires | unixTimeToMoment | amDifference : today : 'days') < 0">
+              expired {{ -1 * (offer.expires | unixTimeToMoment | amDifference : today : 'days') }} days ago
+            </span>
+          </div>
+          <div class="meta" (click)="showMember(offer.user_id)">
+            <span class="right floated author">
+              <img class="ui avatar image" src="assets/images/default_user.jpg"> {{ offer.name }}
+            </span>
+          </div>
+        </div>
+        <div class="extra content">
+          <button class="ui small fluid green button">Action</button>
+          <button class="ui small fluid button" (click)="showDetails(offer.id)">Details</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button *ngIf="canPost" class="ui add-new button" (click)="addOffer()">
+    <i class="plus icon"></i> New Offer
+  </button>
+</ion-content>

@@ -1,0 +1,46 @@
+<div class="ui field" [formGroup]="fieldForm" [ngSwitch]="field.type">
+	<label>{{ field.label }}</label>
+
+	<textarea *ngSwitchCase="'textarea'" [placeholder]="field.placeholder || ''" [required]="field.required" [formControlName]="field.name" [attr.data-field]="field.name" rows="2"></textarea>
+
+	<div *ngSwitchCase="'date'" class="ui calendar">
+		<div class="ui input">
+			<input type="text" [placeholder]="field.placeholder || ''" [required]="field.required" [attr.data-field]="field.name">
+			<input type="hidden" [formControlName]="field.name" [required]="field.required">
+		</div>
+	</div>
+
+	<div *ngSwitchCase="'categories'" class="ui search multiple selection dropdown">
+		<input type="hidden" [formControlName]="field.name" [required]="field.required" [attr.data-field]="field.name">
+		<i class="dropdown icon"></i>
+		<div class="default text">{{ field.placeholder || '' }}</div>
+		<div class="menu">
+			<div class="item" [attr.data-value]="category.id" *ngFor="let category of categories">{{ category.name }}</div>
+		</div>
+	</div>
+
+	<div *ngSwitchCase="'member'" class="ui search normal selection dropdown">
+		<input type="hidden" [formControlName]="field.name" [required]="field.required" [attr.data-field]="field.name">
+		<i class="dropdown icon"></i>
+		<input class="search" autocomplete="off" tabindex="0" (keyup)="autocompleteSearch">
+		<div class="default text">{{ field.placeholder || '' }}</div>
+		<div class="menu">
+			<div class="item" [attr.data-value]="option.id" *ngFor="let option of field._options">{{ option.name }}</div>
+		</div>
+	</div>
+
+	<div *ngSwitchCase="'image'" class="ui image">
+		<img *ngIf="field.imgSrc" [src]="field.imgSrc">
+	</div>
+	<div *ngSwitchCase="'image'" class="ui two buttons">
+		<button class="ui green fluid button" (click)="addImage()"><i class="image icon"></i>Add Image</button>
+		<button class="ui fluid button" (click)="takePhoto()"><i class="photo icon"></i>Take Photo</button>
+	</div>
+	<input *ngSwitchCase="'image'" type="hidden" [required]="field.required" [formControlName]="field.name" [attr.data-field]="field.name">
+
+	<input *ngSwitchDefault type="text" [placeholder]="field.placeholder || ''" [required]="field.required" [formControlName]="field.name" [attr.data-field]="field.name">
+
+	<div *ngIf="field.errors" class="ui pointing red basic label">
+		{{ field.errors }}
+	</div>
+</div>
