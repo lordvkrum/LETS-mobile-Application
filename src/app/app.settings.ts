@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AppSettings {
 	public get SERVER_URL(): any {
-		return 'http://hamlets.communityforge.net/commex';
+		// return 'http://hamlets.communityforge.net/commex';
+		return 'http://northwind.servicestack.net/customers.json';
 	}
 	
 	public get URL(): any {

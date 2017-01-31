@@ -38,10 +38,13 @@ ion-menu {
 	}
 }
 
-.ui.card>.content{
-	.author {
-		text-align: right;
-		padding-top: 10px;
+.ui.card {
+	width: 100%;
+	&>.content{
+		.author {
+			text-align: right;
+			padding-top: 10px;
+		}
 	}
 }
 
