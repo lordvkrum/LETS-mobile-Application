@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuController } from 'ionic-angular';
+import { MenuController, ModalController } from 'ionic-angular';
 import { AuthService } from '../../services/AuthService';
 import { TransactionService } from '../../services/TransactionService';
 import { AlertService } from '../../services/AlertService';
 import { Transaction } from '../../domain/Transaction';
+import { MemberDetailModal } from '../memberDetail/memberDetail';
+import { AddTransactionPage } from '../addTransaction/addTransaction';
 
 @Component({
 	selector: 'page-home',
@@ -11,9 +13,13 @@ import { Transaction } from '../../domain/Transaction';
 })
 export class HomePage implements OnInit {
 	private username: string;
+	private canPost = false;
+	private success = false;
+	private definitionTransaction: any;
 	private transactions: Array<Transaction>;
 
 	constructor(private menuCtrl: MenuController,
+		private modalCtrl: ModalController,
 		private authService: AuthService,
 		private transactionService: TransactionService,
 		private alertService: AlertService) {
@@ -25,6 +31,18 @@ export class HomePage implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.transactionService.describe()
+			.subscribe(
+			response => {
+				this.definitionTransaction = response;
+				this.canPost = !!this.definitionTransaction.POST;
+			},
+			error => this.alertService.showError('Connection problem!')
+			);
+		this.loadTransactions();
+	}
+
+	loadTransactions() {
 		this.transactionService.list()
 			.subscribe(
 			response => this.transactions = response,
@@ -32,8 +50,19 @@ export class HomePage implements OnInit {
 			);
 	}
 
-	stateIcons = {
-		'done': 'checkmark-circle',
-		'pending': 'ios-time'
+	showMember(userId) {
+		let modal = this.modalCtrl.create(MemberDetailModal, {
+			memberId: userId
+		});
+		modal.present();
+	}
+
+	addTransaction() {
+		let modal = this.modalCtrl.create(AddTransactionPage);
+		modal.onDidDismiss((data: any = {}) => {
+			this.success = data.success;
+			this.loadTransactions();
+		});
+		modal.present();
 	}
 }

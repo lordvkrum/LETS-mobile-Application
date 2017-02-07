@@ -18,6 +18,7 @@ import { FormBuilderComponent } from '../components/formBuilder/formBuilder';
 import { FieldBuilderComponent } from '../components/fieldBuilder/fieldBuilder';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
+import { AddTransactionPage } from '../pages/addTransaction/addTransaction';
 import { OfferPage } from '../pages/offer/offer';
 import { OfferDetailPage } from '../pages/offerDetail/offerDetail';
 import { AddOfferPage } from '../pages/addOffer/addOffer';
@@ -37,6 +38,7 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     LetsApp,
     LoginPage,
     HomePage,
+    AddTransactionPage,
     OfferPage,
     OfferDetailPage,
     AddOfferPage,
@@ -63,6 +65,7 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     LetsApp,
     LoginPage,
     HomePage,
+    AddTransactionPage,
     OfferPage,
     OfferDetailPage,
     AddOfferPage,

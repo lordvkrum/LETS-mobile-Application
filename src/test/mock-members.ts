@@ -1,36 +1,46 @@
-import { Member } from '../domain/Member';
-
-export const MEMBERS: Array<Member> = [
-    {
-	'id': '1',
-	'name': 'Member 1',
-	'aboutme': 'Aliquip dignissim esca iusto lobortis neo paulatim refero sudo tation.',
-	'balance': '<strong>Hrs</strong>12:45m',
-	'created': 1451973792,
-	'locality': 'Ditchwater',
-	'uri': 'member/1'
-}, {
-	'id': '2',
-	'name': 'Member 2',
-	'aboutme': 'Aliquip dignissim esca iusto lobortis neo paulatim refero sudo tation.',
-	'balance': '<strong>Hrs</strong>12:45m',
-	'created': 1451973792,
-	'locality': 'Ditchwater',
-	'uri': 'member/2'
-}, {
-	'id': '3',
-	'name': 'Kerry Turner',
-	'aboutme': 'Aliquip dignissim esca iusto lobortis neo paulatim refero sudo tation.',
-	'balance': '<strong>Hrs</strong>12:45m',
-	'created': 1451973792,
-	'locality': 'Ditchwater',
-	'uri': 'member/3'
-}, {
-	'id': '4',
-	'name': 'Member 3',
-	'aboutme': 'Aliquip dignissim esca iusto lobortis neo paulatim refero sudo tation.',
-	'balance': '<strong>Hrs</strong>12:45m',
-	'created': 1451973792,
-	'locality': 'Ditchwater',
-	'uri': 'member/3'
-}]
+export const MEMBERS = {
+	"1": {
+		"name": "Hamlets Demo",
+		"mail": "admin@matslats.net",
+		"pass": "",
+		"phone": "",
+		"aboutme": "",
+		"street_address": "",
+		"locality": "",
+		"image": "",
+		"uri": "member/1"
+	},
+	"3": {
+		"name": "Harry Example",
+		"mail": "Harry@example.com",
+		"pass": "",
+		"phone": "03455 843136",
+		"aboutme": "Magna nutus sagaciter turpis vicis. Accumsan causa gemino modo premo quadrum. Distineo eros exerci lenis paulatim quidne vindico. Dignissim interdico macto natu patria verto. Pecus quae sed sit volutpat. Quibus rusticus similis. Acsi conventio gravis in paulatim tamen tation. Consectetuer esse macto roto rusticus vero virtus voco vulputate. Feugiat gemino jus patria praemitto validus. Consectetuer imputo in modo nibh pagus pneum vel.\n\nDignissim eligo interdico lobortis sagaciter tum. Ex gravis lenis quidne saepius secundum tamen usitas. Ille immitto proprius quis. Jugis molior nibh odio quadrum. Brevitas erat gilvus quidem similis te. Sagaciter veniam vicis. Abico pertineo quidne. Appellatio dolus ex sagaciter. Appellatio fere sed.\n\nAliquip mos venio voco. Camur cogo genitus nimis quis secundum usitas. Aliquam esca nisl occuro vel vulputate. Brevitas dolore praemitto proprius quia refoveo. Huic illum neo vulputate.\n\nHaero humo modo mos nunc pneum si tation vulputate. Commoveo quae suscipere. Accumsan dolus facilisi lenis letalis lobortis nibh probo. Abico ad natu. Abigo aliquip scisco. Commoveo huic incassum jumentum pagus pala praesent utinam wisi. Ad causa ludus. Defui incassum jugis letalis luctus quis rusticus tincidunt utinam.\n\nAmet causa dignissim hendrerit loquor si sudo ut. Ad consequat metuo oppeto quidne sagaciter. Bene ibidem pala paratus patria pneum refoveo saluto. Jugis luctus modo nulla nunc persto. Interdico jumentum lucidus neque populus quibus roto ullamcorper. Aptent causa iusto mos similis. Humo nostrud si suscipere tincidunt venio. Abdo abigo acsi caecus erat jumentum melior similis zelus.\n\nAppellatio enim euismod iriure populus sit vulpes. Commoveo enim quia. Aliquam capto causa distineo duis ille luctus nostrud. Causa esse laoreet nulla os typicus valde. Ideo populus scisco ulciscor utrum vicis volutpat. Abico autem defui letalis macto quia sagaciter tego. Plaga validus vindico.\n\nAntehabeo blandit eligo mos olim pertineo utrum validus. Blandit commoveo in vereor wisi. Autem damnum eros feugiat gravis lucidus persto quadrum ut. Aliquip antehabeo facilisis hendrerit melior nutus sino. Facilisis illum ludus mos si ut.\n\nCapto causa enim exputo gravis probo quia singularis. Aptent defui iustum loquor quadrum suscipit verto. Aliquam esca eu exputo huic incassum iriure quadrum sagaciter vel. Camur iaceo inhibeo ludus pagus. Camur incassum luctus patria sed velit. Antehabeo dolus elit euismod ideo persto refoveo tamen tation vel.\n\nAt te ulciscor. Acsi caecus comis enim erat gravis inhibeo minim sino zelus. Haero ibidem interdico natu os validus vulpes. Acsi ea metuo paratus praesent proprius suscipere turpis ulciscor venio.\n\nDolus laoreet nimis pneum vulpes. Cui eligo et neque quidne. Camur hendrerit jumentum magna vereor. Brevitas cogo dignissim eros exputo jumentum metuo os pneum typicus.\n\nCaecus camur damnum importunus quia quidem saluto tum vero. Accumsan elit et eu importunus rusticus usitas vereor. Appellatio autem cogo dolus elit eros humo roto saluto sudo. Abico abluo consectetuer gravis.\n\nIllum quadrum sino tation vero. Erat exputo humo natu neo. Augue brevitas dolor oppeto paratus refoveo sit venio. Consectetuer dignissim dolor ille interdico nutus saluto. Conventio ea humo iusto mos quae quidne scisco valetudo vel. Abigo elit esse euismod gemino meus typicus velit. Iustum lobortis tation. Comis decet gemino jugis minim olim suscipere. Antehabeo blandit damnum hendrerit humo lobortis praemitto suscipere torqueo valde.\n\n",
+		"street_address": "Rochester Road",
+		"locality": "Cow Common",
+		"image": "",
+		"uri": "member/3"
+	},
+	"4": {
+		"name": "Ursula Example",
+		"mail": "Ursula@example.com",
+		"pass": "",
+		"phone": "04773 636977",
+		"aboutme": "Adipiscing aliquip antehabeo consequat distineo et incassum olim refero vero. Imputo luptatum minim natu odio venio. Causa eros haero iaceo ibidem importunus scisco te turpis ulciscor. Antehabeo jumentum olim paratus patria. Cogo immitto modo suscipit tincidunt. Abbas facilisis humo laoreet magna nobis qui vulpes. Augue cogo eligo ex importunus in nulla paulatim populus roto. Sit turpis typicus vero.\n\nAbico brevitas exputo loquor pala. Defui iusto mauris neo obruo pagus verto volutpat. Acsi euismod nunc paratus suscipere turpis. Adipiscing brevitas commoveo cui exerci facilisi gemino gilvus iusto quadrum. Laoreet natu paratus sagaciter.\n\nAbdo abico elit eros ibidem importunus premo refoveo uxor. Appellatio eum nostrud plaga. Appellatio at comis duis huic jumentum ludus qui tation. Aptent consectetuer hos plaga qui quis tamen vel vulputate. Comis nostrud tamen. Caecus gravis ille incassum iusto nulla quia quis saluto wisi.\n\nAt exputo nobis quidem roto tincidunt torqueo ulciscor vereor. Conventio dignissim eu jus persto probo valetudo. Acsi distineo hos mauris nobis praemitto suscipere. Enim gilvus lucidus magna olim patria quis valde.\n\nAliquip autem commodo cui eu macto nutus paratus populus typicus. Aliquip exerci nulla. Comis cui mos typicus ulciscor venio. Abdo importunus neque nostrud probo refoveo singularis uxor vereor volutpat. Abluo comis ideo nostrud virtus. Cogo nutus quibus quidne roto rusticus venio. Exerci illum letalis lobortis nobis populus rusticus torqueo ulciscor valde.\n\nAcsi huic interdico nostrud sino vindico. Ad camur dignissim et ille interdico laoreet os. Amet appellatio defui jumentum nisl odio plaga probo vereor. Appellatio camur causa comis facilisis humo ille meus patria ullamcorper.\n\nLucidus singularis veniam. Eligo esca neo quidne ratis singularis. Importunus pecus validus. Autem camur dolus illum pagus quadrum verto vulputate. Acsi cogo consequat mauris similis.\n\nAutem eligo interdico iusto magna. Acsi dignissim enim feugiat iusto vereor. Accumsan augue jus melior metuo te virtus. Comis humo obruo. Eum minim premo scisco similis te usitas valetudo vulputate. Accumsan aliquip fere genitus melior refoveo ullamcorper velit. Aliquam damnum decet exerci ille neo sagaciter velit. Antehabeo erat interdico magna singularis sino sit. At augue dignissim meus secundum tum. Facilisis ludus nunc.\n\nBlandit enim in tego zelus. Autem conventio elit mos nisl premo saepius tamen. Capto dignissim lobortis mauris obruo praesent rusticus ulciscor utinam verto. Modo natu vel vicis. Aliquip duis ex imputo natu nunc refero.\n\nFeugiat inhibeo populus tego. Commoveo et pertineo vero. Abluo camur gemino importunus jus nunc pertineo utinam. Abigo enim hos ille importunus iustum jumentum lobortis vulputate. Eros immitto in sagaciter zelus. Consequat duis elit erat et euismod ideo inhibeo usitas. Conventio importunus iusto jus premo quadrum sed sudo tamen volutpat. Autem dolus haero hendrerit iustum mauris paulatim singularis venio.\n\nGilvus quidne typicus. Abico nulla pagus rusticus sino usitas validus. Comis distineo ludus minim nostrud vero. Adipiscing aptent commoveo diam in macto refero typicus uxor.\n\nAliquam brevitas eu valetudo. Eligo enim ibidem nulla paulatim refoveo scisco sit utinam vulpes. Acsi odio patria quis. At facilisi ideo iusto loquor nisl pala quidne tincidunt.\n\n",
+		"street_address": "Paisley Park",
+		"locality": "Cow Common",
+		"image": "",
+		"uri": "member/4"
+	},
+	"5": {
+		"name": "Yuri Example",
+		"mail": "Yuri@example.com",
+		"pass": "",
+		"phone": "07180 498641",
+		"aboutme": "Dolus luptatum olim quidem veniam. Abbas decet erat et euismod interdico quidem vereor virtus. Ad oppeto qui zelus. Facilisi metuo meus. Abbas ea lobortis magna utinam. Aptent dolor ex humo sit volutpat. Conventio magna torqueo uxor. Ad brevitas eu uxor. Acsi distineo eros pala proprius quidem validus verto. Diam immitto imputo pecus pertineo premo roto rusticus secundum vindico.\n\nAbbas comis facilisis lobortis nutus populus tamen. Abbas feugiat sit sudo. Decet lobortis virtus. Cogo huic velit. Commoveo dignissim mauris sit suscipit. Haero iriure nunc odio pagus. Abigo ideo imputo praesent quidem. Accumsan acsi autem esca euismod gemino mos valde virtus zelus. Eligo eum feugiat iustum mauris nobis premo tego velit ymo.\n\nAbico immitto natu. Amet iriure quae quibus sino tamen tincidunt turpis vulputate. Importunus molior vicis. Ex incassum lobortis luctus si. Accumsan blandit lobortis minim paratus singularis tego. Hos iusto loquor obruo sino turpis ymo. Ex pecus populus tego uxor. Jumentum minim praemitto.\n\nAbdo iaceo mos nulla odio os pneum praemitto saepius vulputate. Exputo feugiat iaceo mos paratus utinam. Capto commoveo duis ullamcorper voco. Facilisis gilvus iaceo meus nunc pala sudo tincidunt tum ulciscor. Autem haero inhibeo lucidus modo oppeto. Abbas augue elit iaceo saepius torqueo. Capto commodo dolore esca iustum odio tamen. Abdo inhibeo nibh paratus pecus typicus vulpes.\n\nConsequat molior nisl quibus tamen tum uxor. Aptent immitto nimis probo vulpes. Populus quibus tego vulputate. Minim nisl proprius refero.\n\nAbbas accumsan appellatio dolor euismod nostrud rusticus saluto secundum venio. Hos sed tamen tation. Acsi gravis lenis modo nibh quidem rusticus tego utinam venio. Autem consectetuer ille inhibeo nisl rusticus sagaciter tamen torqueo. Blandit importunus jugis lucidus nimis os pertineo. Luptatum nobis plaga. Commodo commoveo dignissim refoveo singularis. Comis ex illum nisl persto ullamcorper.\n\nEnim humo ludus os. Abico aptent euismod letalis refero ulciscor uxor valetudo. Abigo antehabeo bene genitus gilvus jumentum proprius quidem tego valde. Commodo commoveo dolor esca pneum refero. Abbas at brevitas exerci genitus quadrum utrum uxor wisi. Defui huic obruo probo. Acsi conventio huic immitto plaga refero tamen vulputate. Elit imputo iusto nostrud quadrum turpis.\n\nLoquor pecus quis. Appellatio dolus eligo humo. Ex gravis hendrerit ideo in lenis roto validus volutpat. Defui duis feugiat inhibeo interdico loquor luctus suscipit tincidunt veniam. Ad huic ludus singularis.\n\nDecet distineo importunus molior natu paratus premo quis refero ulciscor. Accumsan gravis incassum lenis neque olim saluto velit venio. Ideo occuro tamen ulciscor. Acsi dolor feugiat gilvus ibidem minim virtus zelus. Aliquip augue distineo fere iustum quadrum saluto ut vicis. Abigo dolus genitus humo interdico lenis singularis ullamcorper usitas velit.\n\nExerci imputo nunc oppeto sed valetudo vereor. Abigo adipiscing dolore praemitto tamen ullamcorper. Causa gemino occuro os. Decet gravis jus melior secundum. Abdo camur vero. Gemino meus pala scisco. Aptent distineo gravis hos ille luctus meus refero volutpat. Aliquam cogo decet ullamcorper zelus.\n\nAliquip elit pertineo quia quidne refoveo sino veniam verto vulputate. Adipiscing ideo quidem sagaciter suscipere. Facilisis neo si. Accumsan aptent dignissim ex fere humo torqueo uxor velit.\n\nAbico aliquip bene inhibeo populus quibus quidem tamen virtus. Amet ea os. Adipiscing esca ibidem quadrum. Commoveo consectetuer humo ille lucidus neque pneum proprius tamen usitas.\n\n",
+		"street_address": "Harwich Highway",
+		"locality": "Elephantine",
+		"image": "",
+		"uri": "member/5"
+	}
+};

@@ -4,42 +4,47 @@ import { AppSettings } from '../app/app.settings';
 import { HttpBasicAuth } from './HttpBasicAuth';
 import { Member } from '../domain/Member';
 import { MEMBERS } from '../test/mock-members';
+import * as lodash from 'lodash';
 
 @Injectable()
-export class MemberService{
+export class MemberService {
 
-    private membersArray: Array<Member>
+	constructor(private settings: AppSettings,
+		private httpBasicAuth: HttpBasicAuth) { }
 
-    constructor(private settings: AppSettings,
-        private httpBasicAuth: HttpBasicAuth){ }
+	list(): Observable<Array<Member>> {
+		return this.httpBasicAuth.get(this.settings.URL.config)
+		// return this.httpBasicAuth.getWithAuth(this.settings.URL.members)
+			.map((response: Array<Member>) => {
+				response = <any>MEMBERS;
+				response = lodash.map(response, (member: Member, key: any) => {
+					if (!member.id) {
+						member.id = key;
+					}
+					return member;
+				});
+				return response;
+			});
+	}
 
-    list(): Observable<Array<Member>> {
-        
-         // return this.httpBasicAuth.getWithAuth(this.settings.URL.members)
-         this.membersArray = MEMBERS;
-         return this.httpBasicAuth.get(this.settings.URL.config)
-         .map(response => {
-             return MEMBERS;
-         });
-    }
+	get(id): Observable<Member> {
+		return this.httpBasicAuth.get(this.settings.URL.config)
+		// return this.httpBasicAuth.getWithAuth(`${this.settings.URL.members}/${id}?depth=1`);
+			.map(response => {
+				response = MEMBERS[id];
+				return response;
+			});
+	}
 
-    getMemberWithId(id): Member {
-        return this.membersArray.filter(member => member.id === id)[0];
-    }
+	post(member: Member): Observable<any> {
+		return this.httpBasicAuth.postWithAuth(this.settings.URL.members, member);
+	}
 
-    get(id): Observable<Member> {
-        return this.httpBasicAuth.getWithAuth(`${this.settings.URL.members}/${id}?depth=1`);
-    }
+	patch(member: Member): Observable<any> {
+		return this.httpBasicAuth.patchWithAuth(`${this.settings.URL.members}/${member.id}`, member);
+	}
 
-    post(member: Member): Observable<any> {
-        return this.httpBasicAuth.postWithAuth(this.settings.URL.members, member);
-    }
-
-    patch(member: Member): Observable<any> {
-        return this.httpBasicAuth.patchWithAuth(`${this.settings.URL.members}/${member.id}`,member);
-    }
-
-    descripe(): Observable<any> {
-        return this.httpBasicAuth.options(this.settings.URL.members);
-    }
+	describe(): Observable<any> {
+		return this.httpBasicAuth.options(this.settings.URL.members);
+	}
 }

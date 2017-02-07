@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
 		this.authService.login(this.username, this.password)
 			.subscribe(
 			response => this.navCtrl.setRoot(HomePage),
-			error => this.alertService.showError('Connection problem!')
+			error => this.alertService.showError('Error with credentials. Please try again.')
 			);
 	}
 
