@@ -14,9 +14,5 @@ export class AlertService {
 			subTitle: message,
 			buttons: ['OK']
 		}).present();
-		// return this.toastCtrl.create({
-		// 	message: message,
-		// 	duration: 3000
-		// }).present();
 	}
 }

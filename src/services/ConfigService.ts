@@ -9,7 +9,6 @@ import { CategoriesService } from './CategoriesService';
 import { FieldTypesService } from './FieldTypesService';
 import { Config } from '../domain/Config';
 import { Category } from '../domain/Category';
-import { CONFIG } from '../test/mock-config';
 
 @Injectable()
 export class ConfigService {
@@ -28,7 +27,6 @@ export class ConfigService {
 	requestAppConfig(): Observable<Config> {
 		return this.httpBasicAuth.get(this.settings.URL.config)
 			.map((response: Config) => {
-				response = CONFIG;
 				this.categoriesService.setCategories(
 					lodash.map(<any>response.categories, (category: Category, id: string) => {
 						category.id = id;

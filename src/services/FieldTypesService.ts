@@ -5,8 +5,6 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 export class FieldTypesService {
 	fieldTypes = new ReplaySubject<Object>(1);
 
-	constructor() { }
-
 	setFieldTypes(fieldTypes) {
 		this.fieldTypes.next(fieldTypes);
 	}

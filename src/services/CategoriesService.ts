@@ -6,8 +6,6 @@ import { Category } from '../domain/Category';
 export class CategoriesService {
 	categories = new ReplaySubject<Array<Category>>(1);
 
-	constructor() { }
-
 	setCategories(categories) {
 		this.categories.next(categories);
 	}

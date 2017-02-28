@@ -19,6 +19,15 @@
 		</div>
 	</div>
 
+	<div *ngSwitchCase="'select'" class="ui search selection dropdown" [class.multiple]="field.multiple" [class.normal]="field.multiple">
+		<input type="hidden" [formControlName]="field.name" [required]="field.required" [attr.data-field]="field.name">
+		<i class="dropdown icon"></i>
+		<div class="default text">{{ field.placeholder || '' }}</div>
+		<div class="menu">
+			<div class="item" [attr.data-value]="option.name" *ngFor="let option of field.options | keys">{{ option }}</div>
+		</div>
+	</div>
+
 	<div *ngSwitchCase="'member'" class="ui search normal selection dropdown">
 		<input type="hidden" [formControlName]="field.name" [required]="field.required" [attr.data-field]="field.name">
 		<i class="dropdown icon"></i>

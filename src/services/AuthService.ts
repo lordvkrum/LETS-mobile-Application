@@ -4,7 +4,6 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { AppSettings } from '../app/app.settings';
 import { HttpBasicAuth } from './HttpBasicAuth';
 import { Member } from '../domain/Member';
-import { MEMBERS } from '../test/mock-members';
 
 @Injectable()
 export class AuthService {
@@ -45,11 +44,9 @@ export class AuthService {
 	}
 
 	private requestUserInfo(username): Observable<Member> {
-		return this.httpBasicAuth.get(this.settings.URL.config)
-		// return this.httpBasicAuth
-		// 	.getWithAuth(`${this.settings.URL.members}?fragment=${username}&depth=1`)
+		return this.httpBasicAuth
+			.getWithAuth(`${this.settings.URL.members}?fragment=${username}&depth=1`)
 			.map(response => {
-				response = MEMBERS;
 				for (let id in response) {
 					this.storeToken(response[id]);
 					break;
@@ -58,7 +55,7 @@ export class AuthService {
 			});
 	}
 
-	login(username, password): Observable<Member> {
+	login(username, password, rememberMe): Observable<Member> {
 		this.httpBasicAuth.setAuthorizationToken(username, password);
 		return this.requestUserInfo(username);
 	}
