@@ -3,7 +3,6 @@ import { Observable } from 'rxjs/Observable';
 import { AppSettings } from '../app/app.settings';
 import { HttpBasicAuth } from './HttpBasicAuth';
 import { Member } from '../domain/Member';
-import { MEMBERS } from '../test/mock-members';
 import * as lodash from 'lodash';
 
 @Injectable()
@@ -13,10 +12,8 @@ export class MemberService {
 		private httpBasicAuth: HttpBasicAuth) { }
 
 	list(): Observable<Array<Member>> {
-		return this.httpBasicAuth.get(this.settings.URL.config)
-		// return this.httpBasicAuth.getWithAuth(this.settings.URL.members)
+		return this.httpBasicAuth.getWithAuth(this.settings.URL.members)
 			.map((response: Array<Member>) => {
-				response = <any>MEMBERS;
 				response = lodash.map(response, (member: Member, key: any) => {
 					if (!member.id) {
 						member.id = key;
@@ -28,12 +25,7 @@ export class MemberService {
 	}
 
 	get(id): Observable<Member> {
-		return this.httpBasicAuth.get(this.settings.URL.config)
-		// return this.httpBasicAuth.getWithAuth(`${this.settings.URL.members}/${id}?depth=1`);
-			.map(response => {
-				response = MEMBERS[id];
-				return response;
-			});
+		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.members}/${id}?depth=1`);
 	}
 
 	post(member: Member): Observable<any> {

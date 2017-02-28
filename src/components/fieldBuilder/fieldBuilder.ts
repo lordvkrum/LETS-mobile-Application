@@ -117,6 +117,15 @@ export class FieldBuilderComponent implements OnInit, AfterViewInit {
 					}
 				});
 				break;
+			case 'select':
+				$field.parents('.ui.dropdown').dropdown({
+					onChange: (value) => {
+						let fieldValue = {};
+						fieldValue[this.field.name] = value;
+						this.fieldForm.setValue(fieldValue);
+					}
+				});
+				break;
 			case 'member':
 				this.autocompleteService = this.fieldTypes[this.field.type].autocomplete;
 				this.autocompleteSearch();

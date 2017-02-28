@@ -42,14 +42,17 @@ export class HttpBasicAuth {
 		headers.append('Authorization', this.authorizationToken);
 	}
 
+	private createAcceptHeader(headers: Headers) {
+		headers.append('Accept', 'application/json');
+	}
+
 	private extractData(response: Response) {
 		let body = response.json();
 		return body || {};
 	}
 
 	private extractError(error): any {
-		console.log('error', error);
-		throw JSON.stringify(error.json());
+		throw error._body;
 	}
 
 	getWithAuth(url) {
@@ -58,7 +61,8 @@ export class HttpBasicAuth {
 		return this.get(url, headers);
 	}
 
-	get(url, headers?) {
+	get(url, headers: any = new Headers()) {
+		this.createAcceptHeader(headers);
 		return this.http.get(url, {
 			headers: headers
 		}).map(this.extractData)
@@ -77,7 +81,8 @@ export class HttpBasicAuth {
 		return this.post(url, data, headers);
 	}
 
-	post(url, data, headers?) {
+	post(url, data, headers: any = new Headers()) {
+		this.createAcceptHeader(headers);
 		return this.http.post(url, data, {
 			headers: headers
 		}).map(this.extractData)
@@ -90,7 +95,8 @@ export class HttpBasicAuth {
 		return this.patch(url, data, headers);
 	}
 
-	patch(url, data, headers?) {
+	patch(url, data, headers: any = new Headers()) {
+		this.createAcceptHeader(headers);
 		return this.http.patch(url, data, {
 			headers: headers
 		}).map(this.extractData)
@@ -99,6 +105,8 @@ export class HttpBasicAuth {
 
 	options(url) {
 		let headers = new Headers();
+		this.createAuthorizationHeader(headers);
+		this.createAcceptHeader(headers);
 		return this.http.options(url, {
 			headers: headers
 		}).map(this.extractData)

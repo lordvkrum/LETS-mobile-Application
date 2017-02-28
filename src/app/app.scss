@@ -18,41 +18,47 @@
 html {
 	font-size: 1em;
 }
-
 ion-header {
 	text-align: center;
-	.toolbar-background {
-		background-color: #21BA45;
+
+	ion-navbar.toolbar {
+		min-height: 35px;
+		height: 35px;
 	}
-	.ui.header,
-	button[menutoggle],
-	button[ion-button] span,
-	button[ion-button] ion-icon {
+	.toolbar-background {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+	.toolbar-title {
+		color: white;
+		font-size: 20px;
+	}
+}
+ion-content.content {
+	background: #00b5ad;
+}
+ion-header {
+	.ui.header, button[menutoggle], button[ion-button] span, button[ion-button] ion-icon {
 		color: white;
 	}
 }
-
 ion-menu {
 	.ui.header {
 		color: white;
 	}
 }
-
 .ui.card {
 	width: 100%;
-	&>.content{
+
+	&>.content {
 		.author {
 			text-align: right;
 			padding-top: 10px;
 		}
 	}
 }
-
-.ui.form,
-.ui.button {
+.ui.form, .ui.button {
 	font-size: 100%;
 }
-
 .ui.button.add-new {
 	background-color: #21BA45;
 	color: white;
@@ -62,7 +68,6 @@ ion-menu {
 	right: 15px;
 	bottom: 15px;
 }
-
 .ui.dropdown.button {
 	text-align: center;
 }
