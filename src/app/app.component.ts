@@ -51,8 +51,8 @@ export class LetsApp {
     this.nav.setRoot(page.component);
   }
 
-  logout() {
-    this.authService.logout()
+  doLogout() {
+    this.authService.doLogout()
       .subscribe(
       response => this.nav.setRoot(LoginPage)
       );

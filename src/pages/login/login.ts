@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NavController } from 'ionic-angular';
+import { ViewController, NavController } from 'ionic-angular';
+import { AppSettings } from '../../app/app.settings';
 import { AuthService } from '../../services/AuthService';
 import { AlertService } from '../../services/AlertService';
 import { HomePage } from '../home/home';
+import * as $ from 'jquery';
 
 @Component({
 	selector: 'page-login',
@@ -15,25 +17,33 @@ export class LoginPage implements OnInit {
 	private password: string;
 	private rememberMe: boolean;
 
-	constructor(private navCtrl: NavController,
+	constructor(public viewCtrl: ViewController,
+		private navCtrl: NavController,
 		private formBuilder: FormBuilder,
+		private settings: AppSettings,
 		private authService: AuthService,
 		private alertService: AlertService) {
+		viewCtrl.didEnter.subscribe(
+			response => {
+				setTimeout(() => {
+					$('div.page-login').height($('page-login').height());
+				}, 0);
+			});
 	}
 
 	doLogin() {
 		this.username = this.loginForm.value.username;
 		this.password = this.loginForm.value.password;
 		this.rememberMe = this.loginForm.value.rememberMe;
-		this.authService.login(this.username, this.password, this.rememberMe)
+		this.authService.doLogin(this.username, this.password, this.rememberMe)
 			.subscribe(
 			response => this.navCtrl.setRoot(HomePage),
-			error => this.alertService.showError('Error with credentials. Please try again.')
+			error => this.alertService.showError('Error with credentials. Please try again.\n' + error)
 			);
 	}
 
 	goToFullSite() {
-		window.open('http://hamlets.communityforge.net', '_system', 'location=yes');
+		window.open(this.settings.WEB_SITE_URL, '_system', 'location=yes');
 	}
 
 	ngOnInit(): void {

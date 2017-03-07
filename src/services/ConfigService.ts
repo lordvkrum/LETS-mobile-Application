@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import * as lodash from 'lodash';
 import { AppSettings } from '../app/app.settings';
 import { HttpBasicAuth } from './HttpBasicAuth';
 import { AlertService } from './AlertService';
-import { CategoriesService } from './CategoriesService';
-import { FieldTypesService } from './FieldTypesService';
 import { Config } from '../domain/Config';
-import { Category } from '../domain/Category';
 
 @Injectable()
 export class ConfigService {
@@ -16,24 +12,14 @@ export class ConfigService {
 
 	constructor(private settings: AppSettings,
 		private httpBasicAuth: HttpBasicAuth,
-		private alertService: AlertService,
-		private categoriesService: CategoriesService,
-		private fieldTypesService: FieldTypesService) {
+		private alertService: AlertService) {
 		this.requestAppConfig().subscribe(
-			response => this.appConfig.next(response)
+			response => this.appConfig.next(response),
+			error => this.alertService.showError(error)
 		);
 	}
 
 	requestAppConfig(): Observable<Config> {
-		return this.httpBasicAuth.get(this.settings.URL.config)
-			.map((response: Config) => {
-				this.categoriesService.setCategories(
-					lodash.map(<any>response.categories, (category: Category, id: string) => {
-						category.id = id;
-						return category;
-					}));
-				this.fieldTypesService.setFieldTypes(response.fieldTypes);
-				return response;
-			});
+		return this.httpBasicAuth.get(this.settings.URL.config);
 	}
 }

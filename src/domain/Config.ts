@@ -3,6 +3,5 @@ export class Config {
 	sitename: string;
   logo: string;
   restPrefix: string;
-  fieldTypes: Object;
-  categories: Object;
+  endpoints: Object;
 }

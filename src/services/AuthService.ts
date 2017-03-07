@@ -19,19 +19,27 @@ export class AuthService {
 
 	loadToken() {
 		var token = window.localStorage.getItem(this.LOCAL_TOKEN_KEY);
+		if (!token) {
+			token = window.sessionStorage.getItem(this.LOCAL_TOKEN_KEY);
+		}
 		if (token) {
 			this.setToken(JSON.parse(token));
 		}
 	}
 
-	private storeToken(token) {
-		window.localStorage.setItem(this.LOCAL_TOKEN_KEY, JSON.stringify(token));
+	private storeToken(token, rememberMe) {
+		if (rememberMe) {
+			window.localStorage.setItem(this.LOCAL_TOKEN_KEY, JSON.stringify(token));
+		} else {
+			window.sessionStorage.setItem(this.LOCAL_TOKEN_KEY, JSON.stringify(token));
+		}
 		this.setToken(token);
 	}
 
 	private destroyToken() {
 		this.hasToken = false;
 		window.localStorage.removeItem(this.LOCAL_TOKEN_KEY);
+		window.sessionStorage.removeItem(this.LOCAL_TOKEN_KEY);
 	}
 
 	private setToken(token) {
@@ -43,24 +51,24 @@ export class AuthService {
 		return this.hasToken;
 	}
 
-	private requestUserInfo(username): Observable<Member> {
+	private requestUserInfo(username, rememberMe): Observable<Member> {
 		return this.httpBasicAuth
 			.getWithAuth(`${this.settings.URL.members}?fragment=${username}&depth=1`)
 			.map(response => {
 				for (let id in response) {
-					this.storeToken(response[id]);
+					this.storeToken(response[id], rememberMe);
 					break;
 				}
 				return response;
 			});
 	}
 
-	login(username, password, rememberMe): Observable<Member> {
-		this.httpBasicAuth.setAuthorizationToken(username, password);
-		return this.requestUserInfo(username);
+	doLogin(username, password, rememberMe): Observable<Member> {
+		this.httpBasicAuth.setAuthorizationToken(username, password, rememberMe);
+		return this.requestUserInfo(username, rememberMe);
 	}
 
-	logout() {
+	doLogout() {
 		return Observable.create(observer => {
 			this.destroyToken();
 			this.httpBasicAuth.logout();
