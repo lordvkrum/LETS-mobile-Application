@@ -1,0 +1,5 @@
+<ion-list class="options-popover">
+  <ion-item *ngFor="let option of options" (click)="goToPage(option)">
+    <ion-label>{{ option.title }}</ion-label>
+  </ion-item>
+</ion-list>

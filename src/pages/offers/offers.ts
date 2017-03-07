@@ -8,10 +8,10 @@ import { MemberDetailModal } from '../memberDetail/memberDetail';
 import { AddOfferPage } from '../addOffer/addOffer';
 
 @Component({
-	selector: 'page-offer',
-	templateUrl: 'offer.html'
+	selector: 'page-offers',
+	templateUrl: 'offers.html'
 })
-export class OfferPage implements OnInit {
+export class OffersPage implements OnInit {
 	private canPost = false;
 	private success = false;
 	private definitionOffer: any;

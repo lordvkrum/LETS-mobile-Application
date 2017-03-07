@@ -5,7 +5,7 @@
 </ion-header>
 <ion-content scroll="false">
 	<div class="page-login">
-		<ion-slides>
+		<ion-slides [pager]="true" [autoplay]="3000" [loop]="true">
 		  <ion-slide>
 				<div class="image-wrapper">
 					<div class="image">
@@ -15,12 +15,21 @@
 					</div>
 				</div>
 		  </ion-slide>
+		  <ion-slide>
+				<div class="image-wrapper">
+					<div class="image">
+						<img alt="logo" src="assets/images/ces_logo.png">
+						<h1 class="logo-title">CES</h1>
+						<h1 class="logo-title">Australia</h1>
+					</div>
+				</div>
+		  </ion-slide>
 		</ion-slides>
 		<form [formGroup]="loginForm">
 			<ion-list>
 			  <ion-item>
 			    <ion-label>
-			   		<ion-icon ios="ios-person" md="md-person"></ion-icon>
+			   		<i class="ion-person"></i>
 			   	</ion-label>
 			    <ion-input type="text" placeholder="Username" required formControlName="username"></ion-input>
 			  </ion-item>
@@ -29,7 +38,7 @@
 			  </ion-item>
 			  <ion-item>
 			    <ion-label>
-			    	<ion-icon ios="ios-lock" md="md-lock"></ion-icon>
+			   		<i class="ion-locked"></i>
 			   	</ion-label>
 			    <ion-input type="password" placeholder="Password" required formControlName="password"></ion-input>
 			  </ion-item>

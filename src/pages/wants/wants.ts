@@ -8,10 +8,10 @@ import { MemberDetailModal } from '../memberDetail/memberDetail';
 import { AddWantPage } from '../addWant/addWant';
 
 @Component({
-	selector: 'page-want',
-	templateUrl: 'want.html'
+	selector: 'page-wants',
+	templateUrl: 'wants.html'
 })
-export class WantPage implements OnInit {
+export class WantsPage implements OnInit {
 	private canPost = false;
 	private success = false;
 	private definitionWant: any;

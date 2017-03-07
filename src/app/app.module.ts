@@ -18,11 +18,12 @@ import { FormBuilderComponent } from '../components/formBuilder/formBuilder';
 import { FieldBuilderComponent } from '../components/fieldBuilder/fieldBuilder';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
+import { MenuOptionPopover } from '../pages/home/menu-option';
 import { AddTransactionPage } from '../pages/addTransaction/addTransaction';
-import { OfferPage } from '../pages/offer/offer';
+import { OffersPage } from '../pages/offers/offers';
 import { OfferDetailPage } from '../pages/offerDetail/offerDetail';
 import { AddOfferPage } from '../pages/addOffer/addOffer';
-import { WantPage } from '../pages/want/want';
+import { WantsPage } from '../pages/wants/wants';
 import { WantDetailPage } from '../pages/wantDetail/wantDetail';
 import { AddWantPage } from '../pages/addWant/addWant';
 import { UnixTimeToMoment } from '../pipes/UnixTimeToMoment';
@@ -38,11 +39,12 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     LetsApp,
     LoginPage,
     HomePage,
+    MenuOptionPopover,
     AddTransactionPage,
-    OfferPage,
+    OffersPage,
     OfferDetailPage,
     AddOfferPage,
-    WantPage,
+    WantsPage,
     WantDetailPage,
     AddWantPage,
     UnixTimeToMoment,
@@ -65,11 +67,12 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     LetsApp,
     LoginPage,
     HomePage,
+    MenuOptionPopover,
     AddTransactionPage,
-    OfferPage,
+    OffersPage,
     OfferDetailPage,
     AddOfferPage,
-    WantPage,
+    WantsPage,
     WantDetailPage,
     AddWantPage,
     MembersPage,

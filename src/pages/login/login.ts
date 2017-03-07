@@ -22,13 +22,16 @@ export class LoginPage implements OnInit {
 		private formBuilder: FormBuilder,
 		private settings: AppSettings,
 		private authService: AuthService,
-		private alertService: AlertService) {
-		viewCtrl.didEnter.subscribe(
+		private alertService: AlertService) { }
+
+	ngOnInit(): void {
+		this.viewCtrl.didEnter.subscribe(
 			response => {
 				setTimeout(() => {
 					$('div.page-login').height($('page-login').height());
 				}, 0);
 			});
+		this.buildForm();
 	}
 
 	doLogin() {
@@ -44,10 +47,6 @@ export class LoginPage implements OnInit {
 
 	goToFullSite() {
 		window.open(this.settings.WEB_SITE_URL, '_system', 'location=yes');
-	}
-
-	ngOnInit(): void {
-		this.buildForm();
 	}
 
 	buildForm(): void {
