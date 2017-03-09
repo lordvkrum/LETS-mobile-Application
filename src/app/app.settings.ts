@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class AppSettings {
+	public get WEB_SITE_URL(): any {
+		return 'http://hamlets.communityforge.net';
+	}
 	public get SERVER_URL(): any {
 		return 'http://hamlets.communityforge.net/commex';
 	}
-	
 	public get URL(): any {
 		return {
 			config: `${this.SERVER_URL}`,

@@ -1,5 +1,6 @@
 page-login {
 	height: calc(100%);
+
 	ion-slides {
 		height: 40%;
 
@@ -33,6 +34,23 @@ page-login {
 		background: #ffffff;
 		padding: 20px 30px 0;
 
+		.form-error {
+			border: none;
+			height: 25px;
+			min-height: 25px;
+			margin-bottom: 20px;
+			padding: 0;
+
+			.item-inner {
+				border: none !important;
+
+				p {
+					color: #db2828;
+					font-size: 15px;
+					text-align: left;
+				}
+			}
+		}
 		ion-list.list {
 			margin-bottom: 0;
 
@@ -48,9 +66,12 @@ page-login {
 				border: 1px solid rgba(34, 36, 38, .15) !important;
 				box-shadow: none !important;
 
+				&.ng-dirty.ng-invalid {
+					margin-bottom: 0;
+				}
 				ion-label.label {
 					margin: 0 10px 0 0;
-					padding: 13px 20px;
+					padding: 15px 20px;
 					background: #F0F0F0;
 					border-right: 1px solid rgba(34, 36, 38, 0.15);
 

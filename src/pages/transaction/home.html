@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <h2 class="ui header">Welcome, {{ username }}</h2>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="ui success message" *ngIf="success">
+    <i class="close icon"></i>
+    <div class="header">Success!</div>
+    <p>New transaction created.</p>
+  </div>
+  <div class="ui one column grid">
+    <div class="ui column" *ngFor="let transaction of transactions">
+      <div class="ui card">
+        <div class="content">
+          <h3 class="ui header">{{ transaction.description }}</h3>
+          <div class="description">
+            <p><b (click)="showMember(transaction.payer)">{{ transaction.payer_name }}</b> paid <b (click)="showMember(transaction.payee)">{{ transaction.payee_name }}</b><br>
+            {{ transaction.amount }} hour(s)</p>
+          </div>
+        </div>
+        <div class="extra content">
+          <button class="ui small fluid green button">Action</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button *ngIf="canPost" class="ui add-new button" (click)="addTransaction()">
+    <i class="plus icon"></i> New Transaction
+  </button>
+
+</ion-content>

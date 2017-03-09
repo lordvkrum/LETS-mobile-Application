@@ -15,27 +15,35 @@ export class HttpBasicAuth {
 
 	loadToken() {
 		var token = window.localStorage.getItem(this.AUTH_TOKEN_KEY);
+		if (!token) {
+			token = window.sessionStorage.getItem(this.AUTH_TOKEN_KEY);
+		}
 		if (token) {
 			this.setToken(JSON.parse(token));
 		}
 	}
 
-	private storeToken(token) {
-		window.localStorage.setItem(this.AUTH_TOKEN_KEY, JSON.stringify(token));
+	private storeToken(token, rememberMe) {
+		if (rememberMe) {
+			window.localStorage.setItem(this.AUTH_TOKEN_KEY, JSON.stringify(token));
+		} else {
+			window.sessionStorage.setItem(this.AUTH_TOKEN_KEY, JSON.stringify(token));
+		}
 		this.setToken(token);
 	}
 
 	private destroyToken() {
 		window.localStorage.removeItem(this.AUTH_TOKEN_KEY);
+		window.sessionStorage.removeItem(this.AUTH_TOKEN_KEY);
 	}
 
 	private setToken(token) {
 		this.authorizationToken = token;
 	}
 
-	setAuthorizationToken(username, password) {
+	setAuthorizationToken(username, password, rememberMe) {
 		this.authorizationToken = `Basic ${btoa(`${username}:${password}`)}`;
-		this.storeToken(this.authorizationToken);
+		this.storeToken(this.authorizationToken, rememberMe);
 	}
 
 	private createAuthorizationHeader(headers: Headers) {

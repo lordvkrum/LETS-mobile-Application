@@ -1,5 +1,71 @@
 form-builder-component {
-	.ui.form .ui.field:last-child {
-		margin-bottom: 1em;
+}
+form.app-form {
+	margin: 0;
+	margin-top: 15px;
+	padding: 15px;
+	background: #fff;
+
+	ion-list.list {
+		margin-bottom: 0;
+
+		ion-item.item {
+			border: none;
+			min-height: 50px;
+			margin-bottom: 10px;
+			padding: 0;
+
+			.item-inner {
+				padding: 0;
+				border: none !important;
+
+				ion-label.label {
+					margin: 0;
+				}
+				button.button {
+					margin: 0;
+					height: 40px;
+					background: #2185d0;
+
+					&:first-of-type {
+						background: #c8c7cc;
+					}
+				}
+			}
+		}
+		ion-item.item.form-error {
+			height: 25px;
+			min-height: 25px;
+
+			p {
+				color: #db2828;
+				font-size: 15px;
+				text-align: left;
+			}
+		}
+		ion-item.item.item-input, ion-item.item.item-datetime, ion-item.item.item-select {
+			margin-bottom: 10px;
+			color: rgba(0, 0, 0, .87);
+			border-radius: 5px;
+			font-size: 18px;
+			border: 1px solid rgba(34, 36, 38, .15) !important;
+			box-shadow: none !important;
+
+			&.ng-dirty.ng-invalid {
+				margin-bottom: 0;
+			}
+			.item-inner {
+				padding: 0 8px;
+			}
+			ion-select.select {
+				width: 100%;
+				max-width: 100%;
+				padding: 0;
+
+				div.select-icon {
+					width: 20px;
+				}
+			}
+		}
 	}
 }

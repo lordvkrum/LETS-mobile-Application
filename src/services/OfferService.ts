@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { AppSettings } from '../app/app.settings';
 import { HttpBasicAuth } from './HttpBasicAuth';
 import { Offer } from '../domain/Offer';
-import * as lodash from 'lodash';
+import { map } from 'lodash';
 
 @Injectable()
 export class OfferService {
@@ -13,8 +13,8 @@ export class OfferService {
 
 	list(): Observable<Array<Offer>> {
 		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.offers}?depth=1`)
-			.map((response: Array<Offer>) => {
-				response = lodash.map(response, (offer: Offer, key: any) => {
+			.map((response: any) => {
+				response = map(response, (offer: Offer, key: any) => {
 					if (!offer.id) {
 						offer.id = key;
 					}

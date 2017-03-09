@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Wants</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list class="app-items">
+    <ion-item *ngFor="let want of wants">
+      <ion-thumbnail item-left>
+        <img [src]="want.image || 'assets/images/default.jpg'">
+      </ion-thumbnail>
+      <h6>{{ want.title }}</h6>
+      <p class="description">{{ want.description }}</p>
+      <button ion-button>View</button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-list>
+    <ion-item *ngIf="canPost">
+      <button (click)="addWant()">Add Want</button>
+    </ion-item>
+    <ion-item>
+      <button (click)="showFilters()">
+        <i class="ion-navicon-round"></i>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-footer>

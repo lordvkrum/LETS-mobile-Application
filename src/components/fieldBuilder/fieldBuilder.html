@@ -1,55 +1,25 @@
-<div class="ui field" [formGroup]="fieldForm" [ngSwitch]="field.type">
-	<label>{{ field.label }}</label>
+<ion-item [formGroup]="fieldForm" [ngSwitch]="field.type">
+  <ion-label *ngIf="field.placeholder">{{ field.label }}</ion-label>
 
-	<textarea *ngSwitchCase="'textarea'" [placeholder]="field.placeholder || ''" [required]="field.required" [formControlName]="field.name" [attr.data-field]="field.name" rows="2"></textarea>
+	<ion-textarea *ngSwitchCase="'textarea'" [placeholder]="field.$placeholder" [required]="field.required === true" [formControlName]="field.name" [attr.rows]="field.lines || 2"></ion-textarea>
 
-	<div *ngSwitchCase="'date'" class="ui calendar">
-		<div class="ui input">
-			<input type="text" [placeholder]="field.placeholder || ''" [required]="field.required" [attr.data-field]="field.name">
-			<input type="hidden" [formControlName]="field.name" [required]="field.required">
-		</div>
-	</div>
+	<input *ngSwitchCase="'date'" type="hidden" [required]="field.required === true" [formControlName]="field.name">
+	<ion-datetime *ngSwitchCase="'date'" [required]="field.required === true" [min]="field.parsedMin" [max]="field.parsedMax" [formControlName]="'$date' + field.name"></ion-datetime>
 
-	<div *ngSwitchCase="'categories'" class="ui search multiple selection dropdown">
-		<input type="hidden" [formControlName]="field.name" [required]="field.required" [attr.data-field]="field.name">
-		<i class="dropdown icon"></i>
-		<div class="default text">{{ field.placeholder || '' }}</div>
-		<div class="menu">
-			<div class="item" [attr.data-value]="category.id" *ngFor="let category of categories">{{ category.name }}</div>
-		</div>
-	</div>
+	<ion-select *ngSwitchCase="'select'" [placeholder]="field.$placeholder" [required]="field.required === true" [formControlName]="field.name">
+    <ion-option [value]="option.name" *ngFor="let option of field.options | keys">{{ option }}</ion-option>
+  </ion-select>
 
-	<div *ngSwitchCase="'select'" class="ui search selection dropdown" [class.multiple]="field.multiple" [class.normal]="field.multiple">
-		<input type="hidden" [formControlName]="field.name" [required]="field.required" [attr.data-field]="field.name">
-		<i class="dropdown icon"></i>
-		<div class="default text">{{ field.placeholder || '' }}</div>
-		<div class="menu">
-			<div class="item" [attr.data-value]="option.name" *ngFor="let option of field.options | keys">{{ option }}</div>
-		</div>
-	</div>
-
-	<div *ngSwitchCase="'member'" class="ui search normal selection dropdown">
-		<input type="hidden" [formControlName]="field.name" [required]="field.required" [attr.data-field]="field.name">
-		<i class="dropdown icon"></i>
-		<input class="search" autocomplete="off" tabindex="0" (keyup)="autocompleteSearch">
-		<div class="default text">{{ field.placeholder || '' }}</div>
-		<div class="menu">
-			<div class="item" [attr.data-value]="option.id" *ngFor="let option of field._options">{{ option.name }}</div>
-		</div>
-	</div>
-
-	<div *ngSwitchCase="'image'" class="ui image">
+	<input *ngSwitchCase="'image'" type="hidden" [required]="field.required === true" [formControlName]="field.name">
+	<div *ngSwitchCase="'image'" class="image">
 		<img *ngIf="field.imgSrc" [src]="field.imgSrc">
 	</div>
-	<div *ngSwitchCase="'image'" class="ui two buttons">
-		<button class="ui green fluid button" (click)="addImage()"><i class="image icon"></i>Add Image</button>
-		<button class="ui fluid button" (click)="takePhoto()"><i class="photo icon"></i>Take Photo</button>
-	</div>
-	<input *ngSwitchCase="'image'" type="hidden" [required]="field.required" [formControlName]="field.name" [attr.data-field]="field.name">
+	<button *ngSwitchCase="'image'" ion-button full (click)="addImage()"><i class="image icon"></i>Add Image</button>
+	<button *ngSwitchCase="'image'" ion-button full (click)="takePhoto()"><i class="photo icon"></i>Take Photo</button>
 
-	<input *ngSwitchDefault type="text" [placeholder]="field.placeholder || ''" [required]="field.required" [formControlName]="field.name" [attr.data-field]="field.name">
+	<ion-input *ngSwitchDefault type="text" [placeholder]="field.$placeholder" [required]="field.required === true" [formControlName]="field.name"></ion-input>
 
-	<div *ngIf="field.errors" class="ui pointing red basic label">
-		{{ field.errors }}
-	</div>
-</div>
+</ion-item>
+<ion-item class="form-error" *ngIf="field.errors">
+  <p>{{ field.errors }}</p>
+</ion-item>

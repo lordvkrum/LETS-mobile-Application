@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController } from 'ionic-angular';
+import { AppSettings } from '../../app/app.settings';
 import { AuthService } from '../../services/AuthService';
 import { AlertService } from '../../services/AlertService';
 import { HomePage } from '../home/home';
+import * as $ from 'jquery';
 
 @Component({
 	selector: 'page-login',
 	templateUrl: 'login.html'
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, AfterContentInit {
 	loginForm: FormGroup;
 	private username: string;
 	private password: string;
@@ -17,27 +19,29 @@ export class LoginPage implements OnInit {
 
 	constructor(private navCtrl: NavController,
 		private formBuilder: FormBuilder,
+		private settings: AppSettings,
 		private authService: AuthService,
-		private alertService: AlertService) {
+		private alertService: AlertService) { }
+
+	ngOnInit(): void {
+		this.buildForm();
+	}
+
+	ngAfterContentInit(): void {
+		$('div.page-login').height($('page-login').height());
 	}
 
 	doLogin() {
 		this.username = this.loginForm.value.username;
 		this.password = this.loginForm.value.password;
 		this.rememberMe = this.loginForm.value.rememberMe;
-		this.authService.login(this.username, this.password, this.rememberMe)
-			.subscribe(
+		this.authService.doLogin(this.username, this.password, this.rememberMe).subscribe(
 			response => this.navCtrl.setRoot(HomePage),
-			error => this.alertService.showError('Error with credentials. Please try again.')
-			);
+			error => this.alertService.showError('Error with credentials. Please try again.\n' + error));
 	}
 
 	goToFullSite() {
-		window.open('http://hamlets.communityforge.net', '_system', 'location=yes');
-	}
-
-	ngOnInit(): void {
-		this.buildForm();
+		window.open(this.settings.WEB_SITE_URL, '_system', 'location=yes');
 	}
 
 	buildForm(): void {
@@ -46,8 +50,8 @@ export class LoginPage implements OnInit {
 			'password': [this.password, Validators.required],
 			'rememberMe': [this.rememberMe],
 		});
-		this.loginForm.valueChanges
-			.subscribe(data => this.onValueChanged(data));
+		this.loginForm.valueChanges.subscribe(
+			data => this.onValueChanged(data));
 		this.onValueChanged(); // (re)set validation messages now
 	}
 

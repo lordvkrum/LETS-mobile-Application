@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Offerings</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list class="app-items">
+    <ion-item *ngFor="let offer of offers">
+      <ion-thumbnail item-left>
+        <img [src]="offer.image || 'assets/images/default.jpg'">
+      </ion-thumbnail>
+      <h6>{{ offer.title }}</h6>
+      <p class="description">{{ offer.description }}</p>
+      <button ion-button>View</button>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-list>
+    <ion-item *ngIf="canPost">
+      <button (click)="addOffer()">Add Offer</button>
+    </ion-item>
+    <ion-item>
+      <button (click)="showFilters()">
+        <i class="ion-navicon-round"></i>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-footer>
