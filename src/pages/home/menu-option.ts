@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { ViewController, NavController, NavParams } from 'ionic-angular';
 
 @Component({
 	selector: 'popover-menu-option',
@@ -7,15 +7,14 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class MenuOptionPopover implements OnInit {
 	private options: Array<{ title: string, page?: any }>;
-	private popover: any;
 
-	constructor(private navCtrl: NavController,
+	constructor(public viewCtrl: ViewController,
+		private navCtrl: NavController,
 		private navParams: NavParams) { }
 
 	ngOnInit(): void {
 		if (this.navParams.data) {
 			this.options = this.navParams.data.options;
-			this.popover = this.navParams.data.parent.popover;
 		}
 	}
 
@@ -23,9 +22,7 @@ export class MenuOptionPopover implements OnInit {
 		let page = option.page;
 		if (page) {
 			this.navCtrl.push(page);
-			if (this.popover) {
-				this.popover.dismiss();
-			}
+			this.viewCtrl.dismiss();
 		}
 	}
 }

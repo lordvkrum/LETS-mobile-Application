@@ -54,10 +54,6 @@ page-login {
 		ion-list.list {
 			margin-bottom: 0;
 
-			ion-item.item.item-input.ng-dirty.ng-invalid {
-				margin-bottom: 0;
-			}
-
 			ion-item.item.item-input {
 				padding: 0;
 				margin-bottom: 20px;
@@ -70,6 +66,9 @@ page-login {
 				border: 1px solid rgba(34, 36, 38, .15) !important;
 				box-shadow: none !important;
 
+				&.ng-dirty.ng-invalid {
+					margin-bottom: 0;
+				}
 				ion-label.label {
 					margin: 0 10px 0 0;
 					padding: 15px 20px;

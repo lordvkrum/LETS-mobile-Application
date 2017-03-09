@@ -6,15 +6,17 @@ import * as lodash from 'lodash';
 	templateUrl: 'formBuilder.html'
 })
 export class FormBuilderComponent {
-	private enabled = false;
-	private formValue = {};
+	private isValid: boolean = false;
+	private formValue: any = {};
 	@Input() fields: any;
 	@Output() created = new EventEmitter<any>();
+	@Output() changed = new EventEmitter<any>();
 
 	onValueChanged(field) {
 		this.formValue[field.name] = field.value;
 		this.fields[field.name].valid = field.valid;
 		this.validateForm();
+		this.changed.emit({ value: this.formValue, isValid: this.isValid });
 	}
 
 	validateForm() {
@@ -22,7 +24,7 @@ export class FormBuilderComponent {
 		lodash.forEach(this.fields, (field: any) => {
 			isValid = isValid && field.valid;
 		});
-		this.enabled = isValid;
+		this.isValid = isValid;
 	}
 
 	create() {

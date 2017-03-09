@@ -15,8 +15,7 @@ export class ConfigService {
 		private alertService: AlertService) {
 		this.requestAppConfig().subscribe(
 			response => this.appConfig.next(response),
-			error => this.alertService.showError(error)
-		);
+			error => this.alertService.showError(error));
 	}
 
 	requestAppConfig(): Observable<Config> {

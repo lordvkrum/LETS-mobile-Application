@@ -1,7 +1,5 @@
-<form class="ui form">
-  <field-builder-component *ngFor="let field of fields | keys"
-  [field]="field" (changed)="onValueChanged($event)"></field-builder-component>
-  <div class="ui field">
-    <button class="ui green fluid button" [disabled]="!enabled" (click)="create()">Create</button>
-  </div>
+<form class="app-form">
+	<ion-list>
+  	<field-builder-component *ngFor="let field of fields | keys" [field]="field" (changed)="onValueChanged($event)"></field-builder-component>
+  </ion-list>
 </form>

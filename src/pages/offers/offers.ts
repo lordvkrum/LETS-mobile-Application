@@ -4,7 +4,6 @@ import { OfferService } from '../../services/OfferService';
 import { AlertService } from '../../services/AlertService';
 import { Offer } from '../../domain/Offer';
 import { OfferDetailPage } from '../offerDetail/offerDetail';
-import { MemberDetailModal } from '../memberDetail/memberDetail';
 import { AddOfferPage } from '../addOffer/addOffer';
 import * as $ from 'jquery';
 
@@ -25,29 +24,27 @@ export class OffersPage implements OnInit {
 		private alertService: AlertService) { }
 
 	ngOnInit(): void {
-		this.loader = this.loadingCtrl.create({
-			content: 'Please wait...'
-		});
 		this.viewCtrl.didEnter.subscribe(
 			response => {
-				this.offerService.describe()
-					.subscribe(
+				this.offerService.describe().subscribe(
 					response => {
 						this.definitionOffer = response;
 						this.canPost = !!this.definitionOffer.POST;
 						if (this.canPost) {
-							$('page-offers ion-content.content').children().css('margin-bottom', '70px');
+							$('page-offers ion-content.content').children().css('margin-bottom', '90px');
 						}
 					},
 					error => this.alertService.showError(error));
+				this.loader = this.loadingCtrl.create({
+					content: 'Please wait...'
+				});
 				this.loader.present();
 				this.loadOffers();
 			});
 	}
 
 	loadOffers() {
-		this.offerService.list()
-			.subscribe(
+		this.offerService.list().subscribe(
 			response => {
 				this.offers = response;
 				this.loader.dismiss();

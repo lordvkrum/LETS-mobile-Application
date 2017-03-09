@@ -56,8 +56,8 @@ ion-footer {
 		ion-item.item {
 			border: none;
 			padding: 0;
-			min-height: 35px;
-			height: 35px;
+			min-height: 45px;
+			height: 45px;
 
 			&:last-child {
 				button {
@@ -70,16 +70,17 @@ ion-footer {
 
 				ion-label.label {
 					margin: 0;
-					height: 35px;
+					height: 45px;
 
 					button {
 						position: relative;
-						top: -7px;
-						height: 35px;
+						top: -2px;
+						height: 45px;
 						width: 100%;
 						padding: 0;
 						background: #c8c7cc;
 						color: #fff;
+						text-transform: uppercase;
 					}
 				}
 			}

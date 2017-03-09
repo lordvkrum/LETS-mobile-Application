@@ -33,9 +33,6 @@ export class OfferService {
 	}
 
 	describe(): Observable<any> {
-		return this.httpBasicAuth.options(this.settings.URL.offers)
-			.map((response: any) => {
-				return response;
-			});
+		return this.httpBasicAuth.options(this.settings.URL.offers);
 	}
 }

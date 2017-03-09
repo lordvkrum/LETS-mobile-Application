@@ -4,7 +4,9 @@ import { AuthService } from '../../services/AuthService';
 import { Member } from '../../domain/Member';
 import { LoginPage } from '../../pages/login/login';
 import { OffersPage } from '../../pages/offers/offers';
+import { AddOfferPage } from '../../pages/addOffer/addOffer';
 import { WantsPage } from '../../pages/wants/wants';
+import { AddWantPage } from '../../pages/addWant/addWant';
 import { MembersPage } from '../../pages/members/members';
 import { ProfilePage } from '../../pages/userProfile/userProfile';
 import { MenuOptionPopover } from './menu-option';
@@ -50,7 +52,7 @@ export class HomePage implements OnInit {
 				page: OffersPage
 			}, {
 				title: 'Create',
-				page: OffersPage
+				page: AddOfferPage
 			}]
 		}, {
 			title: 'Wants',
@@ -60,7 +62,7 @@ export class HomePage implements OnInit {
 				page: WantsPage
 			}, {
 				title: 'Create',
-				page: WantsPage
+				page: AddWantPage
 			}]
 		}, {
 			title: 'Announcements',
@@ -101,8 +103,7 @@ export class HomePage implements OnInit {
 	showOptions(menuEntry, $event) {
 		if (menuEntry.options && menuEntry.options.length) {
 			this.popover = this.popoverCtrl.create(MenuOptionPopover, {
-				options: menuEntry.options,
-				parent: this
+				options: menuEntry.options
 			});
 			this.popover.present({
 				ev: $event
@@ -111,9 +112,7 @@ export class HomePage implements OnInit {
 	}
 
 	doLogout() {
-		this.authService.doLogout()
-			.subscribe(
-			response => this.navCtrl.setRoot(LoginPage)
-			);
+		this.authService.doLogout().subscribe(
+			response => this.navCtrl.setRoot(LoginPage));
 	}
 }

@@ -11,8 +11,6 @@ import { OfferService } from '../services/OfferService';
 import { WantService } from '../services/WantService';
 import { AlertService } from '../services/AlertService';
 import { MemberService } from '../services/MemberService';
-import { CategoriesService } from '../services/CategoriesService';
-import { FieldTypesService } from '../services/FieldTypesService';
 import { HttpBasicAuth } from '../services/HttpBasicAuth';
 import { FormBuilderComponent } from '../components/formBuilder/formBuilder';
 import { FieldBuilderComponent } from '../components/fieldBuilder/fieldBuilder';
@@ -88,8 +86,6 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     OfferService,
     WantService,
     AlertService,
-    CategoriesService,
-    FieldTypesService,
     HttpBasicAuth,
     MemberService,
     { provide: ErrorHandler, useClass: IonicErrorHandler }]
