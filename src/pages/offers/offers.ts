@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from 'ionic-angular';
+import { ViewController, NavController, LoadingController, Loading } from 'ionic-angular';
 import { OfferService } from '../../services/OfferService';
 import { AlertService } from '../../services/AlertService';
 import { Offer } from '../../domain/Offer';
 import { OfferDetailPage } from '../offerDetail/offerDetail';
 import { MemberDetailModal } from '../memberDetail/memberDetail';
 import { AddOfferPage } from '../addOffer/addOffer';
+import * as $ from 'jquery';
 
 @Component({
 	selector: 'page-offers',
@@ -13,54 +14,58 @@ import { AddOfferPage } from '../addOffer/addOffer';
 })
 export class OffersPage implements OnInit {
 	private canPost = false;
-	private success = false;
 	private definitionOffer: any;
 	private offers: Array<Offer>;
+	private loader: Loading
 
-	constructor(private modalCtrl: ModalController,
+	constructor(public viewCtrl: ViewController,
+		private navCtrl: NavController,
+		public loadingCtrl: LoadingController,
 		private offerService: OfferService,
 		private alertService: AlertService) { }
 
 	ngOnInit(): void {
-		this.offerService.describe()
-			.subscribe(
+		this.loader = this.loadingCtrl.create({
+			content: 'Please wait...'
+		});
+		this.viewCtrl.didEnter.subscribe(
 			response => {
-				this.definitionOffer = response;
-				this.canPost = !!this.definitionOffer.POST;
-			},
-			error => this.alertService.showError('Connection problem!')
-			);
-		this.loadOffers();
+				this.offerService.describe()
+					.subscribe(
+					response => {
+						this.definitionOffer = response;
+						this.canPost = !!this.definitionOffer.POST;
+						if (this.canPost) {
+							$('page-offers ion-content.content').children().css('margin-bottom', '70px');
+						}
+					},
+					error => this.alertService.showError(error));
+				this.loader.present();
+				this.loadOffers();
+			});
 	}
 
 	loadOffers() {
 		this.offerService.list()
 			.subscribe(
-			response => this.offers = response,
-			error => this.alertService.showError('Connection problem!')
-			);
+			response => {
+				this.offers = response;
+				this.loader.dismiss();
+			},
+			error => {
+				this.alertService.showError(error);
+				this.loader.dismiss();
+			});
 	}
 
 	showDetails(id) {
-		let modal = this.modalCtrl.create(OfferDetailPage, {
-			id: id
-		});
-		modal.present();
-	}
-
-	showMember(userId) {
-		let modal = this.modalCtrl.create(MemberDetailModal, {
-			memberId: userId
-		});
-		modal.present();
+		// let modal = this.modalCtrl.create(OfferDetailPage, {
+		// 	id: id
+		// });
+		// modal.present();
 	}
 
 	addOffer() {
-		let modal = this.modalCtrl.create(AddOfferPage);
-		modal.onDidDismiss((data: any = {}) => {
-			this.success = data.success;
-			this.loadOffers();
-		});
-		modal.present();
+		this.navCtrl.push(AddOfferPage);
 	}
 }

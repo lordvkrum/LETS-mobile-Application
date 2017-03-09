@@ -57,10 +57,10 @@ export class HomePage implements OnInit {
 			icon: 'ion-pin',
 			options: [{
 				title: 'View',
-				page: OffersPage
+				page: WantsPage
 			}, {
 				title: 'Create',
-				page: OffersPage
+				page: WantsPage
 			}]
 		}, {
 			title: 'Announcements',
@@ -69,11 +69,11 @@ export class HomePage implements OnInit {
 		}, {
 			title: 'Users',
 			icon: 'ion-person',
-			page: OffersPage
+			page: MembersPage
 		}, {
 			title: 'My Account',
 			icon: 'ion-home',
-			page: OffersPage
+			page: ProfilePage
 		}, {
 			title: 'Stats',
 			icon: 'ion-pie-graph',

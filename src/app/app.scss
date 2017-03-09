@@ -24,6 +24,19 @@ ion-header {
 	ion-navbar.toolbar {
 		min-height: 35px;
 		height: 35px;
+
+		.back-button.bar-button {
+			min-height: 35px;
+			height: 35px;
+
+			ion-icon.icon {
+				font-size: 22px;
+				color: #fff;
+			}
+			span.back-button-text {
+				display: none;
+			}
+		}
 	}
 	.toolbar-background {
 		background-color: rgba(0, 0, 0, 0.2);
@@ -36,38 +49,86 @@ ion-header {
 ion-content.content {
 	background: #00b5ad;
 }
-ion-header {
-	.ui.header, button[menutoggle], button[ion-button] span, button[ion-button] ion-icon {
-		color: white;
-	}
-}
-ion-menu {
-	.ui.header {
-		color: white;
-	}
-}
-.ui.card {
-	width: 100%;
+ion-footer {
+	ion-list.list {
+		margin: 0;
 
-	&>.content {
-		.author {
-			text-align: right;
-			padding-top: 10px;
+		ion-item.item {
+			border: none;
+			padding: 0;
+			min-height: 35px;
+			height: 35px;
+
+			&:last-child {
+				button {
+					background: #2185d0 !important;
+				}
+			}
+			.item-inner {
+				padding: 0;
+				border: none;
+
+				ion-label.label {
+					margin: 0;
+					height: 35px;
+
+					button {
+						position: relative;
+						top: -7px;
+						height: 35px;
+						width: 100%;
+						padding: 0;
+						background: #c8c7cc;
+						color: #fff;
+					}
+				}
+			}
 		}
 	}
 }
-.ui.form, .ui.button {
-	font-size: 100%;
-}
-.ui.button.add-new {
-	background-color: #21BA45;
-	color: white;
+ion-list.list.app-items {
 	margin: 0;
-	padding: 10px;
-	position: fixed;
-	right: 15px;
-	bottom: 15px;
-}
-.ui.dropdown.button {
-	text-align: center;
+	margin-top: 15px;
+	padding: 0 15px;
+	background: #fff;
+
+	ion-item.item {
+		padding: 0;
+		border: none;
+		border-bottom: 0.55px solid #c8c7cc;
+
+		ion-thumbnail {
+			margin: 0;
+			margin-right: 15px;
+			width: 50%;
+
+			img {
+				height: 100%;
+				width: 100%;
+			}
+		}
+		.item-inner {
+			border: none;
+
+			h6 {
+				white-space: normal;
+				font-size: 18px;
+				max-height: 48px;
+				height: 48px;
+				overflow: hidden;
+			}
+			p.description {
+				white-space: normal;
+				font-size: 16px;
+				max-height: 88px;
+			}
+			button {
+				background: #2185d0;
+				padding: 10px;
+				margin: 0;
+				height: 30px;
+				border-radius: 5px;
+			}
+		}
+	}
 }
