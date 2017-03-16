@@ -3,12 +3,9 @@ import { LoadingController, Loading } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AppSettings } from '../../app/app.settings';
 import { HttpBasicAuth } from '../../services/HttpBasicAuth';
-import { CategoriesService } from '../../services/CategoriesService';
-import { FieldTypesService } from '../../services/FieldTypesService';
 import { AlertService } from '../../services/AlertService';
 import { map } from 'lodash';
 import * as moment from 'moment';
-import * as $ from 'jquery';
 
 @Component({
 	selector: 'field-builder-component',
@@ -40,6 +37,7 @@ export class FieldBuilderComponent implements OnInit {
 		let offerFormFields = {};
 		let validations = [];
 		this.field.$placeholder = this.field.placeholder || this.field.label + (this.field.required === true ? ' (*)' : '');
+		console.log(this.field);
 		switch (this.field.type) {
 			case 'date':
 				if (this.field.min) {
@@ -51,7 +49,6 @@ export class FieldBuilderComponent implements OnInit {
 					this.field.parsedMax = moment(maxDate).format('YYYY-MM-DD');
 				}
 				let defaultValue = this.parseDate(this.field.default || this.field.min || 'today');
-				let fieldValue = {};
 				this.field.default = moment(defaultValue).unix();
 				offerFormFields[`$date${this.field.name}`] = [moment(defaultValue).format('YYYY-MM-DD')];
 				break;
@@ -132,6 +129,7 @@ export class FieldBuilderComponent implements OnInit {
 			this.loader.dismiss();
 		}, error => this.loader.dismiss(), {
 				destinationType: 0, // DATA_URL
+				mediaType: 0, // PICTURE
 				sourceType: sourceType
 			});
 	}

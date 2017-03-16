@@ -21,7 +21,7 @@ export class MenuOptionPopover implements OnInit {
 	goToPage(option) {
 		let page = option.page;
 		if (page) {
-			this.navCtrl.push(page);
+			this.navCtrl.push(page, option.params);
 			this.viewCtrl.dismiss();
 		}
 	}
