@@ -42,7 +42,16 @@ export class HomePage implements OnInit {
 					icon: 'ion-edit',
 					options: [{
 						title: 'as Seller',
-						page: AddTransactionPage
+						page: AddTransactionPage,
+						params: {
+							title: 'as Seller',
+							fields: {
+								payee: {
+									default: this.member.name,
+									disabled: true
+								}
+							}
+						}
 					}, {
 						title: 'as Buyer',
 						page: AddTransactionPage,
@@ -50,7 +59,8 @@ export class HomePage implements OnInit {
 							title: 'as Buyer',
 							fields: {
 								payer: {
-									default: this.member.id
+									default: this.member.name,
+									disabled: true
 								}
 							}
 						}
