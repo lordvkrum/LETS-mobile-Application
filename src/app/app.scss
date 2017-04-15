@@ -41,6 +41,11 @@ ion-header {
 	.toolbar-background {
 		background-color: rgba(0, 0, 0, 0.2);
 	}
+	ion-title.title {
+		padding: 0;
+		left: 0 !important;
+		right: 0 !important;
+	}
 	.toolbar-title {
 		color: white;
 		font-size: 16px;
