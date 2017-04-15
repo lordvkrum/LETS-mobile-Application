@@ -17,7 +17,7 @@
 	<button *ngSwitchCase="'image'" ion-button full (click)="addImage()"><i class="image icon"></i>Add Image</button>
 	<button *ngSwitchCase="'image'" ion-button full (click)="takePhoto()"><i class="photo icon"></i>Take Photo</button>
 
-	<ion-input *ngSwitchDefault type="text" [placeholder]="field.$placeholder" [required]="field.required === true" [formControlName]="field.name"></ion-input>
+	<ion-input *ngSwitchDefault type="text" [placeholder]="field.$placeholder" [required]="field.required === true" [formControlName]="field.name" [disabled]="field.disabled === true"></ion-input>
 
 </ion-item>
 <ion-item class="form-error" *ngIf="field.errors">

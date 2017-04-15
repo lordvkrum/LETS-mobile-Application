@@ -1,15 +1,15 @@
 <ion-header>
-  <ion-toolbar>
-    <h2 class="ui header">New Transaction</h2>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span color="primary" showWhen="ios">Cancel</span>
-        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
+  <ion-navbar>
+    <ion-title>Record Transaction - {{ title }}</ion-title>
+  </ion-navbar>
 </ion-header>
-
-<ion-content padding>
-  <form-builder-component [fields]="fields" (created)="onCreated($event)"></form-builder-component>
+<ion-content>
+  <form-builder-component [fields]="fields" (changed)="onChanged($event)"></form-builder-component>
 </ion-content>
+<ion-footer>
+  <ion-list>
+    <ion-item>
+      <button [disabled]="!isValid" (click)="addTransaction()">Submit</button>
+    </ion-item>
+  </ion-list>
+</ion-footer>
