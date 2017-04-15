@@ -1,0 +1,24 @@
+<div class="app-confirm-operation">
+	<h6>Confirm {{ operation }}</h6>
+	<ion-grid>
+	  <ion-row *ngFor="let field of fields | keys">
+	    <ion-col class="label" col-6 *ngIf="field.$value">{{ field.label }}</ion-col>
+	    <ion-col class="value" col-6 *ngIf="field.$value" [ngSwitch]="field.type" >
+	    	<div *ngSwitchCase="'image'" class="image">
+					<img *ngIf="field.$value" [src]="field.$value">
+				</div>
+				<div *ngSwitchDefault>{{ field.$value }}</div>
+	    </ion-col>
+	  </ion-row>
+	  <ion-row class="actions">
+	  	<ion-col col-6>
+	  		<button class="cancel" (click)="doCancel()">
+	  			<i class="ion-ios-arrow-back"></i> Back
+	  		</button>
+	  	</ion-col>
+	  	<ion-col col-6>
+	  		<button class="confim" (click)="doConfirm()">Confirm</button>
+	  	</ion-col>
+	  </ion-row>
+	</ion-grid>
+</div>

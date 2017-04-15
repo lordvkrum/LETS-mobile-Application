@@ -14,6 +14,8 @@ import { MemberService } from '../services/MemberService';
 import { HttpBasicAuth } from '../services/HttpBasicAuth';
 import { FormBuilderComponent } from '../components/formBuilder/formBuilder';
 import { FieldBuilderComponent } from '../components/fieldBuilder/fieldBuilder';
+import { ConfirmationBuilderComponent } from '../components/confirmationBuilder/confirmationBuilder';
+import { moreActionsBuilderComponent } from '../components/moreActionsBuilder/moreActionsBuilder';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { MenuOptionPopover } from '../pages/home/menu-option';
@@ -51,6 +53,8 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     MemberDetailModal,
     FormBuilderComponent,
     FieldBuilderComponent,
+    ConfirmationBuilderComponent,
+    moreActionsBuilderComponent,
     ProfilePage,
     ProfileEditPage
   ],
@@ -66,6 +70,8 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     LoginPage,
     HomePage,
     MenuOptionPopover,
+    ConfirmationBuilderComponent,
+    moreActionsBuilderComponent,
     AddTransactionPage,
     OffersPage,
     OfferDetailPage,

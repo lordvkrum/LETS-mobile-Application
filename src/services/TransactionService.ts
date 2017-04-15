@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { AppSettings } from '../app/app.settings';
 import { HttpBasicAuth } from './HttpBasicAuth';
 import { Transaction } from '../domain/Transaction';
-import * as lodash from 'lodash';
+import { map } from 'lodash';
 
 @Injectable()
 export class TransactionService {
@@ -14,7 +14,7 @@ export class TransactionService {
 	list(): Observable<Array<Transaction>> {
 		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.transactions}?depth=1`)
 			.map((response: Array<Transaction>) => {
-				response = lodash.map(response, (transaction: Transaction, key: any) => {
+				response = map(response, (transaction: Transaction, key: any) => {
 					if (!transaction.id) {
 						transaction.id = key;
 					}

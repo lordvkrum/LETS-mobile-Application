@@ -34,7 +34,7 @@ export class FieldBuilderComponent implements OnInit {
 	}
 
 	buildForm() {
-		let offerFormFields = {};
+		let formFields = {};
 		let validations = [];
 		this.field.$placeholder = this.field.placeholder || this.field.label + (this.field.required === true ? ' (*)' : '');
 		switch (this.field.type) {
@@ -49,7 +49,12 @@ export class FieldBuilderComponent implements OnInit {
 				}
 				let defaultValue = this.parseDate(this.field.default || this.field.min || 'today');
 				this.field.default = moment(defaultValue).unix();
-				offerFormFields[`$date${this.field.name}`] = [moment(defaultValue).format('YYYY-MM-DD')];
+				formFields[`$date${this.field.name}`] = [moment(defaultValue).format('YYYY-MM-DD')];
+				break;
+			case 'image':
+				if (this.field.default) {
+					this.field.imgSrc = this.field.default;
+				}
 				break;
 		}
 		let initValue;
@@ -70,8 +75,8 @@ export class FieldBuilderComponent implements OnInit {
 			validations.push(Validators.required);
 			this.validationMessages.required = `${this.field.label} is required.`
 		}
-		offerFormFields[this.field.name] = validations;
-		this.fieldForm = this.formBuilder.group(offerFormFields);
+		formFields[this.field.name] = validations;
+		this.fieldForm = this.formBuilder.group(formFields);
 		this.fieldForm.valueChanges.subscribe(
 			data => this.onValueChanged(data));
 		this.onValueChanged(); // (re)set validation messages now
@@ -91,12 +96,28 @@ export class FieldBuilderComponent implements OnInit {
 				this.field.errors += messages[key] + ' ';
 			}
 		}
-		if (this.field.type === 'textfield' && this.field.autocomplete) {
+		if (this.fieldForm.value[this.field.name]) {
+			switch (this.field.type) {
+				case 'select':
+					if (this.field.multiple) {
+						this.field.$value = map(this.fieldForm.value[this.field.name], (option: any) => this.field.options[option]).join(', ');
+					} else {
+						this.field.$value = this.field.options[this.fieldForm.value[this.field.name]];
+					}
+					break;
+				case 'date':
+					this.field.$value = moment(this.parseDate(this.fieldForm.value[this.field.name])).format('MMM DD, YYYY');
+					break;
+				default:
+					this.field.$value = this.fieldForm.value[this.field.name];
+			}
+		}
+		if (data && this.field.type === 'textfield' && this.field.autocomplete) {
 			this.autocompleteSearch(this.fieldForm.value[this.field.name]);
 		}
 		this.changed.emit({
 			name: this.field.name,
-			valid: this.fieldForm.valid,
+			valid: this.fieldForm.valid || this.fieldForm.value[this.field.name],
 			value: this.fieldForm.value[this.field.name]
 		});
 	}
@@ -158,8 +179,7 @@ export class FieldBuilderComponent implements OnInit {
 		}
 		this.httpBasicAuth.getAutocomplete(this.field.resource, this.field.autocomplete, value).subscribe(
 			response => this.field.$options = response,
-			error => this.alertService.showError(error)
-		);
+			error => this.alertService.showError(error));
 	}
 
 	selectOption(option) {

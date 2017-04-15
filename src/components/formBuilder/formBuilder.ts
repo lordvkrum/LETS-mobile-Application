@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import * as lodash from 'lodash';
+import { forEach } from 'lodash';
 
 @Component({
 	selector: 'form-builder-component',
@@ -21,7 +21,7 @@ export class FormBuilderComponent {
 
 	validateForm() {
 		let isValid = true;
-		lodash.forEach(this.fields, (field: any) => {
+		forEach(this.fields, (field: any) => {
 			isValid = isValid && field.valid;
 		});
 		this.isValid = isValid;

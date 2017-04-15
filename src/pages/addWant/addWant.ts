@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewController, LoadingController, Loading } from 'ionic-angular';
+import { ViewController, LoadingController, Loading, PopoverController, Popover } from 'ionic-angular';
+import { AuthService } from '../../services/AuthService';
 import { WantService } from '../../services/WantService';
 import { AlertService } from '../../services/AlertService';
+import { ConfirmationBuilderComponent } from '../../components/confirmationBuilder/confirmationBuilder';
+import { moreActionsBuilderComponent } from '../../components/moreActionsBuilder/moreActionsBuilder';
+import { WantsPage } from '../../pages/wants/wants';
 import { Want } from '../../domain/Want';
 
 @Component({
@@ -15,9 +19,12 @@ export class AddWantPage implements OnInit {
 	private isValid: boolean = false;
 	private loader: Loading
 	private isLoaded: boolean = false;
+	private popover: Popover;
 
 	constructor(private viewCtrl: ViewController,
 		public loadingCtrl: LoadingController,
+		private popoverCtrl: PopoverController,
+		private authService: AuthService,
 		private wantService: WantService,
 		private alertService: AlertService) { }
 
@@ -30,16 +37,22 @@ export class AddWantPage implements OnInit {
 						content: 'Please wait...'
 					});
 					this.loader.present();
-					this.wantService.describe().subscribe(
-						response => {
-							this.isLoaded = true;
-							this.definitionWant = response;
-							this.fields = this.definitionWant.POST;
-							this.loader.dismiss();
-						},
-						error => {
-							this.alertService.showError(error);
-							this.loader.dismiss();
+					this.authService.userInfo.subscribe(
+						userInfo => {
+							this.wantService.describe().subscribe(
+								response => {
+									this.isLoaded = true;
+									this.definitionWant = response;
+									if (this.definitionWant.POST.user_id) {
+										this.definitionWant.POST.user_id.default = userInfo.name;
+									}
+									this.fields = this.definitionWant.POST;
+									this.loader.dismiss();
+								},
+								error => {
+									this.alertService.showError(error);
+									this.loader.dismiss();
+								});
 						});
 				}
 			});
@@ -50,18 +63,36 @@ export class AddWantPage implements OnInit {
 		this.isValid = options.isValid;
 	}
 
-	addOffer() {
-		this.wantService.post(this.want).subscribe(
-			response => this.viewCtrl.dismiss(),
-			error => this.alertService.showError(error));
-	}
-
-	onConfirmed(want: Want) {
-		this.want = want;
-		this.wantService.post(this.want).subscribe(
-			response => this.viewCtrl.dismiss({
-				success: true
-			}),
-			error => this.alertService.showError(error));
+	addWant() {
+		this.popover = this.popoverCtrl.create(ConfirmationBuilderComponent, {
+			fields: this.definitionWant.POST,
+			operation: 'Want'
+		}, {
+				enableBackdropDismiss: false
+			});
+		this.popover.onDidDismiss((data) => {
+			if (data && data.hasConfirmed) {
+				this.wantService.post(this.want).subscribe(
+					response => {
+						this.popover = this.popoverCtrl.create(moreActionsBuilderComponent, {
+							operation: 'Want',
+							options: [{
+								title: 'Record Want',
+								icon: 'ion-edit',
+								page: AddWantPage
+							}, {
+								title: 'List Wantings',
+								icon: 'ion-pin',
+								page: WantsPage
+							}]
+						}, {
+								enableBackdropDismiss: false
+							});
+						this.popover.present();
+					},
+					error => this.alertService.showError(error));
+			}
+		});
+		this.popover.present();
 	}
 }

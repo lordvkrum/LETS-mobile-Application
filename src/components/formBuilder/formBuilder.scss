@@ -15,6 +15,14 @@ form.app-form {
 			margin-bottom: 10px;
 			padding: 0;
 
+			.image {
+				text-align: center;
+				height: 250px;
+				margin-bottom: 10px;
+				img {
+					height: 100%;
+				}
+			}
 			.item-inner {
 				padding: 0;
 				border: none !important;
@@ -25,10 +33,10 @@ form.app-form {
 				button.button {
 					margin: 0;
 					height: 40px;
-					background: #2185d0;
+					background: #399AE1;
 
 					&:first-of-type {
-						background: #c8c7cc;
+						background: #737A82;
 					}
 				}
 			}

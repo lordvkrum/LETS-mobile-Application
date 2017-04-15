@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ViewController, NavController, NavParams } from 'ionic-angular';
+import * as $ from 'jquery';
 
 @Component({
 	selector: 'popover-menu-option',
@@ -13,6 +14,7 @@ export class MenuOptionPopover implements OnInit {
 		private navParams: NavParams) { }
 
 	ngOnInit(): void {
+		$('ion-backdrop').css('background', 'none');
 		if (this.navParams.data) {
 			this.options = this.navParams.data.options;
 		}

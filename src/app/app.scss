@@ -28,6 +28,7 @@ ion-header {
 		.back-button.bar-button {
 			min-height: 35px;
 			height: 35px;
+			z-index: 100;
 
 			ion-icon.icon {
 				font-size: 22px;
@@ -48,11 +49,11 @@ ion-header {
 	}
 	.toolbar-title {
 		color: white;
-		font-size: 16px;
+		font-size: 20px;
 	}
 }
 ion-content.content {
-	background: #00b5ad;
+	background: #399AE1;
 }
 ion-footer {
 	ion-list.list {
@@ -63,10 +64,12 @@ ion-footer {
 			padding: 0;
 			min-height: 45px;
 			height: 45px;
+			border: none !important;
+			background: none;
 
 			&:last-child {
 				button {
-					background: #2185d0 !important;
+					background: #399AE1 !important;
 				}
 			}
 			.item-inner {
@@ -83,7 +86,8 @@ ion-footer {
 						height: 45px;
 						width: 100%;
 						padding: 0;
-						background: #c8c7cc;
+						font-size: 18px;
+						background: #737A82;
 						color: #fff;
 						text-transform: uppercase;
 					}
@@ -144,7 +148,7 @@ ion-list.list.app-items {
 	ion-item.item {
 		padding: 0;
 		border: none;
-		border-bottom: 0.55px solid #c8c7cc;
+		border-bottom: 0.55px solid #737A82;
 
 		ion-avatar {
 			margin: 0;
@@ -156,8 +160,7 @@ ion-list.list.app-items {
 			}
 		}
 		ion-thumbnail {
-			margin: 0;
-			margin-right: 15px;
+			margin: 11px 15px 11px 0;
 			width: 50%;
 			max-height: 185px;
 			height: 185px;
@@ -181,14 +184,30 @@ ion-list.list.app-items {
 				white-space: normal;
 				font-size: 16px;
 				max-height: 88px;
+				color: #777D84;
 			}
 			button {
-				background: #2185d0;
+				background: #399AE1;
 				padding: 10px;
 				margin: 0;
 				height: 30px;
 				border-radius: 5px;
 			}
+		}
+	}
+}
+ion-popover {
+	.popover-content {
+		border: 1px solid #7A8187;
+	}
+}
+page-add-offer, page-add-transaction, page-add-want {
+	.scroll-content {
+		margin-top: 50px !important;
+		background: #FFF;
+
+		form.app-form {
+			margin-top: 0;
 		}
 	}
 }
