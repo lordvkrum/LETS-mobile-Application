@@ -1,20 +1,25 @@
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <h2 class="ui header">Members</h2>
+    <ion-title>Members</ion-title>
   </ion-navbar>
 </ion-header>
-
-<ion-content padding>
-  <ion-card *ngFor="let member of members">
-    <ion-item (click)="presentDetailModal(member.id)">
+<ion-content>
+  <ion-list class="app-items small">
+    <ion-item *ngFor="let member of members" (click)="presentDetailModal(member.id)">
       <ion-avatar item-left>
-        <img src="assets/images/default_user.jpg">
+        <img [src]="member.portrait || 'assets/images/default_user.jpg'">
       </ion-avatar>
-      <h2> {{ member.name }}</h2>
-      <p>{{ member.aboutme }}</p>
+      <h6>{{ member.name }}</h6>
+      <p class="description">{{ member.id }}</p>
     </ion-item>
-  </ion-card>
+  </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-list>
+    <ion-item>
+      <button (click)="showFilters()">
+        <i class="ion-navicon-round"></i>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-footer>

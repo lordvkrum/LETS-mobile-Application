@@ -47,7 +47,6 @@ export class AddTransactionPage implements OnInit {
 									}
 								}
 							}
-							console.log(this.definitionTransaction.POST);
 							this.fields = this.definitionTransaction.POST;
 							this.loader.dismiss();
 						},
