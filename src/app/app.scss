@@ -93,17 +93,69 @@ ion-list.list.app-items {
 	padding: 0 15px;
 	background: #fff;
 
+	&.mini {
+		margin: 0;
+		margin-bottom: 15px;
+
+		ion-item.item {
+			margin: 0;
+			height: 30px;
+			min-height: 30px;
+
+			ion-avatar {
+				margin: 0;
+				margin-right: 5px;
+				width: 25px;
+				min-width: 25px;
+				height: 25px;
+				min-height: 25px;
+
+				img {
+					height: 25px;
+					width: 25px;
+				}
+			}
+			.item-inner {
+				h6 {
+					max-height: 24px;
+					height: 24px;
+				}
+			}
+		}
+	}
+	&.small {
+		ion-item.item {
+			.item-inner {
+				h6 {
+					max-height: 24px;
+					height: 24px;
+				}
+				p.description {
+					max-height: 22px;
+				}
+			}
+		}
+	}
 	ion-item.item {
 		padding: 0;
 		border: none;
 		border-bottom: 0.55px solid #c8c7cc;
 
+		ion-avatar {
+			margin: 0;
+			margin-right: 15px;
+
+			img {
+				height: 50px;
+				width: 50px;
+			}
+		}
 		ion-thumbnail {
 			margin: 0;
 			margin-right: 15px;
 			width: 50%;
 			max-height: 185px;
-    	height: 185px;
+			height: 185px;
 
 			img {
 				height: 100%;

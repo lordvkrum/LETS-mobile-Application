@@ -7,12 +7,14 @@ import { map } from 'lodash';
 
 @Injectable()
 export class MemberService {
+	private pageSize: number = 20;
 
 	constructor(private settings: AppSettings,
 		private httpBasicAuth: HttpBasicAuth) { }
 
-	list(): Observable<Array<Member>> {
-		return this.httpBasicAuth.getWithAuth(this.settings.URL.members)
+	list(page): Observable<Array<Member>> {
+		let offset = this.pageSize * (page - 1);
+		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.members}?depth=1&offset=${offset}&limit=${this.pageSize}&sort=name,desc`)
 			.map((response: Array<Member>) => {
 				response = map(response, (member: Member, key: any) => {
 					if (!member.id) {

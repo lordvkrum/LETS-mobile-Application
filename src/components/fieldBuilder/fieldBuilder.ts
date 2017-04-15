@@ -16,9 +16,8 @@ export class FieldBuilderComponent implements OnInit {
 	@Input() field: any;
 	@Output() changed = new EventEmitter<any>();
 	validationMessages: any = {};
-	private autocompleteService;
-	private autocompleteFragment;
-	private loader: Loading
+	private loader: Loading;
+	private hasSelectedOption: boolean;
 
 	constructor(public loadingCtrl: LoadingController,
 		private settings: AppSettings,
@@ -27,6 +26,7 @@ export class FieldBuilderComponent implements OnInit {
 		private alertService: AlertService) { }
 
 	ngOnInit(): void {
+		this.hasSelectedOption = false;
 		this.loader = this.loadingCtrl.create({
 			content: 'Please wait...'
 		});
@@ -37,7 +37,6 @@ export class FieldBuilderComponent implements OnInit {
 		let offerFormFields = {};
 		let validations = [];
 		this.field.$placeholder = this.field.placeholder || this.field.label + (this.field.required === true ? ' (*)' : '');
-		console.log(this.field);
 		switch (this.field.type) {
 			case 'date':
 				if (this.field.min) {
@@ -53,10 +52,19 @@ export class FieldBuilderComponent implements OnInit {
 				offerFormFields[`$date${this.field.name}`] = [moment(defaultValue).format('YYYY-MM-DD')];
 				break;
 		}
+		let initValue;
 		if (this.field.default) {
-			validations.push(this.field.default);
+			initValue = this.field.default;
 		} else {
-			validations.push(this[this.field.name]);
+			initValue = this[this.field.name];
+		}
+		if (this.field.disabled) {
+			validations.push({
+				value: initValue,
+				disabled: true
+			});
+		} else {
+			validations.push(initValue);
 		}
 		if (this.field.required === true) {
 			validations.push(Validators.required);
@@ -70,7 +78,9 @@ export class FieldBuilderComponent implements OnInit {
 	}
 
 	onValueChanged(data?: any) {
-		if (!this.fieldForm) { return; }
+		if (!this.fieldForm) {
+			return;
+		}
 		const form = this.fieldForm;
 		// clear previous error message (if any)
 		this.field.errors = '';
@@ -80,6 +90,9 @@ export class FieldBuilderComponent implements OnInit {
 			for (const key in control.errors) {
 				this.field.errors += messages[key] + ' ';
 			}
+		}
+		if (this.field.type === 'textfield' && this.field.autocomplete) {
+			this.autocompleteSearch(this.fieldForm.value[this.field.name]);
 		}
 		this.changed.emit({
 			name: this.field.name,
@@ -93,7 +106,7 @@ export class FieldBuilderComponent implements OnInit {
 		if (typeof date === 'number') {
 			parsedDate = moment(date * 1000);
 		} else {
-			const tokens = date.split(':');
+			let tokens = date.split(':');
 			while (tokens.length) {
 				switch (tokens.shift()) {
 					case 'today':
@@ -134,19 +147,27 @@ export class FieldBuilderComponent implements OnInit {
 			});
 	}
 
-	autocompleteSearch(event?) {
-		let target = event && (event.target || event.srcElement);
-		this.autocompleteFragment = (target && target.value) || '';
-		this.httpBasicAuth.getAutocomplete(this.autocompleteService, this.autocompleteFragment)
-			.subscribe(
-			(response: any) => {
-				this.field._options = map(response, (option: any, key) => {
-					option.id = key;
-					return option;
-				});
-			},
-			error => this.alertService.showError('Connection problem!')
-			);
+	autocompleteSearch(value) {
+		if (!value) {
+			this.field.$options = [];
+			return;
+		}
+		if (this.hasSelectedOption) {
+			this.hasSelectedOption = false;
+			return;
+		}
+		this.httpBasicAuth.getAutocomplete(this.field.resource, this.field.autocomplete, value).subscribe(
+			response => this.field.$options = response,
+			error => this.alertService.showError(error)
+		);
+	}
+
+	selectOption(option) {
+		let fieldValue = {};
+		fieldValue[this.field.name] = option.value;
+		this.field.$options = [];
+		this.hasSelectedOption = true;
+		this.fieldForm.setValue(fieldValue);
 	}
 
 }

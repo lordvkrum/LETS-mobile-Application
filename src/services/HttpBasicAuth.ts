@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import { AppSettings } from '../app/app.settings';
+import { map } from 'lodash';
 
 @Injectable()
 export class HttpBasicAuth {
@@ -77,10 +78,27 @@ export class HttpBasicAuth {
 			.catch(this.extractError);
 	}
 
-	getAutocomplete(autocompleteURL?, fragment?) {
+	getAutocomplete(resource, autocomplete, fragment) {
 		let headers = new Headers();
 		this.createAuthorizationHeader(headers);
-		return this.get(`${this.settings.SERVER_URL}${autocompleteURL || ''}${fragment || ''}`, headers);
+		return this.get(`${this.settings.SERVER_URL}/${resource}?${autocomplete}${fragment}&limit=3`, headers)
+			.map((response: any) => {
+				response = map(response, (item: any, key: any) => {
+					let newItem;
+					if (typeof item !== 'object') {
+						newItem = {
+							value: item
+						};
+					} else {
+						newItem = item;
+					}
+					if (!newItem.id) {
+						newItem.id = key;
+					}
+					return newItem;
+				});
+				return response;
+			});
 	}
 
 	postWithAuth(url, data) {
