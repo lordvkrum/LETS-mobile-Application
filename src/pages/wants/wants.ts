@@ -16,6 +16,9 @@ export class WantsPage implements OnInit {
 	private definitionWant: any;
 	private wants: Array<Want>;
 	private loader: Loading;
+	private page: number;
+	private isLoading: boolean;
+	private hasNoMoreData: boolean;
 
 	constructor(public viewCtrl: ViewController,
 		private navCtrl: NavController,
@@ -24,45 +27,71 @@ export class WantsPage implements OnInit {
 		private alertService: AlertService) { }
 
 	ngOnInit(): void {
+		this.setPagination();
 		this.viewCtrl.didEnter.subscribe(
 			response => {
+				this.page = 1;
+				this.hasNoMoreData = false;
+				this.isLoading = false;
+				this.wants = [];
 				this.wantService.describe().subscribe(
 					response => {
 						this.definitionWant = response;
 						this.canPost = !!this.definitionWant.POST;
 						if (this.canPost) {
-							$('page-offers ion-content.content').children().css('margin-bottom', '90px');
+							$('page-wants ion-content.content').children().css('margin-bottom', '90px');
 						}
 					},
 					error => this.alertService.showError(error));
-				this.loader = this.loadingCtrl.create({
-					content: 'Please wait...'
-				});
-				this.loader.present();
 				this.loadWants();
 			});
 	}
 
+	setPagination() {
+		$('page-wants .scroll-content').on('scroll', (ev) => {
+			if (this.hasNoMoreData || this.isLoading) {
+				return;
+			}
+			if ((ev.target.scrollHeight - ev.target.scrollTop) < 600) {
+				this.loadWants();
+			}
+		});
+	}
+
 	loadWants() {
-		this.wantService.list().subscribe(
+		if (this.hasNoMoreData || this.isLoading) {
+			return;
+		}
+		this.isLoading = true;
+		this.loader = this.loadingCtrl.create({
+			content: 'Please wait...'
+		});
+		this.loader.present();
+		this.wantService.list(this.page).subscribe(
 			response => {
-				this.wants = response;
+				if (!response.length) {
+					this.hasNoMoreData = true;
+				}
+				this.wants = this.wants.concat(response);
+				this.page++;
 				this.loader.dismiss();
+				this.isLoading = false;
 			},
 			error => {
 				this.alertService.showError(error);
 				this.loader.dismiss();
+				this.isLoading = false;
 			});
 	}
 
-	showDetails(id): void {
+	showDetails(id) {
 		// let modal = this.modalCtrl.create(WantDetailPage, {
 		// 	id: id
 		// });
 		// modal.present();
 	}
 
-	addWant(): void {
+	addWant() {
 		this.navCtrl.push(AddWantPage);
 	}
 }

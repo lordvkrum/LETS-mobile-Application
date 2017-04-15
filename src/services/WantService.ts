@@ -3,18 +3,20 @@ import { Observable } from 'rxjs/Observable';
 import { AppSettings } from '../app/app.settings';
 import { HttpBasicAuth } from './HttpBasicAuth';
 import { Want } from '../domain/Want';
-import * as lodash from 'lodash';
+import { map } from 'lodash';
 
 @Injectable()
 export class WantService {
+	private pageSize: number = 20;
 
 	constructor(private settings: AppSettings,
 		private httpBasicAuth: HttpBasicAuth) { }
 
-	list(): Observable<Array<Want>> {
-		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.wants}?depth=1`)
+	list(page): Observable<Array<Want>> {
+		let offset = this.pageSize * (page - 1);
+		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.wants}?depth=1&offset=${offset}&limit=${this.pageSize}&sort=expires,desc`)
 			.map((response: Array<Want>) => {
-				response = lodash.map(response, (want: Want, key: any) => {
+				response = map(response, (want: Want, key: any) => {
 					if (!want.id) {
 						want.id = key;
 					}
