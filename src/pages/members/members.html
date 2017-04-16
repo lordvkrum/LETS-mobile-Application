@@ -5,7 +5,7 @@
 </ion-header>
 <ion-content>
   <ion-list class="app-items small">
-    <ion-item *ngFor="let member of members" (click)="presentDetailModal(member.id)">
+    <ion-item *ngFor="let member of members" (click)="showDetails(member.id)">
       <ion-avatar item-left>
         <img [src]="member.portrait || 'assets/images/default_user.jpg'">
       </ion-avatar>

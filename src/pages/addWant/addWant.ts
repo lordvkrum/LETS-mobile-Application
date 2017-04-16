@@ -72,8 +72,13 @@ export class AddWantPage implements OnInit {
 			});
 		this.popover.onDidDismiss((data) => {
 			if (data && data.hasConfirmed) {
+				this.loader = this.loadingCtrl.create({
+					content: 'Please wait...'
+				});
+				this.loader.present();
 				this.wantService.post(this.want).subscribe(
 					response => {
+						this.loader.dismiss();
 						this.popover = this.popoverCtrl.create(moreActionsBuilderComponent, {
 							operation: 'Want',
 							options: [{
@@ -90,7 +95,10 @@ export class AddWantPage implements OnInit {
 							});
 						this.popover.present();
 					},
-					error => this.alertService.showError(error));
+					error => {
+						this.alertService.showError(error);
+						this.loader.dismiss();
+					});
 			}
 		});
 		this.popover.present();

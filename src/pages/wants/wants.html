@@ -11,7 +11,7 @@
       </ion-thumbnail>
       <h6>{{ want.title }}</h6>
       <p class="description">{{ want.description }}</p>
-      <button ion-button>View</button>
+      <button ion-button (click)="showDetails(want.id)">View</button>
     </ion-item>
   </ion-list>
 </ion-content>

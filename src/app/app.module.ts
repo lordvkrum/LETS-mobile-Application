@@ -29,7 +29,7 @@ import { AddWantPage } from '../pages/addWant/addWant';
 import { UnixTimeToMoment } from '../pipes/UnixTimeToMoment';
 import { ObjectKeys } from '../pipes/ObjectKeys';
 import { MembersPage } from '../pages/members/members';
-import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
+import { MemberDetailPage } from '../pages/memberDetail/memberDetail';
 import { ProfilePage } from '../pages/userProfile/userProfile';
 import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
 
@@ -50,7 +50,7 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     UnixTimeToMoment,
     ObjectKeys,
     MembersPage,
-    MemberDetailModal,
+    MemberDetailPage,
     FormBuilderComponent,
     FieldBuilderComponent,
     ConfirmationBuilderComponent,
@@ -80,7 +80,7 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     WantDetailPage,
     AddWantPage,
     MembersPage,
-    MemberDetailModal,
+    MemberDetailPage,
     ProfilePage,
     ProfileEditPage
   ],

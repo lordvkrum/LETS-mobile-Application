@@ -72,8 +72,13 @@ export class AddOfferPage implements OnInit {
 			});
 		this.popover.onDidDismiss((data) => {
 			if (data && data.hasConfirmed) {
+				this.loader = this.loadingCtrl.create({
+					content: 'Please wait...'
+				});
+				this.loader.present();
 				this.offerService.post(this.offer).subscribe(
 					response => {
+						this.loader.dismiss();
 						this.popover = this.popoverCtrl.create(moreActionsBuilderComponent, {
 							operation: 'Offer',
 							options: [{
@@ -90,7 +95,10 @@ export class AddOfferPage implements OnInit {
 							});
 						this.popover.present();
 					},
-					error => this.alertService.showError(error));
+					error => {
+						this.alertService.showError(error);
+						this.loader.dismiss();
+					});
 			}
 		});
 		this.popover.present();

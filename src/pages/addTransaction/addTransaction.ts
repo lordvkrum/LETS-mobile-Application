@@ -84,8 +84,13 @@ export class AddTransactionPage implements OnInit {
 			});
 		this.popover.onDidDismiss((data) => {
 			if (data && data.hasConfirmed) {
+				this.loader = this.loadingCtrl.create({
+					content: 'Please wait...'
+				});
+				this.loader.present();
 				this.transactionService.post(this.transaction).subscribe(
 					response => {
+						this.loader.dismiss();
 						this.popover = this.popoverCtrl.create(moreActionsBuilderComponent, {
 							operation: 'Transaction',
 							options: [{
@@ -114,17 +119,20 @@ export class AddTransactionPage implements OnInit {
 										}
 									}
 								}
-							// }, {
-							// 	title: 'List Transactionings',
-							// 	icon: 'ion-stats-bars',
-							// 	page: TransactionsPage
+								// }, {
+								// 	title: 'List Transactionings',
+								// 	icon: 'ion-stats-bars',
+								// 	page: TransactionsPage
 							}]
 						}, {
 								enableBackdropDismiss: false
 							});
 						this.popover.present();
 					},
-					error => this.alertService.showError(error));
+					error => {
+						this.alertService.showError(error);
+						this.loader.dismiss();
+					});
 			}
 		});
 		this.popover.present();
