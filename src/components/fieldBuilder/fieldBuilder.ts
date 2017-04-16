@@ -197,18 +197,11 @@ export class FieldBuilderComponent implements OnInit {
 	childFieldChange(childField) {
 		this.formValue[childField.name] = childField.value;
 		this.field.type[childField.name].valid = childField.valid;
-		let isValid = this.validateChildFields();
 		let formValue = [];
 		forEach(this.formValue, value => formValue.push(value));
 		let fieldValue = {};
 		fieldValue[this.field.name] = formValue.join(':');
 		this.fieldForm.setValue(fieldValue);
-	}
-
-	validateChildFields() {
-		let isValid = true;
-		forEach(this.field.type, (childField: any) => isValid = isValid && childField.valid);
-		return isValid;
 	}
 
 }

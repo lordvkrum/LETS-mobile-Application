@@ -37,4 +37,12 @@ export class moreActionsBuilderComponent implements OnInit {
 		this.navCtrl.setRoot(HomePage);
 		this.viewCtrl.dismiss();
 	}
+
+	doLogout() {
+		this.authService.doLogout().subscribe(
+			response => {
+				this.navCtrl.setRoot(LoginPage);
+				this.viewCtrl.dismiss();
+			});
+	}
 }
