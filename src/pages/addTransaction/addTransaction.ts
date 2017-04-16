@@ -80,6 +80,7 @@ export class AddTransactionPage implements OnInit {
 			fields: this.definitionTransaction.POST,
 			operation: 'Transaction'
 		}, {
+				cssClass: 'confirm-popover',
 				enableBackdropDismiss: false
 			});
 		this.popover.onDidDismiss((data) => {
@@ -125,6 +126,7 @@ export class AddTransactionPage implements OnInit {
 								// 	page: TransactionsPage
 							}]
 						}, {
+								cssClass: 'confirm-popover',
 								enableBackdropDismiss: false
 							});
 						this.popover.present();

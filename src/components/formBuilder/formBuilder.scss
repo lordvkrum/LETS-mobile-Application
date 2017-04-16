@@ -78,5 +78,14 @@ form.app-form {
 		ion-datetime.datetime {
 			padding: 0;
 		}
+		ion-row {
+			ion-col {
+				padding: 0;
+				padding-left: 5px;
+				&:first-of-type {
+					padding: 0;
+				}
+			}
+		}
 	}
 }

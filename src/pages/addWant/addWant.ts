@@ -68,6 +68,7 @@ export class AddWantPage implements OnInit {
 			fields: this.definitionWant.POST,
 			operation: 'Want'
 		}, {
+				cssClass: 'confirm-popover',
 				enableBackdropDismiss: false
 			});
 		this.popover.onDidDismiss((data) => {
@@ -91,6 +92,7 @@ export class AddWantPage implements OnInit {
 								page: WantsPage
 							}]
 						}, {
+								cssClass: 'confirm-popover',
 								enableBackdropDismiss: false
 							});
 						this.popover.present();
