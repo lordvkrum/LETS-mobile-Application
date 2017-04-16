@@ -6,10 +6,12 @@ popover-menu-option {
 			font-size: 20px;
 			min-height: 50px;
 			height: 50px;
+			background: #D5D9DC;
+			color: #fff;
+			border-bottom: 1px solid #737A82;
 
 			&:hover {
-				background: #c8c7cc;
-				color: #fff;
+				background: #49B4E8;
 			}
 		}
 	}

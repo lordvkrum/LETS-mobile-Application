@@ -27,7 +27,7 @@ export class WantService {
 	}
 
 	get(id): Observable<Want> {
-		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.wants}/${id}?depth=1`);
+		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.wants}/${id}?depth=2`);
 	}
 
 	post(want: Want): Observable<Want> {

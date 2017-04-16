@@ -11,13 +11,23 @@
   </ion-select>
 
 	<input *ngSwitchCase="'image'" type="hidden" [required]="field.required === true" [formControlName]="field.name">
-	<div *ngSwitchCase="'image'" class="image">
-		<img *ngIf="field.imgSrc" [src]="field.imgSrc">
+	<div *ngSwitchCase="'image'">
+		<div class="image" *ngIf="field.imgSrc">
+			<img [src]="field.imgSrc">
+		</div>
 	</div>
 	<button *ngSwitchCase="'image'" ion-button full (click)="addImage()"><i class="image icon"></i>Add Image</button>
 	<button *ngSwitchCase="'image'" ion-button full (click)="takePhoto()"><i class="photo icon"></i>Take Photo</button>
 
-	<ion-input *ngSwitchDefault type="text" [placeholder]="field.$placeholder" [required]="field.required === true" [formControlName]="field.name"></ion-input>
+	<ion-input *ngSwitchCase="'textfield'" type="text" [placeholder]="field.$placeholder" [required]="field.required === true" [formControlName]="field.name"></ion-input>
+
+	<ion-input *ngSwitchCase="'number'" type="number" [placeholder]="field.$placeholder" [required]="field.required === true" [formControlName]="field.name" [min]="field.min" [max]="field.max"></ion-input>
+
+	<ion-row *ngSwitchDefault>
+		<ion-col *ngFor="let childfield of field.type | keys">
+			<field-builder-component [field]="childfield" (changed)="childFieldChange($event)"></field-builder-component>
+		</ion-col>
+	</ion-row>
 
 </ion-item>
 <ion-list class="app-items mini" *ngIf="field.$options">

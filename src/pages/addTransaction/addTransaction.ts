@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewController, LoadingController, Loading, NavParams } from 'ionic-angular';
+import { ViewController, LoadingController, Loading, NavParams, PopoverController, Popover } from 'ionic-angular';
+import { AuthService } from '../../services/AuthService';
 import { TransactionService } from '../../services/TransactionService';
 import { AlertService } from '../../services/AlertService';
+import { ConfirmationBuilderComponent } from '../../components/confirmationBuilder/confirmationBuilder';
+import { moreActionsBuilderComponent } from '../../components/moreActionsBuilder/moreActionsBuilder';
+// import { TransactionsPage } from '../../pages/transactions/transactions';
 import { Transaction } from '../../domain/Transaction';
+import { Member } from '../../domain/Member';
 import { assign } from 'lodash';
 
 @Component({
@@ -17,12 +22,19 @@ export class AddTransactionPage implements OnInit {
 	private loader: Loading
 	private isLoaded: boolean = false;
 	private title: string;
+	private popover: Popover;
+	private member: Member;
 
 	constructor(public viewCtrl: ViewController,
-		public loadingCtrl: LoadingController,
 		private navParams: NavParams,
+		public loadingCtrl: LoadingController,
+		private popoverCtrl: PopoverController,
+		private authService: AuthService,
 		private transactionService: TransactionService,
-		private alertService: AlertService) { }
+		private alertService: AlertService) {
+		this.authService.userInfo.subscribe(
+			userInfo => this.member = userInfo);
+	}
 
 	ngOnInit(): void {
 		if (this.navParams.data) {
@@ -64,17 +76,67 @@ export class AddTransactionPage implements OnInit {
 	}
 
 	addTransaction() {
-		this.transactionService.post(this.transaction).subscribe(
-			response => this.viewCtrl.dismiss(),
-			error => this.alertService.showError(error));
-	}
-
-	onConfirmed(transaction: Transaction) {
-		this.transaction = transaction;
-		this.transactionService.post(this.transaction).subscribe(
-			response => this.viewCtrl.dismiss({
-				success: true
-			}),
-			error => this.alertService.showError(error));
+		this.popover = this.popoverCtrl.create(ConfirmationBuilderComponent, {
+			fields: this.definitionTransaction.POST,
+			operation: 'Transaction'
+		}, {
+				cssClass: 'confirm-popover',
+				enableBackdropDismiss: false
+			});
+		this.popover.onDidDismiss((data) => {
+			if (data && data.hasConfirmed) {
+				this.loader = this.loadingCtrl.create({
+					content: 'Please wait...'
+				});
+				this.loader.present();
+				this.transactionService.post(this.transaction).subscribe(
+					response => {
+						this.loader.dismiss();
+						this.popover = this.popoverCtrl.create(moreActionsBuilderComponent, {
+							operation: 'Transaction',
+							options: [{
+								title: 'Record Transaction - as a Seller',
+								icon: 'ion-edit',
+								page: AddTransactionPage,
+								params: {
+									title: 'as Seller',
+									fields: {
+										payee: {
+											default: this.member.name,
+											disabled: true
+										}
+									}
+								}
+							}, {
+								title: 'Record Transaction - as a Buyer',
+								icon: 'ion-edit',
+								page: AddTransactionPage,
+								params: {
+									title: 'as Buyer',
+									fields: {
+										payer: {
+											default: this.member.name,
+											disabled: true
+										}
+									}
+								}
+								// }, {
+								// 	title: 'List Transactionings',
+								// 	icon: 'ion-stats-bars',
+								// 	page: TransactionsPage
+							}]
+						}, {
+								cssClass: 'confirm-popover',
+								enableBackdropDismiss: false
+							});
+						this.popover.present();
+					},
+					error => {
+						this.alertService.showError(error);
+						this.loader.dismiss();
+					});
+			}
+		});
+		this.popover.present();
 	}
 }

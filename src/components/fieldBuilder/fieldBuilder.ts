@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AppSettings } from '../../app/app.settings';
 import { HttpBasicAuth } from '../../services/HttpBasicAuth';
 import { AlertService } from '../../services/AlertService';
-import { map } from 'lodash';
+import { map, forEach } from 'lodash';
 import * as moment from 'moment';
 
 @Component({
@@ -18,6 +18,7 @@ export class FieldBuilderComponent implements OnInit {
 	validationMessages: any = {};
 	private loader: Loading;
 	private hasSelectedOption: boolean;
+	private formValue: any = {};
 
 	constructor(public loadingCtrl: LoadingController,
 		private settings: AppSettings,
@@ -34,7 +35,7 @@ export class FieldBuilderComponent implements OnInit {
 	}
 
 	buildForm() {
-		let offerFormFields = {};
+		let formFields = {};
 		let validations = [];
 		this.field.$placeholder = this.field.placeholder || this.field.label + (this.field.required === true ? ' (*)' : '');
 		switch (this.field.type) {
@@ -49,8 +50,16 @@ export class FieldBuilderComponent implements OnInit {
 				}
 				let defaultValue = this.parseDate(this.field.default || this.field.min || 'today');
 				this.field.default = moment(defaultValue).unix();
-				offerFormFields[`$date${this.field.name}`] = [moment(defaultValue).format('YYYY-MM-DD')];
+				formFields[`$date${this.field.name}`] = [moment(defaultValue).format('YYYY-MM-DD')];
 				break;
+			case 'image':
+				if (this.field.default) {
+					this.field.imgSrc = this.field.default;
+				}
+				break;
+		}
+		if (typeof this.field.type === 'object') {
+			forEach(this.field.type, (childField) => childField.label = this.field.$placeholder);
 		}
 		let initValue;
 		if (this.field.default) {
@@ -70,8 +79,8 @@ export class FieldBuilderComponent implements OnInit {
 			validations.push(Validators.required);
 			this.validationMessages.required = `${this.field.label} is required.`
 		}
-		offerFormFields[this.field.name] = validations;
-		this.fieldForm = this.formBuilder.group(offerFormFields);
+		formFields[this.field.name] = validations;
+		this.fieldForm = this.formBuilder.group(formFields);
 		this.fieldForm.valueChanges.subscribe(
 			data => this.onValueChanged(data));
 		this.onValueChanged(); // (re)set validation messages now
@@ -91,12 +100,28 @@ export class FieldBuilderComponent implements OnInit {
 				this.field.errors += messages[key] + ' ';
 			}
 		}
-		if (this.field.type === 'textfield' && this.field.autocomplete) {
+		if (this.fieldForm.value[this.field.name]) {
+			switch (this.field.type) {
+				case 'select':
+					if (this.field.multiple) {
+						this.field.$value = map(this.fieldForm.value[this.field.name], (option: any) => this.field.options[option]).join(', ');
+					} else {
+						this.field.$value = this.field.options[this.fieldForm.value[this.field.name]];
+					}
+					break;
+				case 'date':
+					this.field.$value = moment(this.parseDate(this.fieldForm.value[this.field.name])).format('MMM DD, YYYY');
+					break;
+				default:
+					this.field.$value = this.fieldForm.value[this.field.name];
+			}
+		}
+		if (data && this.field.type === 'textfield' && this.field.autocomplete) {
 			this.autocompleteSearch(this.fieldForm.value[this.field.name]);
 		}
 		this.changed.emit({
 			name: this.field.name,
-			valid: this.fieldForm.valid,
+			valid: this.fieldForm.valid || this.fieldForm.value[this.field.name],
 			value: this.fieldForm.value[this.field.name]
 		});
 	}
@@ -158,8 +183,7 @@ export class FieldBuilderComponent implements OnInit {
 		}
 		this.httpBasicAuth.getAutocomplete(this.field.resource, this.field.autocomplete, value).subscribe(
 			response => this.field.$options = response,
-			error => this.alertService.showError(error)
-		);
+			error => this.alertService.showError(error));
 	}
 
 	selectOption(option) {
@@ -167,6 +191,16 @@ export class FieldBuilderComponent implements OnInit {
 		fieldValue[this.field.name] = option.value;
 		this.field.$options = [];
 		this.hasSelectedOption = true;
+		this.fieldForm.setValue(fieldValue);
+	}
+
+	childFieldChange(childField) {
+		this.formValue[childField.name] = childField.value;
+		this.field.type[childField.name].valid = childField.valid;
+		let formValue = [];
+		forEach(this.formValue, value => formValue.push(value));
+		let fieldValue = {};
+		fieldValue[this.field.name] = formValue.join(':');
 		this.fieldForm.setValue(fieldValue);
 	}
 

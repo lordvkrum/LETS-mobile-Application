@@ -4,7 +4,7 @@ import { AuthService } from '../../services/AuthService';
 import { MemberService } from '../../services/MemberService';
 import { AlertService } from '../../services/AlertService';
 import { Member } from '../../domain/Member';
-import { MemberDetailModal } from '../memberDetail/memberDetail';
+import { MemberDetailPage } from '../memberDetail/memberDetail';
 import * as $ from 'jquery';
 
 @Component({
@@ -81,8 +81,9 @@ export class MembersPage implements OnInit {
 			});
 	}
 
-	presentDetailModal(id) {
-		let modal = this.modalCtrl.create(MemberDetailModal, { memberId: id });
-		modal.present();
+	showDetails(id) {
+		this.navCtrl.push(MemberDetailPage, {
+			id: id
+		});
 	}
 }

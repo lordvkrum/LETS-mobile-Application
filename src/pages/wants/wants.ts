@@ -85,10 +85,9 @@ export class WantsPage implements OnInit {
 	}
 
 	showDetails(id) {
-		// let modal = this.modalCtrl.create(WantDetailPage, {
-		// 	id: id
-		// });
-		// modal.present();
+		this.navCtrl.push(WantDetailPage, {
+			id: id
+		});
 	}
 
 	addWant() {

@@ -4,7 +4,6 @@ import { AuthService } from '../../services/AuthService';
 import { TransactionService } from '../../services/TransactionService';
 import { AlertService } from '../../services/AlertService';
 import { Transaction } from '../../domain/Transaction';
-import { MemberDetailModal } from '../memberDetail/memberDetail';
 import { AddTransactionPage } from '../addTransaction/addTransaction';
 
 @Component({
@@ -48,13 +47,6 @@ export class HomePage implements OnInit {
 			response => this.transactions = response,
 			error => this.alertService.showError('Connection problem!')
 			);
-	}
-
-	showMember(userId) {
-		let modal = this.modalCtrl.create(MemberDetailModal, {
-			memberId: userId
-		});
-		modal.present();
 	}
 
 	addTransaction() {

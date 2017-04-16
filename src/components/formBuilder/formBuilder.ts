@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import * as lodash from 'lodash';
+import { forEach } from 'lodash';
 
 @Component({
 	selector: 'form-builder-component',
@@ -9,7 +9,6 @@ export class FormBuilderComponent {
 	private isValid: boolean = false;
 	private formValue: any = {};
 	@Input() fields: any;
-	@Output() created = new EventEmitter<any>();
 	@Output() changed = new EventEmitter<any>();
 
 	onValueChanged(field) {
@@ -21,13 +20,7 @@ export class FormBuilderComponent {
 
 	validateForm() {
 		let isValid = true;
-		lodash.forEach(this.fields, (field: any) => {
-			isValid = isValid && field.valid;
-		});
+		forEach(this.fields, (field: any) => isValid = isValid && field.valid);
 		this.isValid = isValid;
-	}
-
-	create() {
-		this.created.emit(this.formValue);
 	}
 }

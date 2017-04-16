@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MomentModule } from 'angular2-moment';
-import { NavParams, ViewController } from 'ionic-angular';
-import { AuthService } from '../../services/AuthService';
+import { NavParams, ViewController, LoadingController, Loading } from 'ionic-angular';
 import { MemberService } from '../../services/MemberService';
 import { AlertService } from '../../services/AlertService';
 import { Member } from '../../domain/Member';
@@ -10,26 +8,33 @@ import { Member } from '../../domain/Member';
 	selector: 'page-memberDetail',
 	templateUrl: 'memberDetail.html'
 })
-export class MemberDetailModal implements OnInit {
+export class MemberDetailPage implements OnInit {
 	private member: Member;
+	private loader: Loading
 
-	constructor(public viewCtrl: ViewController,
-		private authService: AuthService,
+	constructor(private params: NavParams,
+		private viewCtrl: ViewController,
+		public loadingCtrl: LoadingController,
 		private memberService: MemberService,
-		private alertService: AlertService,
-		private navParams: NavParams
-	) { }
+		private alertService: AlertService) { }
 
 	ngOnInit(): void {
-		this.memberService.get(this.navParams.get('memberId'))
-			.subscribe(
-			response => this.member = response,
-			error => this.alertService.showError('Connection problem!')
-			);
-	}
-
-	dismiss() {
-		this.viewCtrl.dismiss();
+		this.viewCtrl.didEnter.subscribe(
+			response => {
+				this.loader = this.loadingCtrl.create({
+					content: 'Please wait...'
+				});
+				this.loader.present();
+				this.memberService.get(this.params.get('id')).subscribe(
+					response => {
+						this.member = response;
+						this.loader.dismiss();
+					},
+					error => {
+						this.alertService.showError(error);
+						this.loader.dismiss();
+					});
+			});
 	}
 
 }

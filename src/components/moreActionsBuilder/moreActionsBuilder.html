@@ -1,0 +1,13 @@
+<div class="app-confirm-operation">
+	<h6>{{ operation }} Successfully Recorded</h6>
+	<ion-list>
+	  <ion-item *ngFor="let option of options" (click)="goToPage(option)">
+	  	<i [class]="option.icon" item-left></i>
+	    <ion-label>{{ option.title }}</ion-label>
+	  </ion-item>
+	  <ion-item (click)="goToHome()">
+	  	<i class="ion-home" item-left></i>
+	    <ion-label>Main Menu</ion-label>
+	  </ion-item>
+	</ion-list>
+</div>

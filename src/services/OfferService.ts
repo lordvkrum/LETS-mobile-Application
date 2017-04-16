@@ -27,7 +27,7 @@ export class OfferService {
 	}
 
 	get(id): Observable<Offer> {
-		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.offers}/${id}?depth=1`);
+		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.offers}/${id}?depth=2`);
 	}
 
 	post(offer: Offer): Observable<Offer> {

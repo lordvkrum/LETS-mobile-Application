@@ -85,10 +85,9 @@ export class OffersPage implements OnInit {
 	}
 
 	showDetails(id) {
-		// let modal = this.modalCtrl.create(OfferDetailPage, {
-		// 	id: id
-		// });
-		// modal.present();
+		this.navCtrl.push(OfferDetailPage, {
+			id: id
+		});
 	}
 
 	addOffer() {

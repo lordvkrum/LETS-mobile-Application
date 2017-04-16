@@ -1,43 +1,43 @@
 <ion-header>
-  <ion-toolbar>
-    <h2 class="ui header">Offer Detail</h2>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span color="primary" showWhen="ios">Cancel</span>
-        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
+  <ion-navbar>
+    <ion-title>Offering Details</ion-title>
+  </ion-navbar>
 </ion-header>
-
-<ion-content padding>
-  <div class="ui one column grid">
-    <div class="ui column card" *ngIf=offer>
-      <div class="image">
-        <img src="assets/images/default.jpg">
-      </div>
-      <div class="content">
-        <a class="header">{{ offer.title }}</a>
-        <div class="meta">
-          <span class="date" *ngIf="(offer.expires | unixTimeToMoment | amDifference : today : 'days') >= 0">
-            expires in {{ offer.expires | unixTimeToMoment | amDifference : today : 'days' }} days
-          </span>
-          <span class="date" *ngIf="(offer.expires | unixTimeToMoment | amDifference : today : 'days') < 0">
-            expired {{ -1 * (offer.expires | unixTimeToMoment | amDifference : today : 'days') }} days ago
-          </span>
-        </div>
-        <div class="description">
-          {{ offer.description }}
-        </div>
-        <div class="meta" (click)="showMember(offer.user_id)">
-          <span class="right floated author">
-            <img class="ui avatar image" src="assets/images/default_user.jpg"> {{ offer.name }}
-          </span>
-        </div>
-      </div>
-      <div class="extra content">
-        <button class="ui fluid green button">Action</button>
-      </div>
+<ion-content>
+  <ion-card class="app-item-details" *ngIf="offer">
+    <h2 class="title">{{ offer.title }}</h2>
+    <div class="image" [class.expanded]="imageExpanded" (click)="expandImage()">
+      <img [src]="offer.image || 'assets/images/default.jpg'">
+      <div class="posted">Posted {{ offer.changed | unixTimeToMoment }}</div>
     </div>
-  </div>
+    <p class="description">{{ offer.description }}</p>
+    <ion-row>
+      <ion-col col-6 (click)="showMember(offer.user_id.id)">
+        <ion-item class="item-avatar">
+          <ion-avatar item-left>
+            <img [src]="offer.user_id.portrait || 'assets/images/default_user.jpg'">
+          </ion-avatar>
+        </ion-item>
+        <ion-item>
+          <h6>{{ offer.user_id.name }}</h6>
+          <p>{{ offer.user_id.mail }}</p>
+        </ion-item>
+      </ion-col>
+      <ion-col col-6>
+        <ion-item>
+          <p><b>Category:</b> {{ offer.$category }}</p>
+          <p><b>Expires:</b> {{ offer.expires | unixTimeToMoment }}</p>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 </ion-content>
+<ion-footer>
+  <ion-list>
+    <ion-item>
+      <button (click)="showActions()">
+        <i class="ion-navicon-round"></i>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-footer>

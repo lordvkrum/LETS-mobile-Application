@@ -14,6 +14,8 @@ import { MemberService } from '../services/MemberService';
 import { HttpBasicAuth } from '../services/HttpBasicAuth';
 import { FormBuilderComponent } from '../components/formBuilder/formBuilder';
 import { FieldBuilderComponent } from '../components/fieldBuilder/fieldBuilder';
+import { ConfirmationBuilderComponent } from '../components/confirmationBuilder/confirmationBuilder';
+import { moreActionsBuilderComponent } from '../components/moreActionsBuilder/moreActionsBuilder';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { MenuOptionPopover } from '../pages/home/menu-option';
@@ -27,7 +29,7 @@ import { AddWantPage } from '../pages/addWant/addWant';
 import { UnixTimeToMoment } from '../pipes/UnixTimeToMoment';
 import { ObjectKeys } from '../pipes/ObjectKeys';
 import { MembersPage } from '../pages/members/members';
-import { MemberDetailModal } from '../pages/memberDetail/memberDetail';
+import { MemberDetailPage } from '../pages/memberDetail/memberDetail';
 import { ProfilePage } from '../pages/userProfile/userProfile';
 import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
 
@@ -48,9 +50,11 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     UnixTimeToMoment,
     ObjectKeys,
     MembersPage,
-    MemberDetailModal,
+    MemberDetailPage,
     FormBuilderComponent,
     FieldBuilderComponent,
+    ConfirmationBuilderComponent,
+    moreActionsBuilderComponent,
     ProfilePage,
     ProfileEditPage
   ],
@@ -66,6 +70,8 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     LoginPage,
     HomePage,
     MenuOptionPopover,
+    ConfirmationBuilderComponent,
+    moreActionsBuilderComponent,
     AddTransactionPage,
     OffersPage,
     OfferDetailPage,
@@ -74,7 +80,7 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     WantDetailPage,
     AddWantPage,
     MembersPage,
-    MemberDetailModal,
+    MemberDetailPage,
     ProfilePage,
     ProfileEditPage
   ],
