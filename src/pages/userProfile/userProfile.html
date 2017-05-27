@@ -1,9 +1,10 @@
+
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <h2 class="ui header">{{user.name}}</h2>
+    <h5 class="ui header">My Account</h5>
     <ion-buttons end>
       <button ion-button icon-only (click)="openEditModal()">
         <ion-icon name="create"></ion-icon>
@@ -12,33 +13,36 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <div class="ui card" *ngIf=user>
-    <div class="image">
-      <img src="assets/images/default_user.jpg">
-    </div>
-    <div class="content">
-      <div class="meta list">
-
-        <div class="item item-icon-left detail-item">
-          <i class="mail outline icon"></i>
-          <p class="user-data">{{user.mail}}</p>
-        </div>
-
-        <div class="item item-icon-left detail-item">
-          <i class="marker icon"></i>
-          <p class="user-data">{{user.locality}}, {{user.street_address}}</p>
-        </div>
-        
-        <div class="item item-icon-left detail-item">
-          <i class="line chart icon"></i>
-          <p class="user-data"[innerHTML]="user.balance">{{user.balance}}</p>
-        </div>
-
-      </div>
-      <div class="description">
-        <p class="user-description">{{user.aboutme}}</p>
-      </div>
-    </div>
-  </div>
+<ion-content scroll="false">
+	<ion-list class="home-header">
+		<ion-item>
+		<ion-avatar item-left>
+			<img [src]="user && user.image || 'assets/images/default_user.jpg'">
+		</ion-avatar>
+		</ion-item>
+		<ion-item>
+			<h2>{{ user && user.name }}</h2>
+			<p>{{ user && user.mail }}</p>
+		</ion-item>
+  </ion-list>
+  <ion-list class="list">
+		<ion-item>
+			<ion-avatar item-left>
+      			<ion-icon name="trending-up"></ion-icon>
+    		</ion-avatar>
+			<p class="user-data"[innerHTML]="user.balance">{{user.balance}}</p>
+		</ion-item>
+		<ion-item>
+			<ion-avatar item-left>
+      			<ion-icon name="locate"></ion-icon>
+    		</ion-avatar>
+			<p class="user-data">{{user.locality}}, {{user.street_address}}</p>
+		</ion-item>
+		<ion-item>
+			<ion-avatar item-left>
+      			<ion-icon name="book"></ion-icon>
+    		</ion-avatar>
+			<p class="user-data">{{user.aboutme}}</p>
+		</ion-item>
+	</ion-list>
 </ion-content>
