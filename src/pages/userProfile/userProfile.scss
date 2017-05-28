@@ -1,17 +1,46 @@
-page-userProfile {
-    i{
-        float: left;
-    }
+ion-list.list {
+		margin: 0;
 
-    .user-description{
-        font-size: 12px;
-    }
+		ion-item.item {
+			border-bottom: 0.55px solid #737A82;
+			font-size: 22px;
+			min-height: 50px;
 
-    .user-data{
-        font-size: 15px;
-    }
-    
-    .detail-item{
-        margin-bottom: 5px;
-    }
-}
+			&:hover {
+				background: #737A82;
+				color: #fff;
+			}
+			i {
+				width: 20px;
+			}
+			.item-inner {
+				border: none;
+			}
+		}
+	}
+
+ion-list.list.home-header {
+		padding-top: 10px;
+		margin: 0;
+		ion-item.item {
+			background: none;
+			border: none;
+			height: initial;
+			min-height: initial;
+
+			ion-avatar {
+				margin: 0;
+
+				img {
+					height: 50px;
+					width: 50px;
+				}
+			}
+			h2, p {
+				color: #fff;
+			}
+			p {
+				font-size: 17px;
+			}
+		}
+	}
