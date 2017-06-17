@@ -6,6 +6,8 @@ import { Want } from '../../domain/Want';
 import { WantDetailPage } from '../wantDetail/wantDetail';
 import { AddWantPage } from '../addWant/addWant';
 import { CategoriesFilterPage } from '../categories/categories';
+import { KeywordsFilterPage } from '../keywords/keywords';
+import { ConfirmationBuilderComponent } from '../../components/confirmationBuilder/confirmationBuilder';
 import { FiltersBuilderComponent } from '../../components/filtersBuilder/filtersBuilder';
 import * as $ from 'jquery';
 import { map } from 'lodash';
@@ -25,6 +27,8 @@ export class WantsPage implements OnInit {
 	private hasNoMoreData: boolean;
 	private filter: any;
 	private filterName: string;
+	private myActions: boolean;
+	private deleteWantConfirmDialog: boolean;
 
 	constructor(public viewCtrl: ViewController,
 		private navCtrl: NavController,
@@ -39,24 +43,32 @@ export class WantsPage implements OnInit {
 		if (this.navParams.data) {
 			this.filter = this.navParams.data.filter;
 			this.filterName = this.navParams.data.filterName;
+			this.myActions = this.navParams.data.myActions;
 		}
 		this.viewCtrl.didEnter.subscribe(
 			response => {
-				this.page = 1;
-				this.hasNoMoreData = false;
-				this.isLoading = false;
-				this.wants = [];
-				this.wantService.describe().subscribe(
-					response => {
-						this.definitionWant = response;
-						this.canPost = !!this.definitionWant.POST;
-						if (this.canPost) {
-							$('page-wants ion-content.content').children().css('margin-bottom', '90px');
-						}
-					},
-					error => this.alertService.showError(error));
-				this.loadWants();
+				if (this.deleteWantConfirmDialog) {
+					return;
+				}
+				this.initPage();
 			});
+	}
+
+	initPage() {
+		this.page = 1;
+		this.hasNoMoreData = false;
+		this.isLoading = false;
+		this.wants = [];
+		this.wantService.describe().subscribe(
+			response => {
+				this.definitionWant = response;
+				this.canPost = !!this.definitionWant.POST;
+				if (this.canPost) {
+					$('page-wants ion-content.content').children().css('margin-bottom', '90px');
+				}
+			},
+			error => this.alertService.showError(error));
+		this.loadWants();
 	}
 
 	setPagination() {
@@ -106,12 +118,48 @@ export class WantsPage implements OnInit {
 		this.navCtrl.push(AddWantPage);
 	}
 
+	editWant(want: Want) {
+		this.navCtrl.push(AddWantPage, {
+			want: want
+		});
+	}
+
+	deleteWant(id) {
+		this.popover = this.popoverCtrl.create(ConfirmationBuilderComponent, {
+			fields: this.definitionWant.POST,
+			operation: 'Delete Want'
+		}, {
+				cssClass: 'confirm-popover',
+				enableBackdropDismiss: false
+			});
+		this.deleteWantConfirmDialog = true;
+		this.popover.onDidDismiss((data) => {
+			this.deleteWantConfirmDialog = false;
+			if (data && data.hasConfirmed) {
+				this.loader = this.loadingCtrl.create({
+					content: 'Please wait...'
+				});
+				this.loader.present();
+				this.wantService.delete(id).subscribe(
+					response => {
+						this.loader.dismiss();
+						this.initPage();
+					},
+					error => {
+						this.alertService.showError(error);
+						this.loader.dismiss();
+					});
+			}
+		});
+		this.popover.present();
+	}
+
 	showFilters() {
 		this.popover = this.popoverCtrl.create(FiltersBuilderComponent, {
 			options: [{
-				title: 'Show Latest',
-				page: WantsPage
-			}, {
+				// 	title: 'Show Latest',
+				// 	page: WantsPage
+				// }, {
 				title: 'Show By Categories',
 				page: CategoriesFilterPage,
 				params: {
@@ -123,7 +171,11 @@ export class WantsPage implements OnInit {
 				}
 			}, {
 				title: 'Show By Keyword',
-				page: WantsPage
+				page: KeywordsFilterPage,
+				params: {
+					title: 'Wants',
+					page: WantsPage
+				}
 			}, {
 				title: 'Clear Filters',
 				page: WantsPage

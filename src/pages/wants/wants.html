@@ -6,7 +6,7 @@
 <ion-content>
   <ion-list class="app-filters" *ngIf="filterName">
     <ion-item>
-      Offerings currently listed in {{ filterName }}
+      Wants currently listed in {{ filterName }}
     </ion-item>
   </ion-list>
   <ion-list class="app-items">
@@ -16,7 +16,10 @@
       </ion-thumbnail>
       <h6>{{ want.title }}</h6>
       <p class="description">{{ want.description }}</p>
-      <button ion-button (click)="showDetails(want.id)">View</button>
+      <button ion-button (click)="showDetails(want.id)" *ngIf="!myActions">View</button>
+      <button class="my-actions view" ion-button (click)="showDetails(want.id)" *ngIf="myActions">View</button>
+      <button class="my-actions edit" ion-button (click)="editWant(want)" *ngIf="myActions">Edit</button>
+      <button class="my-actions delete" ion-button (click)="deleteWant(want.id)" *ngIf="myActions">Delete</button>
     </ion-item>
   </ion-list>
 </ion-content>

@@ -23,8 +23,8 @@ export class FiltersBuilderComponent implements OnInit {
 	goToPage(option) {
 		let page = option.page;
 		if (page) {
-			this.navCtrl.popToRoot();
-			this.navCtrl.push(page, option.params)
+			// this.navCtrl.popToRoot();
+			this.navCtrl.push(page, option.params);
 			this.viewCtrl.dismiss();
 		}
 	}

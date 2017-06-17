@@ -216,6 +216,21 @@ ion-list.list.app-items {
 				height: 30px;
 				border-radius: 5px;
 			}
+			button.my-actions {
+				width: 100%;
+		    display: block;
+		    border-radius: 0;
+		    margin-top: 5px;
+			}
+			button.view {
+				background: #737A82;
+			}
+			button.edit {
+				background: #399AE1;
+			}
+			button.delete {
+				background: #E67C16;
+			}
 		}
 	}
 }

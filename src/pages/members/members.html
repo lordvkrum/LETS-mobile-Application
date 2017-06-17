@@ -4,6 +4,11 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
+  <ion-list class="app-filters" *ngIf="filterName">
+    <ion-item>
+      Members currently listed in {{ filterName }}
+    </ion-item>
+  </ion-list>
   <ion-list class="app-items small">
     <ion-item *ngFor="let member of members" (click)="showDetails(member.id)">
       <ion-avatar item-left>

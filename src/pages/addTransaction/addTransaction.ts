@@ -52,7 +52,7 @@ export class AddTransactionPage implements OnInit {
 						response => {
 							this.isLoaded = true;
 							this.definitionTransaction = response;
-							if (this.navParams.data && this.navParams.data.fields) {
+							if (this.definitionTransaction.POST && this.navParams.data && this.navParams.data.fields) {
 								for (let i in this.navParams.data.fields) {
 									if (this.definitionTransaction.POST[i]) {
 										assign(this.definitionTransaction.POST[i], this.navParams.data.fields[i]);

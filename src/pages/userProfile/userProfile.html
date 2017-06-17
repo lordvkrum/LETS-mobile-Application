@@ -1,48 +1,37 @@
-
 <ion-header>
   <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <h5 class="ui header">My Account</h5>
-    <ion-buttons end>
-      <button ion-button icon-only (click)="openEditModal()">
-        <ion-icon name="create"></ion-icon>
-      </button>
-    </ion-buttons>
+    <ion-title>My Account</ion-title>
   </ion-navbar>
 </ion-header>
-
-<ion-content scroll="false">
+<ion-content>
 	<ion-list class="home-header">
-		<ion-item>
-		<ion-avatar item-left>
-			<img [src]="user && user.image || 'assets/images/default_user.jpg'">
-		</ion-avatar>
-		</ion-item>
-		<ion-item>
-			<h2>{{ user && user.name }}</h2>
-			<p>{{ user && user.mail }}</p>
+    <ion-item>
+      <ion-avatar item-left>
+        <img [src]="user && user.image || 'assets/images/default_user.jpg'">
+      </ion-avatar>
+    </ion-item>
+    <ion-item>
+      <h2>{{ user && user.name }}</h2>
+      <p>{{ user && user.mail }}</p>
+    </ion-item>
+    <ion-item class="balance">
+			<ion-avatar item-left>
+      	<ion-icon name="trending-up"></ion-icon>
+    	</ion-avatar>
+			<p [innerHTML]="user && user.balance"></p>
 		</ion-item>
   </ion-list>
-  <ion-list class="list">
-		<ion-item>
-			<ion-avatar item-left>
-      			<ion-icon name="trending-up"></ion-icon>
-    		</ion-avatar>
-			<p class="user-data"[innerHTML]="user.balance">{{user.balance}}</p>
-		</ion-item>
-		<ion-item>
-			<ion-avatar item-left>
-      			<ion-icon name="locate"></ion-icon>
-    		</ion-avatar>
-			<p class="user-data">{{user.locality}}, {{user.street_address}}</p>
-		</ion-item>
-		<ion-item>
-			<ion-avatar item-left>
-      			<ion-icon name="book"></ion-icon>
-    		</ion-avatar>
-			<p class="user-data">{{user.aboutme}}</p>
-		</ion-item>
-	</ion-list>
+  <form-builder-component [fields]="fields" (changed)="onChanged($event)"></form-builder-component>
 </ion-content>
+<ion-footer>
+  <ion-list>
+    <ion-item>
+      <button [disabled]="!isValid" (click)="editProfile()">Submit</button>
+    </ion-item>
+    <ion-item>
+      <button (click)="showActions()">
+        <i class="ion-navicon-round"></i>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-footer>

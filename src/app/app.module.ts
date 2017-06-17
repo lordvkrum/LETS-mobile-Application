@@ -28,12 +28,12 @@ import { WantsPage } from '../pages/wants/wants';
 import { WantDetailPage } from '../pages/wantDetail/wantDetail';
 import { AddWantPage } from '../pages/addWant/addWant';
 import { CategoriesFilterPage } from '../pages/categories/categories';
+import { KeywordsFilterPage } from '../pages/keywords/keywords';
 import { UnixTimeToMoment } from '../pipes/UnixTimeToMoment';
 import { ObjectKeys } from '../pipes/ObjectKeys';
 import { MembersPage } from '../pages/members/members';
 import { MemberDetailPage } from '../pages/memberDetail/memberDetail';
 import { ProfilePage } from '../pages/userProfile/userProfile';
-import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
 
 
 @NgModule({
@@ -50,6 +50,7 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     WantDetailPage,
     AddWantPage,
     CategoriesFilterPage,
+    KeywordsFilterPage,
     UnixTimeToMoment,
     ObjectKeys,
     MembersPage,
@@ -59,8 +60,7 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     ConfirmationBuilderComponent,
     MoreActionsBuilderComponent,
     FiltersBuilderComponent,
-    ProfilePage,
-    ProfileEditPage
+    ProfilePage
   ],
   imports: [
     IonicModule.forRoot(LetsApp),
@@ -85,10 +85,10 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     WantDetailPage,
     AddWantPage,
     CategoriesFilterPage,
+    KeywordsFilterPage,
     MembersPage,
     MemberDetailPage,
-    ProfilePage,
-    ProfileEditPage
+    ProfilePage
   ],
   providers: [ 
     AppSettings,

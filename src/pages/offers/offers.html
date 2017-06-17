@@ -15,8 +15,11 @@
         <img [src]="offer.image || 'assets/images/default.jpg'">
       </ion-thumbnail>
       <h6>{{ offer.title }}</h6>
-      <p class="description">{{ offer.description }}</p>
-      <button ion-button (click)="showDetails(offer.id)">View</button>
+      <p class="description" *ngIf="!myActions">{{ offer.description }}</p>
+      <button ion-button (click)="showDetails(offer.id)" *ngIf="!myActions">View</button>
+      <button class="my-actions view" ion-button (click)="showDetails(offer.id)" *ngIf="myActions">View</button>
+      <button class="my-actions edit" ion-button (click)="editOffer(offer)" *ngIf="myActions">Edit</button>
+      <button class="my-actions delete" ion-button (click)="deleteOffer(offer.id)" *ngIf="myActions">Delete</button>
     </ion-item>
   </ion-list>
 </ion-content>

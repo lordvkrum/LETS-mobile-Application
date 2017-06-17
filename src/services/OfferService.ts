@@ -30,6 +30,10 @@ export class OfferService {
 		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.offers}/${id}?depth=2`);
 	}
 
+	delete(id): Observable<Offer> {
+		return this.httpBasicAuth.delete(`${this.settings.URL.offers}/${id}`);
+	}
+
 	post(offer: Offer): Observable<Offer> {
 		return this.httpBasicAuth.postWithAuth(this.settings.URL.offers, offer);
 	}

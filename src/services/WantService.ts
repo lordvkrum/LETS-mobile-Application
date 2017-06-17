@@ -30,6 +30,10 @@ export class WantService {
 		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.wants}/${id}?depth=2`);
 	}
 
+	delete(id): Observable<Want> {
+		return this.httpBasicAuth.delete(`${this.settings.URL.wants}/${id}`);
+	}
+
 	post(want: Want): Observable<Want> {
 		return this.httpBasicAuth.postWithAuth(this.settings.URL.wants, want);
 	}
