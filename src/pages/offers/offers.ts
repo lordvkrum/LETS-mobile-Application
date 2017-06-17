@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewController, NavController, LoadingController, Loading } from 'ionic-angular';
+import { ViewController, NavController, NavParams, LoadingController, Loading, PopoverController, Popover } from 'ionic-angular';
 import { OfferService } from '../../services/OfferService';
 import { AlertService } from '../../services/AlertService';
 import { Offer } from '../../domain/Offer';
 import { OfferDetailPage } from '../offerDetail/offerDetail';
 import { AddOfferPage } from '../addOffer/addOffer';
+import { CategoriesFilterPage } from '../categories/categories';
+import { FiltersBuilderComponent } from '../../components/filtersBuilder/filtersBuilder';
 import * as $ from 'jquery';
+import { map } from 'lodash';
 
 @Component({
 	selector: 'page-offers',
@@ -15,19 +18,28 @@ export class OffersPage implements OnInit {
 	private canPost = false;
 	private definitionOffer: any;
 	private offers: Array<Offer>;
-	private loader: Loading
+	private loader: Loading;
+	private popover: Popover;
 	private page: number;
 	private isLoading: boolean;
 	private hasNoMoreData: boolean;
+	private filter: any;
+	private filterName: string;
 
 	constructor(public viewCtrl: ViewController,
 		private navCtrl: NavController,
+		private navParams: NavParams,
 		public loadingCtrl: LoadingController,
+		private popoverCtrl: PopoverController,
 		private offerService: OfferService,
 		private alertService: AlertService) { }
 
 	ngOnInit(): void {
 		this.setPagination();
+		if (this.navParams.data) {
+			this.filter = this.navParams.data.filter;
+			this.filterName = this.navParams.data.filterName;
+		}
 		this.viewCtrl.didEnter.subscribe(
 			response => {
 				this.page = 1;
@@ -67,7 +79,7 @@ export class OffersPage implements OnInit {
 			content: 'Please wait...'
 		});
 		this.loader.present();
-		this.offerService.list(this.page).subscribe(
+		this.offerService.list(this.page, this.filter).subscribe(
 			response => {
 				if (!response.length) {
 					this.hasNoMoreData = true;
@@ -92,5 +104,34 @@ export class OffersPage implements OnInit {
 
 	addOffer() {
 		this.navCtrl.push(AddOfferPage);
+	}
+
+	showFilters() {
+		this.popover = this.popoverCtrl.create(FiltersBuilderComponent, {
+			options: [{
+				title: 'Show Latest',
+				page: OffersPage
+			}, {
+				title: 'Show By Categories',
+				page: CategoriesFilterPage,
+				params: {
+					categories: map(this.definitionOffer.POST.category.options, (category, key) => {
+						return { id: key, name: category };
+					}),
+					title: 'Offerings',
+					page: OffersPage
+				}
+			}, {
+				title: 'Show By Keyword',
+				page: OffersPage
+			}, {
+				title: 'Clear Filters',
+				page: OffersPage
+			}]
+		}, {
+				cssClass: 'confirm-popover',
+				enableBackdropDismiss: true
+			});
+		this.popover.present();
 	}
 }

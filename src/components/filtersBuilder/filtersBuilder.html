@@ -1,0 +1,8 @@
+<div class="app-confirm-operation">
+	<ion-list>
+	  <ion-item *ngFor="let option of options" (click)="goToPage(option)">
+	  	<i [class]="option.icon" item-left></i>
+	    <ion-label>{{ option.title }}</ion-label>
+	  </ion-item>
+	</ion-list>
+</div>

@@ -15,7 +15,8 @@ import { HttpBasicAuth } from '../services/HttpBasicAuth';
 import { FormBuilderComponent } from '../components/formBuilder/formBuilder';
 import { FieldBuilderComponent } from '../components/fieldBuilder/fieldBuilder';
 import { ConfirmationBuilderComponent } from '../components/confirmationBuilder/confirmationBuilder';
-import { moreActionsBuilderComponent } from '../components/moreActionsBuilder/moreActionsBuilder';
+import { MoreActionsBuilderComponent } from '../components/moreActionsBuilder/moreActionsBuilder';
+import { FiltersBuilderComponent } from '../components/filtersBuilder/filtersBuilder';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { MenuOptionPopover } from '../pages/home/menu-option';
@@ -26,6 +27,7 @@ import { AddOfferPage } from '../pages/addOffer/addOffer';
 import { WantsPage } from '../pages/wants/wants';
 import { WantDetailPage } from '../pages/wantDetail/wantDetail';
 import { AddWantPage } from '../pages/addWant/addWant';
+import { CategoriesFilterPage } from '../pages/categories/categories';
 import { UnixTimeToMoment } from '../pipes/UnixTimeToMoment';
 import { ObjectKeys } from '../pipes/ObjectKeys';
 import { MembersPage } from '../pages/members/members';
@@ -47,6 +49,7 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     WantsPage,
     WantDetailPage,
     AddWantPage,
+    CategoriesFilterPage,
     UnixTimeToMoment,
     ObjectKeys,
     MembersPage,
@@ -54,7 +57,8 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     FormBuilderComponent,
     FieldBuilderComponent,
     ConfirmationBuilderComponent,
-    moreActionsBuilderComponent,
+    MoreActionsBuilderComponent,
+    FiltersBuilderComponent,
     ProfilePage,
     ProfileEditPage
   ],
@@ -71,7 +75,8 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     HomePage,
     MenuOptionPopover,
     ConfirmationBuilderComponent,
-    moreActionsBuilderComponent,
+    MoreActionsBuilderComponent,
+    FiltersBuilderComponent,
     AddTransactionPage,
     OffersPage,
     OfferDetailPage,
@@ -79,6 +84,7 @@ import { ProfileEditPage } from '../pages/userProfileEdit/userProfileEdit';
     WantsPage,
     WantDetailPage,
     AddWantPage,
+    CategoriesFilterPage,
     MembersPage,
     MemberDetailPage,
     ProfilePage,

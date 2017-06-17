@@ -8,7 +8,7 @@ import { HomePage } from '../../pages/home/home';
 	selector: 'more-actions-builder-component',
 	templateUrl: 'moreActionsBuilder.html'
 })
-export class moreActionsBuilderComponent implements OnInit {
+export class MoreActionsBuilderComponent implements OnInit {
 	private options: Array<{ title: string, page?: any, icon: string }>;
 	private operation: string;
 
@@ -28,7 +28,7 @@ export class moreActionsBuilderComponent implements OnInit {
 		let page = option.page;
 		if (page) {
 			this.navCtrl.popToRoot();
-			this.navCtrl.push(page, option.params)
+			this.navCtrl.push(page, option.params);
 			this.viewCtrl.dismiss();
 		}
 	}

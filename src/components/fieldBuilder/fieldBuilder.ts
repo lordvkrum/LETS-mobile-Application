@@ -200,7 +200,7 @@ export class FieldBuilderComponent implements OnInit {
 		let formValue = [];
 		forEach(this.formValue, value => formValue.push(value));
 		let fieldValue = {};
-		fieldValue[this.field.name] = formValue.join(':');
+		fieldValue[this.field.name] = formValue;
 		this.fieldForm.setValue(fieldValue);
 	}
 

@@ -12,9 +12,9 @@ export class OfferService {
 	constructor(private settings: AppSettings,
 		private httpBasicAuth: HttpBasicAuth) { }
 
-	list(page): Observable<Array<Offer>> {
+	list(page, filter = ''): Observable<Array<Offer>> {
 		let offset = this.pageSize * (page - 1);
-		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.offers}?depth=1&offset=${offset}&limit=${this.pageSize}&sort=expires,desc`)
+		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.offers}?depth=1&offset=${offset}&limit=${this.pageSize}&sort=expires,desc${filter}`)
 			.map((response: Array<Offer>) => {
 				response = map(response, (offer: Offer, key: any) => {
 					if (!offer.id) {

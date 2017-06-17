@@ -4,7 +4,7 @@ import { AuthService } from '../../services/AuthService';
 import { OfferService } from '../../services/OfferService';
 import { AlertService } from '../../services/AlertService';
 import { ConfirmationBuilderComponent } from '../../components/confirmationBuilder/confirmationBuilder';
-import { moreActionsBuilderComponent } from '../../components/moreActionsBuilder/moreActionsBuilder';
+import { MoreActionsBuilderComponent } from '../../components/moreActionsBuilder/moreActionsBuilder';
 import { OffersPage } from '../../pages/offers/offers';
 import { Offer } from '../../domain/Offer';
 
@@ -80,7 +80,7 @@ export class AddOfferPage implements OnInit {
 				this.offerService.post(this.offer).subscribe(
 					response => {
 						this.loader.dismiss();
-						this.popover = this.popoverCtrl.create(moreActionsBuilderComponent, {
+						this.popover = this.popoverCtrl.create(MoreActionsBuilderComponent, {
 							operation: 'Offer',
 							options: [{
 								title: 'Record Offer',

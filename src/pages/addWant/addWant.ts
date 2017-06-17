@@ -4,7 +4,7 @@ import { AuthService } from '../../services/AuthService';
 import { WantService } from '../../services/WantService';
 import { AlertService } from '../../services/AlertService';
 import { ConfirmationBuilderComponent } from '../../components/confirmationBuilder/confirmationBuilder';
-import { moreActionsBuilderComponent } from '../../components/moreActionsBuilder/moreActionsBuilder';
+import { MoreActionsBuilderComponent } from '../../components/moreActionsBuilder/moreActionsBuilder';
 import { WantsPage } from '../../pages/wants/wants';
 import { Want } from '../../domain/Want';
 
@@ -80,7 +80,7 @@ export class AddWantPage implements OnInit {
 				this.wantService.post(this.want).subscribe(
 					response => {
 						this.loader.dismiss();
-						this.popover = this.popoverCtrl.create(moreActionsBuilderComponent, {
+						this.popover = this.popoverCtrl.create(MoreActionsBuilderComponent, {
 							operation: 'Want',
 							options: [{
 								title: 'Record Want',

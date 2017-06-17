@@ -96,6 +96,23 @@ ion-footer {
 		}
 	}
 }
+ion-list.list.app-filters {
+	margin: 0;
+	margin-top: 15px;
+	padding: 0 15px;
+	background: #737A82;
+	
+	ion-item.item {
+		background: #737A82;
+		border: none;
+		
+		ion-label.label {
+			text-align: center;
+			white-space: normal;
+			color: #FFF;
+		}
+	}
+}
 ion-list.list.app-items {
 	margin: 0;
 	margin-top: 15px;
@@ -179,6 +196,11 @@ ion-list.list.app-items {
 				font-size: 18px;
 				max-height: 48px;
 				height: 48px;
+				overflow: hidden;
+			}
+			h5 {
+				white-space: normal;
+				font-size: 18px;
 				overflow: hidden;
 			}
 			p.description {
