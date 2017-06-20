@@ -129,6 +129,20 @@ export class HttpBasicAuth {
 			.catch(this.extractError);
 	}
 
+	deleteWithAuth(url) {
+		let headers = new Headers();
+		this.createAuthorizationHeader(headers);
+		return this.delete(url, headers);
+	}
+
+	delete(url, headers: any = new Headers()) {
+		this.createAcceptHeader(headers);
+		return this.http.delete(url, {
+			headers: headers
+		}).map(this.extractData)
+			.catch(this.extractError);
+	}
+
 	options(url) {
 		let headers = new Headers();
 		this.createAuthorizationHeader(headers);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, PopoverController, Popover } from 'ionic-angular';
+import { ViewController, NavController, PopoverController, Popover } from 'ionic-angular';
 import { AuthService } from '../../services/AuthService';
 import { Member } from '../../domain/Member';
 import { LoginPage } from '../../pages/login/login';
@@ -29,7 +29,8 @@ export class HomePage implements OnInit {
 	private menu: Array<MenuEntry>;
 	private popover: Popover;
 
-	constructor(private navCtrl: NavController,
+	constructor(public viewCtrl: ViewController,
+		private navCtrl: NavController,
 		private popoverCtrl: PopoverController,
 		private authService: AuthService) { }
 
@@ -89,10 +90,10 @@ export class HomePage implements OnInit {
 						title: 'Create',
 						page: AddWantPage
 					}]
-				}, {
-					title: 'Announcements',
-					icon: 'ion-alert',
-					page: OffersPage
+					// }, {
+					// 	title: 'Announcements',
+					// 	icon: 'ion-alert',
+					// 	page: OffersPage
 				}, {
 					title: 'Users',
 					icon: 'ion-person',
@@ -101,10 +102,10 @@ export class HomePage implements OnInit {
 					title: 'My Account',
 					icon: 'ion-home',
 					page: ProfilePage
-				}, {
-					title: 'Stats',
-					icon: 'ion-pie-graph',
-					page: OffersPage
+					// }, {
+					// 	title: 'Stats',
+					// 	icon: 'ion-pie-graph',
+					// 	page: OffersPage
 				}];
 			});
 	}
@@ -113,9 +114,10 @@ export class HomePage implements OnInit {
 		let page = menuEntry.page;
 		if (page) {
 			this.navCtrl.push(page, menuEntry.params);
-			if (this.popover) {
-				this.popover.dismiss();
-			}
+			// if (this.popover) {
+			// 	this.popover.dismiss();
+			// }
+			// this.viewCtrl.dismiss();
 		}
 	}
 

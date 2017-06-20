@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewController, LoadingController, Loading, PopoverController, Popover } from 'ionic-angular';
+import { ViewController, NavParams, LoadingController, Loading, PopoverController, Popover } from 'ionic-angular';
 import { AuthService } from '../../services/AuthService';
 import { OfferService } from '../../services/OfferService';
 import { AlertService } from '../../services/AlertService';
 import { ConfirmationBuilderComponent } from '../../components/confirmationBuilder/confirmationBuilder';
-import { moreActionsBuilderComponent } from '../../components/moreActionsBuilder/moreActionsBuilder';
+import { MoreActionsBuilderComponent } from '../../components/moreActionsBuilder/moreActionsBuilder';
 import { OffersPage } from '../../pages/offers/offers';
 import { Offer } from '../../domain/Offer';
 
@@ -20,8 +20,10 @@ export class AddOfferPage implements OnInit {
 	private loader: Loading
 	private isLoaded: boolean = false;
 	private popover: Popover;
+	private editOffer: Offer;
 
 	constructor(public viewCtrl: ViewController,
+		private navParams: NavParams,
 		public loadingCtrl: LoadingController,
 		private popoverCtrl: PopoverController,
 		private authService: AuthService,
@@ -30,6 +32,9 @@ export class AddOfferPage implements OnInit {
 
 	ngOnInit(): void {
 		this.isLoaded = false;
+		if (this.navParams.data) {
+			this.editOffer = this.navParams.data.offer;
+		}
 		this.viewCtrl.didEnter.subscribe(
 			response => {
 				if (!this.isLoaded) {
@@ -45,6 +50,14 @@ export class AddOfferPage implements OnInit {
 									this.definitionOffer = response;
 									if (this.definitionOffer.POST.user_id) {
 										this.definitionOffer.POST.user_id.default = userInfo.name;
+									}
+									console.log(this.editOffer)
+									if (this.editOffer) {
+										for (let i in this.editOffer) {
+											if (this.editOffer[i] && this.definitionOffer.POST[i]) {
+												this.definitionOffer.POST[i].default = this.editOffer[i];
+											}
+										}
 									}
 									this.fields = this.definitionOffer.POST;
 									this.loader.dismiss();
@@ -80,7 +93,7 @@ export class AddOfferPage implements OnInit {
 				this.offerService.post(this.offer).subscribe(
 					response => {
 						this.loader.dismiss();
-						this.popover = this.popoverCtrl.create(moreActionsBuilderComponent, {
+						this.popover = this.popoverCtrl.create(MoreActionsBuilderComponent, {
 							operation: 'Offer',
 							options: [{
 								title: 'Record Offer',

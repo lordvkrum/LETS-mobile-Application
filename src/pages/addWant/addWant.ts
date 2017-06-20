@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewController, LoadingController, Loading, PopoverController, Popover } from 'ionic-angular';
+import { ViewController, NavParams, LoadingController, Loading, PopoverController, Popover } from 'ionic-angular';
 import { AuthService } from '../../services/AuthService';
 import { WantService } from '../../services/WantService';
 import { AlertService } from '../../services/AlertService';
 import { ConfirmationBuilderComponent } from '../../components/confirmationBuilder/confirmationBuilder';
-import { moreActionsBuilderComponent } from '../../components/moreActionsBuilder/moreActionsBuilder';
+import { MoreActionsBuilderComponent } from '../../components/moreActionsBuilder/moreActionsBuilder';
 import { WantsPage } from '../../pages/wants/wants';
 import { Want } from '../../domain/Want';
 
@@ -20,8 +20,10 @@ export class AddWantPage implements OnInit {
 	private loader: Loading
 	private isLoaded: boolean = false;
 	private popover: Popover;
+	private editWant: Want;
 
 	constructor(private viewCtrl: ViewController,
+		private navParams: NavParams,
 		public loadingCtrl: LoadingController,
 		private popoverCtrl: PopoverController,
 		private authService: AuthService,
@@ -30,6 +32,9 @@ export class AddWantPage implements OnInit {
 
 	ngOnInit(): void {
 		this.isLoaded = false;
+		if (this.navParams.data) {
+			this.editWant = this.navParams.data.want;
+		}
 		this.viewCtrl.didEnter.subscribe(
 			response => {
 				if (!this.isLoaded) {
@@ -45,6 +50,13 @@ export class AddWantPage implements OnInit {
 									this.definitionWant = response;
 									if (this.definitionWant.POST.user_id) {
 										this.definitionWant.POST.user_id.default = userInfo.name;
+									}
+									if (this.editWant) {
+										for (let i in this.editWant) {
+											if (this.editWant[i] && this.definitionWant.POST[i]) {
+												this.definitionWant.POST[i].default = this.editWant[i];
+											}
+										}
 									}
 									this.fields = this.definitionWant.POST;
 									this.loader.dismiss();
@@ -80,7 +92,7 @@ export class AddWantPage implements OnInit {
 				this.wantService.post(this.want).subscribe(
 					response => {
 						this.loader.dismiss();
-						this.popover = this.popoverCtrl.create(moreActionsBuilderComponent, {
+						this.popover = this.popoverCtrl.create(MoreActionsBuilderComponent, {
 							operation: 'Want',
 							options: [{
 								title: 'Record Want',

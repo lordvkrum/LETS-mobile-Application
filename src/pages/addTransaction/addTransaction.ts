@@ -4,7 +4,7 @@ import { AuthService } from '../../services/AuthService';
 import { TransactionService } from '../../services/TransactionService';
 import { AlertService } from '../../services/AlertService';
 import { ConfirmationBuilderComponent } from '../../components/confirmationBuilder/confirmationBuilder';
-import { moreActionsBuilderComponent } from '../../components/moreActionsBuilder/moreActionsBuilder';
+import { MoreActionsBuilderComponent } from '../../components/moreActionsBuilder/moreActionsBuilder';
 // import { TransactionsPage } from '../../pages/transactions/transactions';
 import { Transaction } from '../../domain/Transaction';
 import { Member } from '../../domain/Member';
@@ -52,7 +52,7 @@ export class AddTransactionPage implements OnInit {
 						response => {
 							this.isLoaded = true;
 							this.definitionTransaction = response;
-							if (this.navParams.data && this.navParams.data.fields) {
+							if (this.definitionTransaction.POST && this.navParams.data && this.navParams.data.fields) {
 								for (let i in this.navParams.data.fields) {
 									if (this.definitionTransaction.POST[i]) {
 										assign(this.definitionTransaction.POST[i], this.navParams.data.fields[i]);
@@ -92,7 +92,7 @@ export class AddTransactionPage implements OnInit {
 				this.transactionService.post(this.transaction).subscribe(
 					response => {
 						this.loader.dismiss();
-						this.popover = this.popoverCtrl.create(moreActionsBuilderComponent, {
+						this.popover = this.popoverCtrl.create(MoreActionsBuilderComponent, {
 							operation: 'Transaction',
 							options: [{
 								title: 'Record Transaction - as a Seller',

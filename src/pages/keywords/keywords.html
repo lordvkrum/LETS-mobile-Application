@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+	<form class="app-form" [formGroup]="keywordsForm">
+		<ion-list>
+	  	<ion-item>
+	  		<ion-input type="text" placeholder="Keyword" formControlName="keywords"></ion-input>
+	  	</ion-item>
+	  </ion-list>
+	  <button class="confirm-button" ion-button full [disabled]="!keywordsForm.valid" (click)="setFilter()">Search</button>
+	</form>
+</ion-content>

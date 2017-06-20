@@ -12,9 +12,9 @@ export class MemberService {
 	constructor(private settings: AppSettings,
 		private httpBasicAuth: HttpBasicAuth) { }
 
-	list(page): Observable<Array<Member>> {
+	list(page, filter = ''): Observable<Array<Member>> {
 		let offset = this.pageSize * (page - 1);
-		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.members}?depth=1&offset=${offset}&limit=${this.pageSize}&sort=name,desc`)
+		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.members}?depth=1&offset=${offset}&limit=${this.pageSize}&sort=name,desc${filter}`)
 			.map((response: Array<Member>) => {
 				response = map(response, (member: Member, key: any) => {
 					if (!member.id) {
@@ -38,7 +38,7 @@ export class MemberService {
 		return this.httpBasicAuth.patchWithAuth(`${this.settings.URL.members}/${member.id}`, member);
 	}
 
-	describe(): Observable<any> {
-		return this.httpBasicAuth.options(this.settings.URL.members);
+	describe(member: any = {}): Observable<any> {
+		return this.httpBasicAuth.options(`${this.settings.URL.members}/${member.id}`);
 	}
 }

@@ -20,29 +20,29 @@ page-home {
 			}
 		}
 	}
-	ion-list.list.home-header {
-		padding-top: 10px;
+}
+ion-list.list.home-header {
+	padding-top: 10px;
 
-		ion-item.item {
-			background: none;
-			border: none;
-			height: initial;
-			min-height: initial;
+	ion-item.item {
+		background: none;
+		border: none;
+		height: initial;
+		min-height: initial;
 
-			ion-avatar {
-				margin: 0;
+		ion-avatar {
+			margin: 0;
 
-				img {
-					height: 50px;
-					width: 50px;
-				}
+			img {
+				height: 50px;
+				width: 50px;
 			}
-			h2, p {
-				color: #fff;
-			}
-			p {
-				font-size: 17px;
-			}
+		}
+		h2, p {
+			color: #fff;
+		}
+		p {
+			font-size: 17px;
 		}
 	}
 }

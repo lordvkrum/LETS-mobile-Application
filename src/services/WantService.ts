@@ -12,9 +12,9 @@ export class WantService {
 	constructor(private settings: AppSettings,
 		private httpBasicAuth: HttpBasicAuth) { }
 
-	list(page): Observable<Array<Want>> {
+	list(page, filter = ''): Observable<Array<Want>> {
 		let offset = this.pageSize * (page - 1);
-		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.wants}?depth=1&offset=${offset}&limit=${this.pageSize}&sort=expires,desc`)
+		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.wants}?depth=1&offset=${offset}&limit=${this.pageSize}&sort=expires,desc${filter}`)
 			.map((response: Array<Want>) => {
 				response = map(response, (want: Want, key: any) => {
 					if (!want.id) {
@@ -28,6 +28,10 @@ export class WantService {
 
 	get(id): Observable<Want> {
 		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.wants}/${id}?depth=2`);
+	}
+
+	delete(id): Observable<Want> {
+		return this.httpBasicAuth.delete(`${this.settings.URL.wants}/${id}`);
 	}
 
 	post(want: Want): Observable<Want> {
