@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, ViewController, LoadingController, Loading } from 'ionic-angular';
+import { NavParams, ViewController, LoadingController, Loading, PopoverController, Popover } from 'ionic-angular';
 import { MemberService } from '../../services/MemberService';
 import { AlertService } from '../../services/AlertService';
+import { FiltersBuilderComponent } from '../../components/filtersBuilder/filtersBuilder';
+import { ContactPage } from '../contact/contact';
 import { Member } from '../../domain/Member';
 
 @Component({
@@ -10,11 +12,13 @@ import { Member } from '../../domain/Member';
 })
 export class MemberDetailPage implements OnInit {
 	private member: Member;
-	private loader: Loading
+	private loader: Loading;
+	private popover: Popover;
 
 	constructor(private params: NavParams,
 		private viewCtrl: ViewController,
 		public loadingCtrl: LoadingController,
+		private popoverCtrl: PopoverController,
 		private memberService: MemberService,
 		private alertService: AlertService) { }
 
@@ -35,6 +39,22 @@ export class MemberDetailPage implements OnInit {
 						this.loader.dismiss();
 					});
 			});
+	}
+
+	showActions() {
+		this.popover = this.popoverCtrl.create(FiltersBuilderComponent, {
+			options: [{
+				title: 'Contact User',
+				page: ContactPage,
+				params: {
+					sendTo: this.member
+				}
+			}]
+		}, {
+				cssClass: 'confirm-popover',
+				enableBackdropDismiss: true
+			});
+		this.popover.present();
 	}
 
 }

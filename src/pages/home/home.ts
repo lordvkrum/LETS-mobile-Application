@@ -7,6 +7,7 @@ import { OffersPage } from '../../pages/offers/offers';
 import { AddOfferPage } from '../../pages/addOffer/addOffer';
 import { WantsPage } from '../../pages/wants/wants';
 import { AddWantPage } from '../../pages/addWant/addWant';
+import { TransactionsPage } from '../../pages/transactions/transactions';
 import { AddTransactionPage } from '../../pages/addTransaction/addTransaction';
 import { MembersPage } from '../../pages/members/members';
 import { ProfilePage } from '../../pages/userProfile/userProfile';
@@ -69,7 +70,7 @@ export class HomePage implements OnInit {
 				}, {
 					title: 'Trading Records',
 					icon: 'ion-stats-bars',
-					page: OffersPage
+					page: TransactionsPage
 				}, {
 					title: 'Offerings',
 					icon: 'ion-pricetag',

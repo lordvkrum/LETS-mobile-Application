@@ -34,6 +34,10 @@ export class MemberService {
 		return this.httpBasicAuth.postWithAuth(this.settings.URL.members, member);
 	}
 
+	contact(member: Member, contact: any): Observable<any> {
+		return this.httpBasicAuth.postWithAuth(`${this.settings.URL.contact}/${member.id}`, contact);
+	}
+
 	patch(member: Member): Observable<any> {
 		return this.httpBasicAuth.patchWithAuth(`${this.settings.URL.members}/${member.id}`, member);
 	}

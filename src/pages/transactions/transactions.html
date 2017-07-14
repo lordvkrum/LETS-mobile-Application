@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Trading Records</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list class="app-filters" *ngIf="filterName">
+    <ion-item>
+      Trading Records currently listed in {{ filterName }}
+    </ion-item>
+  </ion-list>
+  <ion-list class="app-items transactions">
+    <ion-item *ngFor="let transaction of transactions">
+      <p class="description">{{ transaction.description }}</p>
+      <h5>Payer: {{ transaction.payer }}</h5>
+      <h5>Payee: {{ transaction.payee }}</h5>
+      <h5 [innerHTML]="transaction.amount"></h5>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-list>
+    <ion-item>
+      <button (click)="showFilters()">
+        <i class="ion-navicon-round"></i>
+      </button>
+    </ion-item>
+  </ion-list>
+</ion-footer>

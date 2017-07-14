@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Send Message</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list class="home-header">
+    <ion-item>
+      <ion-avatar item-left>
+        <img [src]="member && member.image || 'assets/images/default_user.jpg'">
+      </ion-avatar>
+    </ion-item>
+    <ion-item>
+      <h2>{{ member && member.name }}</h2>
+      <p>{{ member && member.mail }}</p>
+    </ion-item>
+  </ion-list>
+  <form-builder-component [fields]="fields" (changed)="onChanged($event)"></form-builder-component>
+</ion-content>
+<ion-footer>
+  <ion-list>
+    <ion-item>
+      <button [disabled]="!isValid" (click)="sendMessage()">Send</button>
+    </ion-item>
+  </ion-list>
+</ion-footer>

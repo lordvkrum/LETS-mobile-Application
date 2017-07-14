@@ -7,12 +7,14 @@ import { map } from 'lodash';
 
 @Injectable()
 export class TransactionService {
+	private pageSize: number = 20;
 
 	constructor(private settings: AppSettings,
 		private httpBasicAuth: HttpBasicAuth) { }
 
-	list(): Observable<Array<Transaction>> {
-		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.transactions}?depth=1`)
+	list(page, filter = ''): Observable<Array<Transaction>> {
+		let offset = this.pageSize * (page - 1);
+		return this.httpBasicAuth.getWithAuth(`${this.settings.URL.transactions}?depth=2&offset=${offset}&limit=${this.pageSize}${filter}`)
 			.map((response: Array<Transaction>) => {
 				response = map(response, (transaction: Transaction, key: any) => {
 					if (!transaction.id) {
@@ -33,9 +35,6 @@ export class TransactionService {
 	}
 
 	describe(): Observable<any> {
-		return this.httpBasicAuth.options(this.settings.URL.transactions)
-			.map(response => {
-				return response;
-			});
+		return this.httpBasicAuth.options(this.settings.URL.transactions);
 	}
 }

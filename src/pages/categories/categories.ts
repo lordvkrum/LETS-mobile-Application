@@ -26,7 +26,7 @@ export class CategoriesFilterPage implements OnInit {
 		// this.viewCtrl.dismiss();
 		this.navCtrl.popToRoot();
 		this.navCtrl.push(this.page, {
-			filter: `&cat_id=${category.id}`,
+			filter: `&category=${category.id}`,
 			filterName: category.name
 		});
 	}

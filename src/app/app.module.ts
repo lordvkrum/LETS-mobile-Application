@@ -20,6 +20,7 @@ import { FiltersBuilderComponent } from '../components/filtersBuilder/filtersBui
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { MenuOptionPopover } from '../pages/home/menu-option';
+import { TransactionsPage } from '../pages/transactions/transactions';
 import { AddTransactionPage } from '../pages/addTransaction/addTransaction';
 import { OffersPage } from '../pages/offers/offers';
 import { OfferDetailPage } from '../pages/offerDetail/offerDetail';
@@ -27,6 +28,7 @@ import { AddOfferPage } from '../pages/addOffer/addOffer';
 import { WantsPage } from '../pages/wants/wants';
 import { WantDetailPage } from '../pages/wantDetail/wantDetail';
 import { AddWantPage } from '../pages/addWant/addWant';
+import { ContactPage } from '../pages/contact/contact';
 import { CategoriesFilterPage } from '../pages/categories/categories';
 import { KeywordsFilterPage } from '../pages/keywords/keywords';
 import { UnixTimeToMoment } from '../pipes/UnixTimeToMoment';
@@ -42,6 +44,7 @@ import { ProfilePage } from '../pages/userProfile/userProfile';
     LoginPage,
     HomePage,
     MenuOptionPopover,
+    TransactionsPage,
     AddTransactionPage,
     OffersPage,
     OfferDetailPage,
@@ -49,6 +52,7 @@ import { ProfilePage } from '../pages/userProfile/userProfile';
     WantsPage,
     WantDetailPage,
     AddWantPage,
+    ContactPage,
     CategoriesFilterPage,
     KeywordsFilterPage,
     UnixTimeToMoment,
@@ -77,6 +81,7 @@ import { ProfilePage } from '../pages/userProfile/userProfile';
     ConfirmationBuilderComponent,
     MoreActionsBuilderComponent,
     FiltersBuilderComponent,
+    TransactionsPage,
     AddTransactionPage,
     OffersPage,
     OfferDetailPage,
@@ -84,6 +89,7 @@ import { ProfilePage } from '../pages/userProfile/userProfile';
     WantsPage,
     WantDetailPage,
     AddWantPage,
+    ContactPage,
     CategoriesFilterPage,
     KeywordsFilterPage,
     MembersPage,
